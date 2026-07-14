@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   UploadCloud, FileSpreadsheet, Check, AlertTriangle, XCircle, ArrowRight, Columns, RefreshCw, Eye
 } from 'lucide-react';
+import { useOrgStore } from '../store/orgStore';
 import './SyncCenter.css';
 
 const STEPS = [
@@ -15,6 +17,9 @@ const SyncCenter = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSyncing, setIsSyncing] = useState(false);
 
+  const { addVersionAndLog } = useOrgStore();
+  const navigate = useNavigate();
+
   const handleNext = () => {
     if (currentStep < 4) setCurrentStep(currentStep + 1);
   };
@@ -23,10 +28,12 @@ const SyncCenter = () => {
     setIsSyncing(true);
     setTimeout(() => {
       setIsSyncing(false);
-      // Would normally redirect to OrgStudio here and trigger playback
-      alert('Sync Complete! Playback animation would start now.');
-      setCurrentStep(1);
-    }, 3000);
+      addVersionAndLog(
+        { id: `v3.3.${Math.floor(Math.random() * 100)}`, date: new Date().toISOString().split('T')[0], author: 'System Sync', type: 'Excel Sync', changes: '+12 Employees, 3 Promotions, 5 Transfers', active: true },
+        { id: `AL-${Date.now()}`, timestamp: new Date().toLocaleString(), user: 'System Sync', action: 'Excel Sync Applied', details: 'HR_Master_Q3.xlsx synced successfully.', ip: '10.0.0.1' }
+      );
+      navigate('/history');
+    }, 1500);
   };
 
   return (

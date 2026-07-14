@@ -47,7 +47,7 @@ const ResponsibilityMatrix = () => {
       <div className="card" style={{overflowX: 'auto'}}>
         <table style={{width: '100%', textAlign: 'left', borderCollapse: 'collapse'}}>
           <thead>
-            <tr style={{backgroundColor: 'rgba(15, 23, 42, 0.02)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-main)'}}>
+            <tr style={{backgroundColor: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-main)'}}>
               <th style={{padding: '24px', fontWeight: 600, borderRight: '1px solid var(--color-border)', width: 300}}>Business Process</th>
               <th style={{padding: '24px', fontWeight: 600, textAlign: 'center'}}>Executive</th>
               <th style={{padding: '24px', fontWeight: 600, textAlign: 'center'}}>Finance</th>

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Building2, Users, DollarSign, Activity, Search, Plus, Edit2, Filter } from 'lucide-react';
 import { useOrgStore } from '../store/orgStore';
 import { useUIStore } from '../store/uiStore';
-import AddDepartmentModal from '../components/AddDepartmentModal';
+import DepartmentDrawer from '../components/DepartmentDrawer';
+import PageHeader from '../components/common/PageHeader';
+import DataTable from '../components/common/DataTable';
+import Card from '../components/common/Card';
 
 const Departments = () => {
   const { departments: DEPARTMENTS_DATA, addDepartment, updateDepartment } = useOrgStore();
@@ -28,7 +31,7 @@ const Departments = () => {
   };
 
   const openEditModal = (e, dept) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     setEditingDepartment(dept);
     setShowModal(true);
   };
@@ -49,108 +52,127 @@ const Departments = () => {
     return matchesSearch && matchesFilter;
   });
 
+  const columns = [
+    { 
+      header: 'Department', 
+      field: 'name',
+      render: (dept) => (
+        <div className="flex items-center gap-3">
+          <div style={{width: 32, height: 32, borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(79, 70, 229, 0.1)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Building2 size={16} />
+          </div>
+          <span style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>{dept.name}</span>
+        </div>
+      )
+    },
+    { 
+      header: 'Head', 
+      field: 'head',
+      render: (dept) => <span style={{ color: 'var(--color-text-secondary)', fontWeight: 500 }}>{dept.head || 'Unassigned'}</span>
+    },
+    { 
+      header: 'Headcount', 
+      field: 'employeeCount',
+      render: (dept) => (
+        <div className="flex items-center gap-2">
+          <Users size={14} color="var(--color-text-muted)" />
+          <span style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>{dept.employeeCount || 0}</span>
+        </div>
+      )
+    },
+    { 
+      header: 'Budget', 
+      field: 'budget',
+      render: (dept) => (
+        <div className="flex items-center gap-2">
+          <DollarSign size={14} color="var(--color-text-muted)" />
+          <span style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>{dept.budget || '$0'}</span>
+        </div>
+      )
+    },
+    { 
+      header: 'Performance', 
+      field: 'performance',
+      render: (dept) => {
+        const perf = dept.performance || 'Pending';
+        let color = 'var(--color-text-muted)';
+        if (perf === 'Excellent' || perf === 'Good') color = 'var(--color-success)';
+        if (perf === 'Average') color = 'var(--color-warning)';
+        
+        return (
+          <div className="flex items-center gap-2">
+            <Activity size={14} color={color} />
+            <span style={{fontSize: '0.85rem', fontWeight: 600, color}}>{perf}</span>
+          </div>
+        );
+      }
+    },
+    {
+      header: 'Actions',
+      field: 'actions',
+      render: (dept) => (
+        <button 
+          onClick={(e) => openEditModal(e, dept)}
+          className="hover:bg-slate-100" 
+          style={{color: 'var(--color-text-muted)', background: 'transparent', border: 'none', cursor: 'pointer', padding: 6, borderRadius: 6}}
+        >
+          <Edit2 size={16} />
+        </button>
+      )
+    }
+  ];
+
   return (
-    <div className="page-container" style={{backgroundColor: 'var(--color-bg)'}}>
-      <div className="flex justify-between items-center" style={{marginBottom: 32}}>
-        <div>
-          <h1 style={{fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.025em'}}>Departments</h1>
-          <p style={{color: 'var(--color-text-muted)', marginTop: 4}}>Manage organizational business units and resource allocation.</p>
-        </div>
-        <div className="flex gap-4">
-          <div className="topbar-search" style={{ width: 250, backgroundColor: 'var(--color-surface)' }}>
-            <Search size={18} color="var(--color-text-muted)" />
-            <input 
-              type="text" 
-              placeholder="Search departments..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+    <div style={{ padding: 'var(--space-4)', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <PageHeader 
+        title="Departments" 
+        subtitle="Manage organizational business units and resource allocation."
+        icon={Building2}
+        action={
+          <div className="flex gap-4">
+            <div className="topbar-search" style={{ width: 250, backgroundColor: 'var(--color-surface)', display: 'flex', alignItems: 'center', padding: '6px 16px', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-sm)' }}>
+              <Search size={18} color="var(--color-text-muted)" />
+              <input 
+                type="text" 
+                placeholder="Search departments..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ border: 'none', outline: 'none', background: 'transparent', width: '100%', marginLeft: 8 }}
+              />
+            </div>
 
-          <div className="card" style={{padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 8}}>
-            <Filter size={16} color="var(--color-text-muted)" />
-            <select 
-              value={filterPerformance}
-              onChange={(e) => setFilterPerformance(e.target.value)}
-              style={{backgroundColor: 'transparent', border: 'none', color: 'var(--color-text-main)', outline: 'none', fontWeight: 500, padding: '4px'}}
+            <Card style={{padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 8, borderRadius: 'var(--radius-md)'}} noPadding>
+              <Filter size={16} color="var(--color-text-muted)" style={{marginLeft: 8}} />
+              <select 
+                value={filterPerformance}
+                onChange={(e) => setFilterPerformance(e.target.value)}
+                style={{backgroundColor: 'transparent', border: 'none', color: 'var(--color-text-main)', outline: 'none', fontWeight: 500, padding: '4px 8px'}}
+              >
+                <option value="All">All Performance</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Pending">Pending</option>
+              </select>
+            </Card>
+
+            <button 
+              className="btn-primary" 
+              style={{padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8, borderRadius: 'var(--radius-sm)'}}
+              onClick={openNewModal}
             >
-              <option value="All">All Performance</option>
-              <option value="Excellent">Excellent</option>
-              <option value="Good">Good</option>
-              <option value="Average">Average</option>
-              <option value="Pending">Pending</option>
-            </select>
+              <Plus size={16} />
+              <span>Add Department</span>
+            </button>
           </div>
+        }
+      />
 
-          <button 
-            className="card" 
-            style={{padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8, backgroundColor: 'var(--color-primary)', color: 'white'}}
-            onClick={openNewModal}
-          >
-            <Plus size={16} />
-            <span>Add Department</span>
-          </button>
-        </div>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <DataTable columns={columns} data={filteredDepartments} />
       </div>
 
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24}}>
-        {filteredDepartments.map(dept => (
-           <div key={dept.id} className="card" style={{padding: 24, display: 'flex', flexDirection: 'column', gap: 16, position: 'relative', overflow: 'hidden'}}>
-             <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 4, backgroundColor: 'var(--color-primary)'}}></div>
-             
-             <div style={{position: 'absolute', top: 24, right: 24, display: 'flex', gap: 8}}>
-               <button 
-                 onClick={(e) => openEditModal(e, dept)}
-                 className="hover:bg-gray-100 p-1.5 rounded-md" 
-                 style={{color: 'var(--color-text-muted)', zIndex: 10}}
-               >
-                 <Edit2 size={16} />
-               </button>
-             </div>
-
-             <div className="flex justify-between items-start" style={{paddingRight: 40}}>
-               <div>
-                 <h3 style={{fontSize: '1.25rem', fontWeight: 700, marginBottom: 4}}>{dept.name}</h3>
-                 <span style={{fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: 500}}>Head: {dept.head || 'Unassigned'}</span>
-               </div>
-               <div style={{width: 40, height: 40, borderRadius: '12px', backgroundColor: 'rgba(79, 70, 229, 0.1)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                 <Building2 size={20} />
-               </div>
-             </div>
-
-             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, padding: '16px 0', borderTop: '1px solid var(--color-border)'}}>
-               <div className="flex items-center gap-3">
-                 <div style={{width: 32, height: 32, borderRadius: '8px', backgroundColor: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                   <Users size={16} color="var(--color-text-muted)" />
-                 </div>
-                 <div className="flex flex-col">
-                   <span style={{fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600}}>Headcount</span>
-                   <span style={{fontWeight: 600, fontSize: '0.9rem'}}>{dept.employeeCount || 0}</span>
-                 </div>
-               </div>
-               <div className="flex items-center gap-3">
-                 <div style={{width: 32, height: 32, borderRadius: '8px', backgroundColor: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                   <DollarSign size={16} color="var(--color-text-muted)" />
-                 </div>
-                 <div className="flex flex-col">
-                   <span style={{fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600}}>Budget</span>
-                   <span style={{fontWeight: 600, fontSize: '0.9rem'}}>{dept.budget || '$0'}</span>
-                 </div>
-               </div>
-             </div>
-
-             <div className="flex justify-between items-center pt-2">
-                <div className="flex items-center gap-2">
-                  <Activity size={16} color="var(--color-success)" />
-                  <span style={{fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-success)'}}>Performance: {dept.performance || 'Pending'}</span>
-                </div>
-                <button style={{color: 'var(--color-primary)', fontWeight: 600, fontSize: '0.85rem'}}>View Details →</button>
-             </div>
-           </div>
-        ))}
-      </div>
-
-      <AddDepartmentModal 
+      <DepartmentDrawer 
         isOpen={showModal} 
         onClose={() => {setShowModal(false); setEditingDepartment(null);}}
         onConfirm={handleCreateOrUpdateDepartment}

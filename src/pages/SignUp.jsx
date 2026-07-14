@@ -5,7 +5,7 @@ import { useUIStore } from '../store/uiStore';
 import './Dashboard.css';
 
 const SignUp = () => {
-  const { login, setAuthMode } = useUIStore();
+  const { login, setAuthMode, addToast } = useUIStore();
   const [step, setStep] = useState('form'); // 'form' or 'otp'
   
   // Form State
@@ -20,13 +20,15 @@ const SignUp = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    // Removed strict validation to allow easy prototype testing
+    if (!name || !email || !password) return;
     
     setLoading(true);
     setTimeout(() => {
-      // Simulate sending OTP and moving to next step
+      // Simulate sending OTP
       setStep('otp');
       setLoading(false);
+      // Show simulated email toast
+      addToast(`Simulated Email: OTP '123456' sent to ${email}`, 'success');
     }, 800);
   };
 
@@ -50,13 +52,16 @@ const SignUp = () => {
 
   const verifyOtp = (e) => {
     e.preventDefault();
-    // Removed strict length check to allow easy prototype testing
+    const enteredOTP = otp.join('');
     
     setLoading(true);
     setTimeout(() => {
-      // Simulate verifying then logging in
-      login();
       setLoading(false);
+      if (enteredOTP === '123456' || enteredOTP.length === 6) {
+        login();
+      } else {
+        alert("Invalid OTP. Try 123456");
+      }
     }, 1200);
   };
 

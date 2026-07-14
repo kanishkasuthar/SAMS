@@ -4,17 +4,29 @@ import dagre from 'dagre';
 import { initialNodes, initialEdges } from '../data/orgData';
 import { 
   DEPARTMENTS_DATA, 
-  AUDIT_LOGS, 
+  INTELLIGENCE_LOGS, 
   VERSIONS_DATA, 
   ORG_INSIGHTS, 
   PEOPLE_DIRECTORY,
   ROLES_DATA,
   REPORTS_DATA,
-  SESSIONS_DATA,
+  SESSIONS_REPLAY_DATA,
   NOTIFICATIONS_DATA,
   USERS_DATA,
   KPI_DATA,
-  ALL_PROJECTS
+  ALL_PROJECTS,
+  RESPONSIBILITIES_DATA,
+  DECISION_FLOWS_DATA,
+  SCORECARD_DATA,
+  AI_SUMMARY_DATA,
+  RECOMMENDATIONS_DATA,
+  MANAGER_WORKLOAD_DATA,
+  FORECAST_DATA,
+  DEPT_HEALTH_DATA,
+  PROJECT_IMPACT_DATA,
+  QUALITY_CHECK_DATA,
+  SIMULATOR_DATA,
+  ANALYTICS_DATA
 } from '../data/mockData';
 
 const getLayoutedElements = (nodes, edges) => {
@@ -22,11 +34,12 @@ const getLayoutedElements = (nodes, edges) => {
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   
   // Set layout direction to Top-to-Bottom
-  dagreGraph.setGraph({ rankdir: 'TB', nodesep: 50, ranksep: 100 });
+  dagreGraph.setGraph({ rankdir: 'TB', nodesep: 80, ranksep: 120 });
 
   nodes.forEach((node) => {
-    // OrgNode width is ~260, height is ~140
-    dagreGraph.setNode(node.id, { width: 280, height: 160 });
+    // We adjust height based on node type to be safe. Standard nodes are ~100px.
+    const nodeHeight = node.data.type === 'department' ? 140 : 120;
+    dagreGraph.setNode(node.id, { width: 280, height: nodeHeight });
   });
 
   edges.forEach((edge) => {
@@ -57,27 +70,133 @@ export const useOrgStore = create((set, get) => ({
   nodes: initNodes,
   edges: initEdges,
   departments: DEPARTMENTS_DATA,
-  auditLogs: AUDIT_LOGS,
+  auditLogs: INTELLIGENCE_LOGS,
   versions: VERSIONS_DATA,
   insights: ORG_INSIGHTS,
   people: PEOPLE_DIRECTORY,
   roles: ROLES_DATA,
   reports: REPORTS_DATA,
-  sessions: SESSIONS_DATA,
+  sessions: SESSIONS_REPLAY_DATA,
   notifications: NOTIFICATIONS_DATA,
   users: USERS_DATA,
   kpis: KPI_DATA,
   projects: ALL_PROJECTS,
+  responsibilities: RESPONSIBILITIES_DATA,
+  decisionFlows: DECISION_FLOWS_DATA,
+  scorecardData: SCORECARD_DATA,
+  aiSummaryData: AI_SUMMARY_DATA,
+  recommendationsData: RECOMMENDATIONS_DATA,
+  managerWorkloadData: MANAGER_WORKLOAD_DATA,
+  forecastData: FORECAST_DATA,
+  deptHealthData: DEPT_HEALTH_DATA,
+  projectImpactData: PROJECT_IMPACT_DATA,
+  qualityCheckData: QUALITY_CHECK_DATA,
+  simulatorData: SIMULATOR_DATA,
+  analyticsData: ANALYTICS_DATA,
   
   employeeHistory: [],
+  
+  // History for Undo/Redo
+  pastStates: [],
+  futureStates: [],
 
-  // React Flow handlers
+  // Analytics & KPIs for Bottom Bar
+  orgScore: 88,
+  excelSyncStatus: 'Synced',
+
+  saveHistory: () => set((state) => {
+    // Save only the essential structural state to history
+    const snapshot = {
+      nodes: state.nodes,
+      edges: state.edges,
+      departments: state.departments,
+      employeeHistory: state.employeeHistory,
+      versions: state.versions,
+      auditLogs: state.auditLogs
+    };
+    return {
+      pastStates: [snapshot, ...state.pastStates].slice(0, 50), // Keep last 50 states
+      futureStates: []
+    };
+  }),
+
+  undo: () => set((state) => {
+    if (state.pastStates.length === 0) return state;
+    
+    const previous = state.pastStates[0];
+    const newPast = state.pastStates.slice(1);
+    
+    const currentSnapshot = {
+      nodes: state.nodes,
+      edges: state.edges,
+      departments: state.departments,
+      employeeHistory: state.employeeHistory,
+      versions: state.versions,
+      auditLogs: state.auditLogs
+    };
+
+    return {
+      ...previous,
+      pastStates: newPast,
+      futureStates: [currentSnapshot, ...state.futureStates]
+    };
+  }),
+
+  redo: () => set((state) => {
+    if (state.futureStates.length === 0) return state;
+    
+    const next = state.futureStates[0];
+    const newFuture = state.futureStates.slice(1);
+    
+    const currentSnapshot = {
+      nodes: state.nodes,
+      edges: state.edges,
+      departments: state.departments,
+      employeeHistory: state.employeeHistory,
+      versions: state.versions,
+      auditLogs: state.auditLogs
+    };
+
+    return {
+      ...next,
+      pastStates: [currentSnapshot, ...state.pastStates],
+      futureStates: newFuture
+    };
+  }),
+
+  // React Flow handlers (Do not save history on every pixel move)
   onNodesChange: (changes) => set((state) => ({ 
     nodes: applyNodeChanges(changes, state.nodes) 
   })),
   onEdgesChange: (changes) => set((state) => ({ 
     edges: applyEdgeChanges(changes, state.edges) 
   })),
+  onConnect: (connection) => {
+    get().saveHistory();
+    set((state) => {
+      const newEdge = {
+        ...connection,
+        id: `e${connection.source}-${connection.target}-${Date.now()}`,
+        type: 'smoothstep',
+        animated: true,
+        style: { stroke: '#4F46E5', strokeWidth: 3 }
+      };
+      
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Reporting Line Added',
+        user: 'System Admin',
+        details: `Connected nodes in hierarchy`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Success'
+      };
+
+      return {
+        edges: [...state.edges, newEdge],
+        auditLogs: [newAuditLog, ...state.auditLogs]
+      };
+    });
+  },
 
   addUser: (userData) => set((state) => ({
     users: [
@@ -104,6 +223,7 @@ export const useOrgStore = create((set, get) => ({
 
   // Core Actions
   deletePosition: (nodeId) => {
+    get().saveHistory();
     set((state) => {
       const newNodes = state.nodes.filter(n => n.id !== nodeId);
       const newEdges = state.edges.filter(e => e.source !== nodeId && e.target !== nodeId);
@@ -114,6 +234,7 @@ export const useOrgStore = create((set, get) => ({
   },
 
   fillPosition: (nodeId, employeeData) => {
+    get().saveHistory();
     set((state) => {
       const { nodes, auditLogs, versions } = state;
       
@@ -175,23 +296,26 @@ export const useOrgStore = create((set, get) => ({
   },
 
   moveEmployee: (employeeNodeId, newManagerNodeId, reason, comments) => {
+    const state = get();
+    const { nodes, edges } = state;
+    const employeeNode = nodes.find(n => n.id === employeeNodeId);
+    const newManagerNode = nodes.find(n => n.id === newManagerNodeId);
+    
+    if (!employeeNode || !newManagerNode) return;
+
+    // Check Circular Reporting (prevent drop)
+    let currentManagerId = newManagerNodeId;
+    while (currentManagerId) {
+      if (currentManagerId === employeeNodeId) {
+        throw new Error('Circular reporting detected.');
+      }
+      const edgeToManager = edges.find(e => e.target === currentManagerId);
+      currentManagerId = edgeToManager ? edgeToManager.source : null;
+    }
+
+    get().saveHistory();
     set((state) => {
       const { nodes, edges, auditLogs, versions, departments } = state;
-      
-      const employeeNode = nodes.find(n => n.id === employeeNodeId);
-      const newManagerNode = nodes.find(n => n.id === newManagerNodeId);
-      
-      if (!employeeNode || !newManagerNode) return state;
-
-      // Check Circular Reporting (prevent drop)
-      let currentManagerId = newManagerNodeId;
-      while (currentManagerId) {
-        if (currentManagerId === employeeNodeId) {
-          throw new Error('Circular reporting detected.');
-        }
-        const edgeToManager = edges.find(e => e.target === currentManagerId);
-        currentManagerId = edgeToManager ? edgeToManager.source : null;
-      }
       
       const oldManagerEdge = edges.find(e => e.target === employeeNodeId);
       const oldManagerNode = oldManagerEdge ? nodes.find(n => n.id === oldManagerEdge.source) : null;
@@ -324,6 +448,265 @@ export const useOrgStore = create((set, get) => ({
     });
     
     get().recalculateInsights();
+  },
+
+  updateEmployee: (nodeId, updatedData) => {
+    get().saveHistory();
+    set((state) => {
+      const { nodes, auditLogs, versions } = state;
+      const employeeNode = nodes.find(n => n.id === nodeId);
+      if (!employeeNode) return state;
+
+      const newNodes = nodes.map(n => {
+        if (n.id === nodeId) {
+          return { ...n, data: { ...n.data, ...updatedData } };
+        }
+        return n;
+      });
+
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Profile Updated',
+        user: 'System Admin',
+        details: `Updated profile for ${updatedData.name || employeeNode.data.name}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Success'
+      };
+
+      const newVersion = {
+        id: `v3.2.${state.versions.length + 1}`,
+        date: new Date().toISOString().split('T')[0],
+        author: 'System Admin',
+        type: 'Profile Update',
+        changes: `Updated profile for ${updatedData.name || employeeNode.data.name}`,
+        active: true
+      };
+      
+      const updatedVersions = versions.map(v => ({ ...v, active: false }));
+
+      return {
+        nodes: newNodes,
+        auditLogs: [newAuditLog, ...auditLogs],
+        versions: [newVersion, ...updatedVersions]
+      };
+    });
+  },
+
+  addEmployee: (employeeData, managerId) => {
+    get().saveHistory();
+    set((state) => {
+      const { nodes, edges, auditLogs, versions } = state;
+      const managerNode = nodes.find(n => n.id === managerId);
+      
+      const newNodeId = `emp-${Date.now()}`;
+      const newNode = {
+        id: newNodeId,
+        type: 'orgNode',
+        position: managerNode ? { x: managerNode.position.x + (Math.random() * 200 - 100), y: managerNode.position.y + 160 } : { x: 0, y: 0 },
+        data: {
+          ...employeeData,
+          isVacant: false,
+          teamSize: 0,
+        }
+      };
+
+      const newNodes = [...nodes, newNode];
+      const newEdges = [...edges];
+
+      if (managerId) {
+        newEdges.push({
+          id: `e${managerId}-${newNodeId}`,
+          source: managerId,
+          target: newNodeId,
+          type: 'smoothstep',
+          animated: true,
+          style: { stroke: '#4F46E5', strokeWidth: 3 }
+        });
+        
+        // Update manager's team size
+        const managerIndex = newNodes.findIndex(n => n.id === managerId);
+        if (managerIndex !== -1) {
+          newNodes[managerIndex] = {
+            ...newNodes[managerIndex],
+            data: {
+              ...newNodes[managerIndex].data,
+              teamSize: (newNodes[managerIndex].data.teamSize || 0) + 1
+            }
+          };
+        }
+      }
+
+      const { layoutedNodes: finalNodes, layoutedEdges: finalEdges } = getLayoutedElements(newNodes, newEdges);
+
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Employee Added',
+        user: 'System Admin',
+        details: `Added ${employeeData.name} as ${employeeData.designation}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Success'
+      };
+
+      const newVersion = {
+        id: `v3.2.${state.versions.length + 1}`,
+        date: new Date().toISOString().split('T')[0],
+        author: 'System Admin',
+        type: 'New Hire',
+        changes: `Added ${employeeData.name} to hierarchy`,
+        active: true
+      };
+
+      return {
+        nodes: finalNodes,
+        edges: finalEdges,
+        auditLogs: [newAuditLog, ...auditLogs],
+        versions: [newVersion, ...versions.map(v => ({...v, active: false}))]
+      };
+    });
+    get().recalculateInsights();
+  },
+
+  archiveEmployee: (nodeId) => {
+    // Check if employee has direct reports
+    const state = get();
+    const hasReports = state.edges.some(e => e.source === nodeId);
+    if (hasReports) {
+      throw new Error("Cannot archive an employee who has direct reports. Reassign the reports first.");
+    }
+
+    get().saveHistory();
+    set((state) => {
+      const { nodes, edges, auditLogs, versions } = state;
+      const employeeNode = nodes.find(n => n.id === nodeId);
+      
+      const newNodes = nodes.filter(n => n.id !== nodeId);
+      const newEdges = edges.filter(e => e.source !== nodeId && e.target !== nodeId);
+      
+      // Update former manager's team size
+      const managerEdge = edges.find(e => e.target === nodeId);
+      if (managerEdge) {
+        const managerNode = newNodes.find(n => n.id === managerEdge.source);
+        if (managerNode) {
+          managerNode.data.teamSize = Math.max(0, (managerNode.data.teamSize || 1) - 1);
+        }
+      }
+
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Employee Archived',
+        user: 'System Admin',
+        details: `Archived ${employeeNode?.data.name || 'Unknown'}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Warning'
+      };
+
+      const newVersion = {
+        id: `v3.2.${state.versions.length + 1}`,
+        date: new Date().toISOString().split('T')[0],
+        author: 'System Admin',
+        type: 'Offboarding',
+        changes: `Archived ${employeeNode?.data.name || 'Unknown'}`,
+        active: true
+      };
+
+      const { layoutedNodes: finalNodes, layoutedEdges: finalEdges } = getLayoutedElements(newNodes, newEdges);
+
+      return {
+        nodes: finalNodes,
+        edges: finalEdges,
+        auditLogs: [newAuditLog, ...auditLogs],
+        versions: [newVersion, ...versions.map(v => ({...v, active: false}))]
+      };
+    });
+    get().recalculateInsights();
+  },
+
+  duplicateEmployee: (nodeId) => {
+    get().saveHistory();
+    set((state) => {
+      const { nodes, edges, auditLogs, versions } = state;
+      const nodeToCopy = nodes.find(n => n.id === nodeId);
+      if (!nodeToCopy) return state;
+
+      const managerEdge = edges.find(e => e.target === nodeId);
+      const managerId = managerEdge ? managerEdge.source : null;
+
+      const newNodeId = `emp-${Date.now()}`;
+      const newNode = {
+        id: newNodeId,
+        type: 'orgNode',
+        position: { x: nodeToCopy.position.x + 100, y: nodeToCopy.position.y },
+        data: {
+          ...nodeToCopy.data,
+          name: `${nodeToCopy.data.name} (Copy)`,
+          teamSize: 0,
+        }
+      };
+
+      const newNodes = [...nodes, newNode];
+      const newEdges = [...edges];
+
+      if (managerId) {
+        newEdges.push({
+          id: `e${managerId}-${newNodeId}`,
+          source: managerId,
+          target: newNodeId,
+          type: 'smoothstep',
+          animated: true,
+          style: { stroke: '#4F46E5', strokeWidth: 3 }
+        });
+        
+        // Update manager's team size
+        const managerNode = newNodes.find(n => n.id === managerId);
+        if (managerNode) {
+          managerNode.data.teamSize = (managerNode.data.teamSize || 0) + 1;
+        }
+      }
+
+      const { layoutedNodes: finalNodes, layoutedEdges: finalEdges } = getLayoutedElements(newNodes, newEdges);
+
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Employee Duplicated',
+        user: 'System Admin',
+        details: `Duplicated profile for ${nodeToCopy.data.name}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Success'
+      };
+
+      return {
+        nodes: finalNodes,
+        edges: finalEdges,
+        auditLogs: [newAuditLog, ...auditLogs]
+      };
+    });
+  },
+
+  revokeSession: (sessionId) => {
+    set((state) => {
+      const newAuditLog = {
+        id: `AL-${Date.now()}`,
+        action: 'Session Revoked',
+        user: 'System Admin',
+        details: `Revoked session ${sessionId}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Warning'
+      };
+      return {
+        sessions: state.sessions.filter(s => s.id !== sessionId),
+        auditLogs: [newAuditLog, ...state.auditLogs]
+      };
+    });
+  },
+
+  addVersionAndLog: (version, auditLog) => {
+    set((state) => {
+      const updatedVersions = state.versions.map(v => ({...v, active: false}));
+      return {
+        versions: [version, ...updatedVersions],
+        auditLogs: [auditLog, ...state.auditLogs]
+      };
+    });
   },
 
   recalculateInsights: () => {

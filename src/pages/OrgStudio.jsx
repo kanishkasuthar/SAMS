@@ -16,27 +16,31 @@ import {
   Maximize, 
   Search, 
   X,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Play,
+  Share,
+  MoreHorizontal,
   SkipBack,
-  SkipForward,
-  Pause
+  SkipForward
 } from 'lucide-react';
 import OrgNode from '../components/OrgNode';
 import PositionChangeModal from '../components/PositionChangeModal';
 import ChangeSummaryModal from '../components/ChangeSummaryModal';
 import AssignEmployeeModal from '../components/AssignEmployeeModal';
+import AddEmployeeModal from '../components/AddEmployeeModal';
 import { useOrgStore } from '../store/orgStore';
 import { useUIStore } from '../store/uiStore';
 import './OrgStudio.css';
 
+import OrgStudioBottomBar from '../components/OrgStudioBottomBar';
+import EmployeeProfilePanel from '../components/EmployeeProfilePanel';
+import OrgContextMenu from '../components/OrgContextMenu';
+
 const OrgStudio = () => {
-  const { nodes, edges, onNodesChange, onEdgesChange, moveEmployee, versions } = useOrgStore();
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, moveEmployee, versions, undo, redo, pastStates, futureStates } = useOrgStore();
   const [selectedNode, setSelectedNode] = useState(null);
   const [isPanMode, setIsPanMode] = useState(false);
+  const [isConnectMode, setIsConnectMode] = useState(false);
+  const [contextMenu, setContextMenu] = useState(null);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
   
   // Modals state
   const [draggedNode, setDraggedNode] = useState(null);
@@ -46,6 +50,7 @@ const OrgStudio = () => {
   const [summaryData, setSummaryData] = useState(null);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   // Timeline state
   const [isPlaying, setIsPlaying] = useState(false);
@@ -55,6 +60,7 @@ const OrgStudio = () => {
 
   const onNodeClick = (event, node) => {
     setSelectedNode(node);
+    setContextMenu(null);
   };
 
   const closePanel = () => {
@@ -109,6 +115,15 @@ const OrgStudio = () => {
     }
   };
 
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      setContextMenu(e.detail);
+    };
+    
+    window.addEventListener('orgnode-contextmenu', handleContextMenu);
+    return () => window.removeEventListener('orgnode-contextmenu', handleContextMenu);
+  }, []);
+
   const { zoomIn, zoomOut, fitView } = useReactFlow();
   const { addToast } = useUIStore();
 
@@ -117,26 +132,92 @@ const OrgStudio = () => {
   const handleFitView = () => fitView({ padding: 0.2, duration: 800 });
 
   return (
-    <div className="studio-container">
-      {/* TOOLBAR */}
-      <div className="studio-toolbar">
-        <button className={`toolbar-btn ${!isPanMode ? 'active' : ''}`} onClick={() => setIsPanMode(false)} title="Select Mode"><MousePointer2 size={18} /></button>
-        <button className={`toolbar-btn ${isPanMode ? 'active' : ''}`} onClick={() => setIsPanMode(true)} title="Pan Mode"><Hand size={18} /></button>
-        <div className="toolbar-divider"></div>
-        <button className="toolbar-btn" onClick={handleZoomIn} title="Zoom In"><Plus size={18} /></button>
-        <button className="toolbar-btn" onClick={handleZoomOut} title="Zoom Out"><Minus size={18} /></button>
-        <button className="toolbar-btn" onClick={handleFitView} title="Fit View"><Maximize size={18} /></button>
-        <div className="toolbar-divider"></div>
-        <button className="toolbar-btn" onClick={() => addToast('Search employee module opened', 'info')} title="Search"><Search size={18} /></button>
+    <div className="studio-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', flex: 1, overflow: 'hidden', backgroundColor: 'var(--color-bg)' }}>
+      
+      {/* PAGE HEADER */}
+      <div style={{ padding: '24px 32px 16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: 4 }}>Organization Studio</h1>
+          <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Design, visualize and manage your organization structure</p>
+        </div>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 8 }}>
+            <Share size={16} /> Share
+          </button>
+          <button className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 8, backgroundColor: 'var(--color-surface)' }}>
+            <Search size={16} /> Export
+          </button>
+          <button className="btn-secondary hover:bg-slate-100" onClick={handleZoomIn} title="Zoom In" style={{ padding: '8px', borderRadius: 8, backgroundColor: 'var(--color-surface)', cursor: 'pointer', border: '1px solid var(--color-border)' }}>
+            <Plus size={16} />
+          </button>
+          <button className="btn-secondary hover:bg-slate-100" onClick={handleZoomOut} title="Zoom Out" style={{ padding: '8px', borderRadius: 8, backgroundColor: 'var(--color-surface)', cursor: 'pointer', border: '1px solid var(--color-border)' }}>
+            <Minus size={16} />
+          </button>
+          <button className="btn-secondary hover:bg-slate-100" onClick={handleFitView} title="Fit Screen" style={{ padding: '8px', borderRadius: 8, backgroundColor: 'var(--color-surface)', cursor: 'pointer', border: '1px solid var(--color-border)' }}>
+            <Maximize size={16} />
+          </button>
+        </div>
       </div>
 
-      {/* CANVAS */}
-      <div className="studio-canvas">
+      {/* HORIZONTAL TOOLBAR */}
+      <div style={{ padding: '0 32px 16px 32px', display: 'flex', gap: 12 }}>
+        <div style={{ display: 'flex', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 8, padding: 4 }}>
+          <button className={`toolbar-action-btn ${!isPanMode ? 'active' : ''}`} onClick={() => setIsPanMode(false)}>
+            <MousePointer2 size={16} /> Select
+          </button>
+          <button className={`toolbar-action-btn ${isPanMode ? 'active' : ''}`} onClick={() => setIsPanMode(true)}>
+            <Hand size={16} /> Move
+          </button>
+          <button className="toolbar-action-btn" onClick={() => setShowAddModal(true)}>
+            <Plus size={16} /> Add Node
+          </button>
+          <button className={`toolbar-action-btn ${isConnectMode ? 'active' : ''}`} onClick={() => { setIsConnectMode(true); setIsPanMode(false); addToast("Drag from a node's bottom handle to another's top handle to connect.", "info"); }}>
+            <Share size={16} style={{transform: 'rotate(90deg)'}}/> Connect
+          </button>
+          <button className="toolbar-action-btn" onClick={handleFitView}>
+            <Maximize size={16} /> Auto Layout
+          </button>
+          <div style={{ width: 1, backgroundColor: 'var(--color-border)', margin: '0 4px' }}></div>
+          <button className="toolbar-action-btn" onClick={undo} disabled={pastStates.length === 0} style={{ opacity: pastStates.length === 0 ? 0.5 : 1 }}>
+            <SkipBack size={16} /> Undo
+          </button>
+          <button className="toolbar-action-btn" onClick={redo} disabled={futureStates.length === 0} style={{ opacity: futureStates.length === 0 ? 0.5 : 1 }}>
+            <SkipForward size={16} /> Redo
+          </button>
+          <div style={{ width: 1, backgroundColor: 'var(--color-border)', margin: '0 4px' }}></div>
+          <div style={{ position: 'relative' }}>
+            <button className={`toolbar-action-btn ${showMoreMenu ? 'active' : ''}`} onClick={() => setShowMoreMenu(!showMoreMenu)}>
+              <MoreHorizontal size={16} /> More
+            </button>
+            {showMoreMenu && (
+              <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: 8, backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 8, padding: 8, boxShadow: 'var(--shadow-md)', zIndex: 50, minWidth: 160, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <button className="context-menu-item" onClick={() => { setShowMoreMenu(false); addToast("Exporting PDF...", "info"); }} style={{ textAlign: 'left', padding: '6px 12px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', color: 'var(--color-text-main)', borderRadius: 4, width: '100%' }}>Export PDF</button>
+                <button className="context-menu-item" onClick={() => { setShowMoreMenu(false); addToast("Exporting PNG...", "info"); }} style={{ textAlign: 'left', padding: '6px 12px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', color: 'var(--color-text-main)', borderRadius: 4, width: '100%' }}>Export Image</button>
+                <div style={{ height: 1, backgroundColor: 'var(--color-border)', margin: '4px 0' }}></div>
+                <button className="context-menu-item" onClick={() => { setShowMoreMenu(false); addToast("Opening Settings...", "info"); }} style={{ textAlign: 'left', padding: '6px 12px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', color: 'var(--color-text-main)', borderRadius: 4, width: '100%' }}>View Settings</button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* CANVAS AREA */}
+      <div className="studio-canvas-wrapper" style={{ flex: 1, position: 'relative', margin: '0 32px 48px 32px', borderTop: '1px solid var(--color-border)', borderLeft: '1px solid var(--color-border)', borderRight: '1px solid var(--color-border)', borderRadius: '12px 12px 0 0', overflow: 'hidden', backgroundColor: 'var(--color-surface)' }}>
+        
+        {/* VERTICAL CONTROLS */}
+        <div style={{ position: 'absolute', left: 24, top: 24, zIndex: 10, display: 'flex', flexDirection: 'column', gap: 8, backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 8, padding: 4, boxShadow: 'var(--shadow-sm)' }}>
+          <button className="canvas-control-btn"><Hand size={18} color="var(--color-primary)"/></button>
+          <div style={{ height: 1, backgroundColor: 'var(--color-border)', margin: '2px 0' }}></div>
+          <button className="canvas-control-btn" onClick={handleZoomIn}><Plus size={18} /></button>
+          <button className="canvas-control-btn" onClick={handleZoomOut}><Minus size={18} /></button>
+          <button className="canvas-control-btn" onClick={handleFitView}><Maximize size={18} /></button>
+        </div>
         <ReactFlow
           nodes={nodes}
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
           nodeTypes={nodeTypes}
           onNodeClick={onNodeClick}
           onNodeDragStop={onNodeDragStop}
@@ -169,167 +250,18 @@ const OrgStudio = () => {
             style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '12px', overflow: 'hidden' }}
           />
         </ReactFlow>
+        
+        {/* ZOOM INDICATOR (BOTTOM RIGHT) */}
+        <div style={{ position: 'absolute', right: 24, bottom: 24, zIndex: 10, display: 'flex', alignItems: 'center', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 8, padding: '4px 8px', boxShadow: 'var(--shadow-sm)' }}>
+          <button className="canvas-zoom-btn" onClick={handleZoomOut}><Minus size={14}/></button>
+          <span style={{ fontSize: '0.85rem', fontWeight: 600, margin: '0 12px', minWidth: 40, textAlign: 'center' }}>100%</span>
+          <button className="canvas-zoom-btn" onClick={handleZoomIn}><Plus size={14}/></button>
+        </div>
       </div>
       
       {/* RIGHT SLIDE PANEL */}
       <div className={`studio-panel-overlay ${selectedNode ? 'visible' : ''}`} onClick={closePanel}></div>
-      <div className={`right-panel ${selectedNode ? 'open' : ''}`}>
-        <div className="panel-header">
-          <div className="panel-title">{selectedNode?.data.isVacant ? 'Vacant Position' : 'Profile'}</div>
-          <button className="panel-close" onClick={closePanel}><X size={20} /></button>
-        </div>
-        
-        {selectedNode && selectedNode.data.isVacant && (
-          <div className="panel-content">
-            <div className="profile-header">
-              <div className="profile-avatar" style={{backgroundColor: 'var(--color-surface)', color: 'var(--color-text-muted)', border: '2px dashed var(--color-border)'}}>
-                ?
-              </div>
-              <div>
-                <div className="profile-name" style={{color: 'var(--color-text-muted)'}}>Unassigned</div>
-                <div className="profile-designation">{selectedNode.data.designation}</div>
-              </div>
-            </div>
-            
-            <div className="profile-section">
-              <div className="profile-section-title">Actions</div>
-              <div className="flex gap-2">
-                <button 
-                  className="btn-primary w-full" 
-                  style={{justifyContent: 'center'}}
-                  onClick={() => setShowAssignModal(true)}
-                >
-                  Assign Employee
-                </button>
-                <button 
-                  className="btn-secondary w-full" 
-                  style={{justifyContent: 'center', color: 'var(--color-danger)', borderColor: 'var(--color-danger)'}}
-                  onClick={() => {
-                    useOrgStore.getState().deletePosition(selectedNode.id);
-                    setSelectedNode(null);
-                    addToast('Vacant position permanently removed.', 'success');
-                  }}
-                >
-                  Delete Position
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {selectedNode && !selectedNode.data.isVacant && (
-          <div className="panel-content">
-            <div className="profile-header">
-              <div className="profile-avatar">
-                {selectedNode.data.name.charAt(0)}
-              </div>
-              <div>
-                <div className="profile-name">{selectedNode.data.name}</div>
-                <div className="profile-designation">{selectedNode.data.designation}</div>
-              </div>
-            </div>
-
-            <div className="profile-section">
-              <div className="profile-section-title">Contact Information</div>
-              <div className="info-grid">
-                <div className="info-item">
-                  <div className="info-label flex items-center gap-1"><Mail size={14}/> Email</div>
-                  <div className="info-val">{selectedNode.data.name.split(' ')[0].toLowerCase()}@sams.corp</div>
-                </div>
-                <div className="info-item">
-                  <div className="info-label flex items-center gap-1"><Phone size={14}/> Phone</div>
-                  <div className="info-val">+1 (555) 019-2834</div>
-                </div>
-                <div className="info-item">
-                  <div className="info-label flex items-center gap-1"><MapPin size={14}/> Location</div>
-                  <div className="info-val">San Francisco, CA</div>
-                </div>
-                <div className="info-item">
-                  <div className="info-label flex items-center gap-1"><Calendar size={14}/> Joined</div>
-                  <div className="info-val">March 2021</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="profile-section">
-              <div className="profile-section-title">Organizational Journey</div>
-              <div className="flex flex-col gap-4 mt-4 relative">
-                <div style={{ position: 'absolute', left: 16, top: 0, bottom: 0, width: 2, backgroundColor: 'var(--color-border)', zIndex: 0 }}></div>
-                
-                {useOrgStore.getState().employeeHistory.filter(h => h.employeeId === selectedNode.id).map((history, idx) => (
-                  <div key={idx} className="flex gap-4 relative z-10">
-                    <div style={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: 'white', border: '2px solid var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, flexShrink: 0, marginTop: 4 }}>
-                      <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: 'var(--color-primary)' }}></div>
-                    </div>
-                    <div className="card w-full" style={{ padding: 16 }}>
-                      <div className="flex justify-between items-center mb-2">
-                        <span style={{ fontWeight: 600, color: 'var(--color-primary)', fontSize: '0.9rem' }}>{history.type}</span>
-                        <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{history.date}</span>
-                      </div>
-                      <div style={{ fontSize: '0.9rem', color: 'var(--color-text-main)' }}>
-                        Moved from <strong>{history.oldPosition}</strong> to <strong>{history.newPosition}</strong>
-                      </div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: 4 }}>
-                        Manager: {history.oldManager} → {history.newManager}
-                      </div>
-                      {history.comments && (
-                         <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: 8, padding: 8, backgroundColor: 'var(--color-surface)', borderRadius: 4, fontStyle: 'italic' }}>
-                           "{history.comments}"
-                         </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-
-                {useOrgStore.getState().employeeHistory.filter(h => h.employeeId === selectedNode.id).length === 0 && (
-                  <div className="flex gap-4 relative z-10">
-                    <div style={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: 'white', border: '2px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, flexShrink: 0, marginTop: 4 }}>
-                      <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: 'var(--color-border)' }}></div>
-                    </div>
-                    <div className="card w-full" style={{ padding: 16 }}>
-                      <div className="flex justify-between items-center mb-2">
-                        <span style={{ fontWeight: 600, color: 'var(--color-text-main)', fontSize: '0.9rem' }}>Joined Company</span>
-                        <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>March 2021</span>
-                      </div>
-                      <div style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-                        Initial position: {selectedNode.data.designation}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="profile-section">
-              <button 
-                className="btn-secondary w-full" 
-                style={{justifyContent: 'center'}}
-                onClick={() => addToast('Opening full timeline view...', 'info')}
-              >
-                View Full Timeline
-              </button>
-            </div>
-
-            <div className="profile-section">
-              <div className="profile-section-title">Organization Details</div>
-              <div className="info-grid">
-                <div className="info-item">
-                  <div className="info-label">Department</div>
-                  <div className="info-val">{selectedNode.data.department}</div>
-                </div>
-                <div className="info-item">
-                  <div className="info-label">Direct Reports</div>
-                  <div className="info-val">{selectedNode.data.teamSize || 0}</div>
-                </div>
-                <div className="info-item">
-                  <div className="info-label">Employee ID</div>
-                  <div className="info-val">EMP-{selectedNode.id.padStart(4, '0')}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      <EmployeeProfilePanel selectedNode={selectedNode} onClose={closePanel} />
 
       {/* MODALS */}
       <PositionChangeModal 
@@ -352,6 +284,34 @@ const OrgStudio = () => {
         onConfirm={handleAssignConfirm}
         positionName={selectedNode?.data.designation}
       />
+
+      <AddEmployeeModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+      />
+
+      {contextMenu && (
+        <OrgContextMenu 
+          x={contextMenu.x}
+          y={contextMenu.y}
+          nodeData={contextMenu.nodeData}
+          nodeId={contextMenu.nodeId}
+          onClose={() => setContextMenu(null)}
+          onEditProfile={() => setSelectedNode(nodes.find(n => n.id === contextMenu.nodeId))}
+          onPromote={() => { 
+             setDraggedNode(nodes.find(n => n.id === contextMenu.nodeId));
+             setTargetManager(nodes.find(n => n.id === contextMenu.nodeId)); // mock target
+             setShowChangeModal(true);
+          }}
+          onTransfer={() => {
+             setDraggedNode(nodes.find(n => n.id === contextMenu.nodeId));
+             setTargetManager(nodes.find(n => n.id === contextMenu.nodeId)); // mock target
+             setShowChangeModal(true);
+          }}
+        />
+      )}
+
+      <OrgStudioBottomBar />
     </div>
   );
 };

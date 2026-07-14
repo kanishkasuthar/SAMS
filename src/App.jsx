@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import ToastContainer from './components/ToastContainer';
 import { useUIStore } from './store/uiStore';
+import { useSettingsStore } from './store/settingsStore';
 import { 
   LayoutDashboard, 
   Network, 
@@ -24,8 +25,10 @@ import {
   Search,
   Moon,
   Globe,
-  MessageSquare
+  MessageSquare,
+  Activity
 } from 'lucide-react';
+
 import Dashboard from './pages/Dashboard';
 import OrgStudio from './pages/OrgStudio';
 import SyncCenter from './pages/SyncCenter';
@@ -46,36 +49,53 @@ import Notifications from './pages/Notifications';
 import Reports from './pages/Reports';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import CurrentUserProfilePanel from './components/CurrentUserProfilePanel';
+import Sidebar, { SIDEBAR_GROUPS } from './components/layout/Sidebar';
+import TopNavbar from './components/layout/TopNavbar';
+import AIChatAssistant from './components/intelligence/AIChatAssistant';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 // Placeholder Pages (None left, but keep for fallback)
 const GenericPage = ({ title }) => <div className="page-container"><h2>{title}</h2><p>This module is under construction.</p></div>;
 
-const SIDEBAR_ITEMS = [
-  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { name: 'Organization Studio', path: '/studio', icon: Network },
-  { name: 'Projects', path: '/projects', icon: Briefcase },
-  { name: 'People', path: '/people', icon: UsersIcon },
-  { name: 'Departments', path: '/departments', icon: Building2 },
-  { name: 'Roles', path: '/roles', icon: Contact },
-  { name: 'Decision Flow', path: '/decision-flow', icon: GitBranch },
-  { name: 'Responsibility Matrix', path: '/matrix', icon: Grid },
-  { name: 'Analytics', path: '/analytics', icon: LineChart },
-  { name: 'Reports', path: '/reports', icon: FileText },
-  { name: 'Organization Insights', path: '/insights', icon: Lightbulb },
-  { name: 'Sync Center', path: '/sync', icon: RefreshCcw },
-  { name: 'Version History', path: '/history', icon: HistoryIcon },
-  { name: 'Audit Logs', path: '/audit', icon: ShieldAlert },
-  { name: 'Sessions', path: '/sessions', icon: Clock },
-  { name: 'Notifications', path: '/notifications', icon: Bell },
-  { name: 'Users', path: '/users', icon: UserCog },
-  { name: 'Settings', path: '/settings', icon: SettingsIcon },
-];
+
 
 function App() {
   const location = useLocation();
-  const { addToast, isDarkMode, toggleDarkMode, isAuthenticated, logout, authMode } = useUIStore();
-  const currentTitle = SIDEBAR_ITEMS.find(item => item.path === location.pathname)?.name || 'SAMS';
+  const { addToast, isDarkMode, setDarkMode, isAuthenticated, logout, authMode, currentUser } = useUIStore();
+  const { theme, accentColor } = useSettingsStore();
+  const [showMyProfile, setShowMyProfile] = React.useState(false);
+  
+  const currentTitle = SIDEBAR_GROUPS.flatMap(g => g.items).find(item => item.path === location.pathname)?.name || 'SAMS';
+
+  // Apply theme on mount and when it changes
+  useEffect(() => {
+    if (theme === 'Dark') setDarkMode(true);
+    else if (theme === 'Light') setDarkMode(false);
+    else setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, [theme, setDarkMode]);
+
+  // Apply accent color
+  useEffect(() => {
+    if (accentColor) {
+      document.documentElement.style.setProperty('--color-primary', accentColor);
+    }
+  }, [accentColor]);
+
+  // Keyboard shortcut for global search
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('global-search').focus();
+        addToast('Global Search opened (⌘K)', 'info');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [addToast]);
 
   if (!isAuthenticated) {
     return (
@@ -89,93 +109,48 @@ function App() {
   return (
     <div className="app-container">
       <ToastContainer />
-      {/* SIDEBAR */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <Network className="sidebar-logo" size={28} />
-          <span className="sidebar-title">SAMS</span>
-        </div>
-        <nav className="sidebar-nav">
-          {SIDEBAR_ITEMS.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink 
-                key={item.name} 
-                to={item.path}
-                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-              >
-                <Icon size={20} />
-                <span>{item.name}</span>
-              </NavLink>
-            )
-          })}
-        </nav>
-      </aside>
+        <Sidebar />
 
       {/* MAIN CONTENT AREA */}
       <main className="main-content">
         {/* TOP NAVIGATION */}
-        <header className="topbar glass">
-          <div className="topbar-search">
-            <Search size={18} color="var(--color-text-muted)" />
-            <input 
-              type="text" 
-              placeholder={`Search in ${currentTitle}...`} 
-              onKeyDown={(e) => { if (e.key === 'Enter') addToast(`Searching for "${e.target.value}" in ${currentTitle}...`, 'info'); }}
-            />
-          </div>
-          
-          <div className="topbar-actions">
-            <button className="icon-btn" title="Organization Selector" onClick={() => addToast('Organization selector opened', 'info')}><Globe size={20} /></button>
-            <button className="icon-btn" title="Messages" onClick={() => addToast('Messages opened', 'info')}><MessageSquare size={20} /></button>
-            <button className="icon-btn" title="Notifications" onClick={() => addToast('Notifications opened', 'info')}>
-              <div className="relative">
-                <Bell size={20} />
-                <span className="absolute" style={{top: -2, right: 0, width: 8, height: 8, backgroundColor: 'var(--color-danger)', borderRadius: '50%'}}></span>
-              </div>
-            </button>
-            <button className="icon-btn" title="Dark Mode" onClick={toggleDarkMode}>
-              {isDarkMode ? <Lightbulb size={20} /> : <Moon size={20} />}
-            </button>
-            
-            <div style={{width: 1, height: 24, backgroundColor: 'var(--color-border)', margin: '0 8px'}}></div>
-            
-            <button className="profile-btn" onClick={() => logout()} title="Logout">
-              <div className="profile-avatar">KS</div>
-              <div className="flex flex-col" style={{alignItems: 'flex-start'}}>
-                <span style={{fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-main)'}}>Kanishka Suthar</span>
-                <span style={{fontSize: '0.75rem', color: 'var(--color-text-muted)'}}>Admin Session</span>
-              </div>
-            </button>
-          </div>
-        </header>
+        <TopNavbar currentTitle={currentTitle} />
 
         {/* PAGE CONTENT */}
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/studio" element={<OrgStudio />} />
-          <Route path="/sync" element={<SyncCenter />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/insights" element={<OrgInsights />} />
-          <Route path="/audit" element={<AuditLogs />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/departments" element={<Departments />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/history" element={<VersionHistory />} />
-          <Route path="/decision-flow" element={<DecisionFlow />} />
-          <Route path="/matrix" element={<ResponsibilityMatrix />} />
-          <Route path="/roles" element={<Roles />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/sessions" element={<Sessions />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/reports" element={<Reports />} />
-          
-          {SIDEBAR_ITEMS.filter(i => !['/', '/studio', '/sync', '/projects', '/insights', '/audit', '/people', '/departments', '/analytics', '/settings', '/history', '/decision-flow', '/matrix', '/roles', '/users', '/sessions', '/notifications', '/reports'].includes(i.path)).map(item => (
-             <Route key={item.path} path={item.path} element={<GenericPage title={item.name} />} />
-          ))}
-        </Routes>
+        <div style={{ flex: 1, position: 'relative' }}>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/studio" element={<OrgStudio />} />
+              <Route path="/sync" element={<SyncCenter />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/insights" element={<OrgInsights />} />
+              <Route path="/audit" element={<AuditLogs />} />
+              <Route path="/people" element={<People />} />
+              <Route path="/departments" element={<Departments />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/history" element={<VersionHistory />} />
+              <Route path="/decision-flow" element={<DecisionFlow />} />
+              <Route path="/matrix" element={<ResponsibilityMatrix />} />
+              <Route path="/roles" element={<Roles />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/sessions" element={<Sessions />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/reports" element={<Reports />} />
+              
+              {SIDEBAR_GROUPS.flatMap(g => g.items).filter(i => !['/', '/studio', '/sync', '/projects', '/insights', '/audit', '/people', '/departments', '/analytics', '/settings', '/history', '/decision-flow', '/matrix', '/roles', '/users', '/sessions', '/notifications', '/reports'].includes(i.path)).map(item => (
+                 <Route key={item.path} path={item.path} element={<GenericPage title={item.name} />} />
+              ))}
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ErrorBoundary>
+        </div>
       </main>
+      
+      {/* Global AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   )
 }

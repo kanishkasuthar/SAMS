@@ -26,7 +26,7 @@ const DecisionFlow = () => {
       </div>
 
       {/* Mock Flow Canvas */}
-      <div style={{flex: 1, backgroundColor: 'rgba(15, 23, 42, 0.02)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 64}}>
+      <div style={{flex: 1, backgroundColor: 'var(--color-surface-alt)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 64}}>
          {/* Background Grid Pattern */}
          <div style={{position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(var(--color-border) 1px, transparent 1px)', backgroundSize: '24px 24px', opacity: 0.5}}></div>
          
