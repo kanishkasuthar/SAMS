@@ -9,6 +9,7 @@ import {
   ORG_INSIGHTS, 
   PEOPLE_DIRECTORY,
   ROLES_DATA,
+  ALL_PERMISSIONS,
   REPORTS_DATA,
   SESSIONS_REPLAY_DATA,
   NOTIFICATIONS_DATA,
@@ -28,18 +29,17 @@ import {
   SIMULATOR_DATA,
   ANALYTICS_DATA
 } from '../data/mockData';
+import api from '../services/api';
 
 const getLayoutedElements = (nodes, edges) => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   
-  // Set layout direction to Top-to-Bottom
   dagreGraph.setGraph({ rankdir: 'TB', nodesep: 80, ranksep: 120 });
 
-  nodes.forEach((node) => {
-    // We adjust height based on node type to be safe. Standard nodes are ~100px.
-    const nodeHeight = node.data.type === 'department' ? 140 : 120;
-    dagreGraph.setNode(node.id, { width: 280, height: nodeHeight });
+  // Only layout org nodes in dagre, ignore group nodes for dagre layout
+  nodes.filter(n => n.type !== 'group').forEach((node) => {
+    dagreGraph.setNode(node.id, { width: 280, height: 120 });
   });
 
   edges.forEach((edge) => {
@@ -49,6 +49,8 @@ const getLayoutedElements = (nodes, edges) => {
   dagre.layout(dagreGraph);
 
   const layoutedNodes = nodes.map((node) => {
+    if (node.type === 'group') return node;
+
     const nodeWithPosition = dagreGraph.node(node.id);
     return {
       ...node,
@@ -56,9 +58,33 @@ const getLayoutedElements = (nodes, edges) => {
       sourcePosition: 'bottom',
       position: {
         x: nodeWithPosition.x - 280 / 2,
-        y: nodeWithPosition.y - 160 / 2,
+        y: nodeWithPosition.y - 120 / 2,
       },
     };
+  });
+
+  // Calculate bounding boxes for group nodes based on children
+  layoutedNodes.filter(n => n.type === 'group').forEach(group => {
+    const children = layoutedNodes.filter(n => n.parentId === group.id);
+    if (children.length > 0) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      children.forEach(c => {
+        if (c.position.x < minX) minX = c.position.x;
+        if (c.position.y < minY) minY = c.position.y;
+        if (c.position.x + 280 > maxX) maxX = c.position.x + 280;
+        if (c.position.y + 120 > maxY) maxY = c.position.y + 120;
+      });
+      // Add padding
+      const padding = 40;
+      group.position = { x: minX - padding, y: minY - padding - 40 }; // Extra top padding for label
+      group.style = { ...group.style, width: maxX - minX + padding * 2, height: maxY - minY + padding * 2 + 40 };
+      
+      // Make children relative to group
+      children.forEach(c => {
+        c.position.x -= group.position.x;
+        c.position.y -= group.position.y;
+      });
+    }
   });
 
   return { layoutedNodes, layoutedEdges: edges };
@@ -69,12 +95,13 @@ const { layoutedNodes: initNodes, layoutedEdges: initEdges } = getLayoutedElemen
 export const useOrgStore = create((set, get) => ({
   nodes: initNodes,
   edges: initEdges,
-  departments: DEPARTMENTS_DATA,
-  auditLogs: INTELLIGENCE_LOGS,
+  departments: [],
+  auditLogs: [],
   versions: VERSIONS_DATA,
   insights: ORG_INSIGHTS,
-  people: PEOPLE_DIRECTORY,
+  people: [],
   roles: ROLES_DATA,
+  allPermissions: ALL_PERMISSIONS,
   reports: REPORTS_DATA,
   sessions: SESSIONS_REPLAY_DATA,
   notifications: NOTIFICATIONS_DATA,
@@ -103,6 +130,152 @@ export const useOrgStore = create((set, get) => ({
   // Analytics & KPIs for Bottom Bar
   orgScore: 88,
   excelSyncStatus: 'Synced',
+  orgStats: {
+    activeCount: 0,
+    totalCount: 0,
+    maxDepth: 0,
+    vacantCount: 0,
+    syncStatus: 'Synced'
+  },
+  overviewKPIs: {
+    totalUsers: 0,
+    totalDepartments: 0,
+    pendingWorkflows: 0,
+    unreadNotifications: 0
+  },
+  loading: false,
+  error: null,
+
+  fetchOverviewKPIs: async () => {
+    try {
+      const res = await api.get('/analytics/overview');
+      set({ overviewKPIs: res.data.data });
+    } catch (err) {
+      console.error('Failed to fetch overview KPIs', err);
+    }
+  },
+
+  fetchOrgChart: async () => {
+    set({ loading: true, error: null });
+    try {
+      const res = await api.get('/users/org-chart');
+      const users = res.data.data.users;
+
+      let depts = [];
+      try {
+        const deptsRes = await api.get('/departments');
+        depts = deptsRes.data.data.departments;
+      } catch (deptErr) {
+        console.error('Failed to fetch departments inside org chart', deptErr);
+      }
+
+      // Build hierarchy
+      const nodes = [];
+      const edges = [];
+      
+      // Grouping by department from the database departments list
+      depts.forEach(dept => {
+        nodes.push({
+          id: `dept-${dept.id}`,
+          type: 'group',
+          data: { label: dept.departmentName },
+          style: {
+            backgroundColor: (dept.color || '#4F46E5') + '20',
+            border: `1px solid ${dept.color || '#4F46E5'}`,
+            borderRadius: '12px',
+            zIndex: -1
+          },
+          selectable: false
+        });
+      });
+
+      users.forEach(u => {
+        nodes.push({
+          id: u.id,
+          type: 'orgNode',
+          parentId: u.Department ? `dept-${u.Department.id}` : undefined,
+          data: {
+            id: u.id,
+            name: u.name,
+            designation: u.designation || (u.Role ? u.Role.name : 'Employee'),
+            department: u.Department ? u.Department.departmentName : 'Unassigned',
+            photo: u.profileImage,
+            status: u.status,
+            type: u.Role?.name?.toLowerCase().includes('ceo') ? 'ceo' : 'employee',
+            isVacant: false
+          },
+          position: { x: 0, y: 0 }
+        });
+
+        if (u.reportingManagerId) {
+          edges.push({
+            id: `e${u.reportingManagerId}-${u.id}`,
+            source: u.reportingManagerId,
+            target: u.id,
+            type: 'smoothstep',
+            animated: true,
+            style: { stroke: '#94A3B8', strokeWidth: 2 }
+          });
+        }
+      });
+      
+      // Determine which nodes have children
+      nodes.forEach(n => {
+        if (n.type === 'orgNode') {
+          n.data.hasChildren = edges.some(e => e.source === n.id);
+          n.data.isExpanded = true;
+        }
+      });
+
+      const { layoutedNodes, layoutedEdges } = getLayoutedElements(nodes, edges);
+
+      // Map database users to people directory
+      const mappedPeople = users.map(u => {
+        const directReportsCount = users.filter(usr => usr.reportingManagerId === u.id).length;
+        return {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          phone: u.phone || '',
+          role: u.designation || (u.Role ? u.Role.name : 'Employee'),
+          department: u.Department ? u.Department.departmentName : 'Unassigned',
+          status: u.status || 'Active',
+          photo: u.profileImage,
+          directReports: directReportsCount,
+          assignedProjects: 1,
+          workload: u.workload || 65,
+          healthScore: u.healthScore || 95
+        };
+      });
+
+      // Map departments
+      const mappedDepts = depts.map(d => ({
+        id: d.id,
+        name: d.departmentName,
+        head: d.DepartmentHead ? d.DepartmentHead.fullName : 'No Head Assigned',
+        headId: d.departmentHeadId || '',
+        budget: typeof d.budget === 'number' ? `$${(d.budget / 1000000).toFixed(1)}M` : d.budget || '$0M',
+        description: d.description || '',
+        signals: d.parentDepartmentId ? [] : ['TOP LEVEL'],
+        dnaScores: { people: 80, authority: 75, project: 80, decision: 85, connection: 80 },
+        dnaType: 'ORGANIZATIONAL CELL',
+        authorityConcentration: 'MEDIUM',
+        projectCount: 4,
+        authorityScore: 80
+      }));
+
+      set({ 
+        nodes: layoutedNodes, 
+        edges: layoutedEdges, 
+        people: mappedPeople, 
+        departments: mappedDepts, 
+        loading: false 
+      });
+
+    } catch (err) {
+      set({ error: err.message, loading: false });
+    }
+  },
 
   saveHistory: () => set((state) => {
     // Save only the essential structural state to history
@@ -164,6 +337,19 @@ export const useOrgStore = create((set, get) => ({
     };
   }),
 
+  // Global Activity Logger
+  logActivity: (action, user, details, status = 'Success') => set((state) => {
+    const newAuditLog = {
+      id: `AL-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      action,
+      user,
+      details,
+      date: new Date().toISOString().split('T')[0],
+      status
+    };
+    return { auditLogs: [newAuditLog, ...state.auditLogs] };
+  }),
+
   // React Flow handlers (Do not save history on every pixel move)
   onNodesChange: (changes) => set((state) => ({ 
     nodes: applyNodeChanges(changes, state.nodes) 
@@ -205,21 +391,79 @@ export const useOrgStore = create((set, get) => ({
     ]
   })),
 
-  updateProject: (id, projectData) => set((state) => ({
-    projects: state.projects.map(p => p.id === id ? { ...p, ...projectData } : p)
-  })),
+  updateProject: (id, projectData) => set((state) => {
+    get().logActivity('Project Updated', state.currentUser?.name || 'User', `Updated project ${projectData.name || id}`);
+    return { projects: state.projects.map(p => p.id === id ? { ...p, ...projectData } : p) };
+  }),
+
+  addProject: (projectData) => set((state) => {
+    get().logActivity('Project Created', state.currentUser?.name || 'User', `Created project ${projectData.name}`);
+    return { projects: [{ ...projectData, id: `proj-${Date.now()}` }, ...state.projects] };
+  }),
+
+  deleteProject: (id) => set((state) => {
+    const proj = state.projects.find(p => p.id === id);
+    get().logActivity('Project Deleted', state.currentUser?.name || 'User', `Deleted project ${proj?.name || id}`);
+    return { projects: state.projects.filter(p => p.id !== id) };
+  }),
 
   updateRole: (id, roleData) => set((state) => ({
     roles: state.roles.map(r => r.id === id ? { ...r, ...roleData } : r)
   })),
 
-  updateDepartment: (id, deptData) => set((state) => ({
-    departments: state.departments.map(d => d.id === id ? { ...d, ...deptData } : d)
-  })),
+  updateDepartment: (id, deptData) => set((state) => {
+    get().logActivity('Department Updated', state.currentUser?.name || 'User', `Updated department ${deptData.name || id}`);
+    return { departments: state.departments.map(d => d.id === id ? { ...d, ...deptData } : d) };
+  }),
+
+  deleteDepartment: (id) => set((state) => {
+    const dept = state.departments.find(d => d.id === id);
+    get().logActivity('Department Deleted', state.currentUser?.name || 'User', `Deleted department ${dept?.name || id}`);
+    return { departments: state.departments.filter(d => d.id !== id) };
+  }),
 
   updateUser: (id, userData) => set((state) => ({
     users: state.users.map(u => u.id === id ? { ...u, ...userData } : u)
   })),
+
+  toggleNode: (nodeId) => {
+    set((state) => {
+      const { nodes, edges } = state;
+      const targetNode = nodes.find(n => n.id === nodeId);
+      if (!targetNode || !targetNode.data.hasChildren) return state;
+
+      const isExpanded = !targetNode.data.isExpanded;
+      
+      // Find all descendant node IDs
+      const descendants = new Set();
+      const getDescendants = (id) => {
+        edges.filter(e => e.source === id).forEach(e => {
+          descendants.add(e.target);
+          getDescendants(e.target);
+        });
+      };
+      getDescendants(nodeId);
+
+      const newNodes = nodes.map(n => {
+        if (n.id === nodeId) {
+          return { ...n, data: { ...n.data, isExpanded } };
+        }
+        if (descendants.has(n.id)) {
+          return { ...n, hidden: !isExpanded };
+        }
+        return n;
+      });
+
+      const newEdges = edges.map(e => {
+        if (descendants.has(e.target)) {
+          return { ...e, hidden: !isExpanded };
+        }
+        return e;
+      });
+
+      return { nodes: newNodes, edges: newEdges };
+    });
+  },
 
   // Core Actions
   deletePosition: (nodeId) => {
@@ -295,7 +539,7 @@ export const useOrgStore = create((set, get) => ({
     });
   },
 
-  moveEmployee: (employeeNodeId, newManagerNodeId, reason, comments) => {
+  moveEmployee: async (employeeNodeId, newManagerNodeId, reason, comments) => {
     const state = get();
     const { nodes, edges } = state;
     const employeeNode = nodes.find(n => n.id === employeeNodeId);
@@ -313,143 +557,26 @@ export const useOrgStore = create((set, get) => ({
       currentManagerId = edgeToManager ? edgeToManager.source : null;
     }
 
-    get().saveHistory();
-    set((state) => {
-      const { nodes, edges, auditLogs, versions, departments } = state;
+    try {
+      set({ loading: true });
+      await api.patch(`/users/${employeeNodeId}/manager`, { reportingManagerId: newManagerNodeId });
       
-      const oldManagerEdge = edges.find(e => e.target === employeeNodeId);
-      const oldManagerNode = oldManagerEdge ? nodes.find(n => n.id === oldManagerEdge.source) : null;
-      
-      const timestamp = new Date().toLocaleString('en-US', { hour12: false });
-      const versionNumber = `v3.2.${versions.length + 1}`;
-      
-      // 1. POSITION LIFECYCLE: Leave a vacant node
-      const vacantNodeId = `vacant-${Date.now()}`;
-      const vacantNode = {
-        ...employeeNode,
-        id: vacantNodeId,
-        data: {
-          ...employeeNode.data,
-          name: 'Vacant Position',
-          status: 'Vacant',
-          isVacant: true,
-          photo: null
-        }
-      };
-      
-      // 2. MOVE EMPLOYEE: Update employee node data
-      const updatedEmployeeNode = {
-        ...employeeNode,
-        data: {
-          ...employeeNode.data,
-          department: newManagerNode.data.department,
-          designation: newManagerNode.data.designation.includes('Manager') ? 'Director' : 'Manager' // mock auto-promotion for demo
-        }
-      };
-      
-      // Visual placement slightly offset below new manager
-      updatedEmployeeNode.position = { x: newManagerNode.position.x + (Math.random() * 100 - 50), y: newManagerNode.position.y + 150 };
-
-      // 3. UPDATE EDGES
-      const newEdges = edges.filter(e => e.id !== oldManagerEdge?.id);
-      
-      if (oldManagerEdge) {
-        newEdges.push({
-          id: `e${oldManagerNode.id}-${vacantNodeId}`,
-          source: oldManagerNode.id,
-          target: vacantNodeId,
-          type: 'smoothstep',
-          animated: true,
-          style: { stroke: '#94A3B8', strokeWidth: 2, strokeDasharray: '5, 5' }
-        });
-      }
-      
-      newEdges.push({
-        id: `e${newManagerNode.id}-${employeeNode.id}`,
-        source: newManagerNode.id,
-        target: employeeNode.id,
-        type: 'smoothstep',
-        animated: true,
-        style: { stroke: '#4F46E5', strokeWidth: 3 }
-      });
-
-      // 4. UPDATE TEAM SIZES
-      const newNodes = nodes.map(n => {
-        if (n.id === oldManagerNode?.id) {
-          return { ...n, data: { ...n.data, teamSize: Math.max(0, (n.data.teamSize || 1) - 1) } };
-        }
-        if (n.id === newManagerNode.id) {
-          return { ...n, data: { ...n.data, teamSize: (n.data.teamSize || 0) + 1 } };
-        }
-        if (n.id === employeeNode.id) {
-          return updatedEmployeeNode;
-        }
-        return n;
-      });
-      newNodes.push(vacantNode);
-
-      // 5. UPDATE DEPARTMENTS
-      const newDepartments = departments.map(d => {
-        if (d.name === employeeNode.data.department && d.name !== newManagerNode.data.department) {
-          return { ...d, employees: Math.max(0, d.employees - 1) };
-        }
-        if (d.name === newManagerNode.data.department && d.name !== employeeNode.data.department) {
-          return { ...d, employees: d.employees + 1 };
-        }
-        return d;
-      });
-
-      // 6. CREATE AUDIT LOG
       const newAuditLog = {
-        id: `AL-${9000 + auditLogs.length}`,
-        timestamp,
-        user: 'Admin System',
+        id: `AL-${Date.now()}`,
         action: 'Position Changed',
-        details: `${employeeNode.data.name} moved to ${newManagerNode.data.department}`,
-        ip: '10.0.0.1'
-      };
-
-      // 7. CREATE VERSION
-      const newVersion = {
-        id: versionNumber,
+        user: 'System Admin',
+        details: `${employeeNode.data.name} now reports to ${newManagerNode.data.name}. Reason: ${reason}`,
         date: new Date().toISOString().split('T')[0],
-        author: 'System',
-        type: 'Restructure',
-        changes: `${employeeNode.data.name} moved to ${newManagerNode.data.name}. Reason: ${reason}`,
-        active: true
-      };
-      const updatedVersions = versions.map(v => ({ ...v, active: false }));
-      
-      // 8. RECORD HISTORY
-      const historyRecord = {
-        id: `H-${Date.now()}`,
-        employeeId: employeeNode.id,
-        date: timestamp,
-        type: reason,
-        oldPosition: employeeNode.data.designation,
-        newPosition: updatedEmployeeNode.data.designation,
-        oldDepartment: employeeNode.data.department,
-        newDepartment: updatedEmployeeNode.data.department,
-        oldManager: oldManagerNode?.data.name || 'None',
-        newManager: newManagerNode.data.name,
-        comments
+        status: 'Success'
       };
 
-      const { layoutedNodes: finalNodes, layoutedEdges: finalEdges } = getLayoutedElements(newNodes, newEdges);
-
-      return {
-        nodes: finalNodes,
-        edges: finalEdges,
-        departments: newDepartments,
-        auditLogs: [newAuditLog, ...auditLogs],
-        versions: [newVersion, ...updatedVersions],
-        employeeHistory: [historyRecord, ...state.employeeHistory],
-      };
-    });
-    
-    get().recalculateInsights();
+      set((s) => ({ auditLogs: [newAuditLog, ...s.auditLogs], loading: false }));
+      get().fetchOrgChart();
+    } catch (err) {
+      set({ error: err.message, loading: false });
+    }
   },
-
+      
   updateEmployee: (nodeId, updatedData) => {
     get().saveHistory();
     set((state) => {
@@ -733,5 +860,51 @@ export const useOrgStore = create((set, get) => ({
       }
       return { insights: newInsights };
     });
+  },
+
+  importFromExcel: async (employees) => {
+    set({ loading: true, error: null });
+    try {
+      await api.post('/users/import', { employees });
+      await get().fetchOrgChart();
+      await get().fetchOrgStats();
+      set({ loading: false });
+    } catch (err) {
+      set({ error: err.response?.data?.message || err.message, loading: false });
+      throw err;
+    }
+  },
+
+  fetchOrgStats: async () => {
+    try {
+      const res = await api.get('/users/org-stats');
+      set({ orgStats: res.data.data });
+    } catch (err) {
+      console.error('Failed to fetch org stats', err);
+    }
+  },
+
+  deactivateEmployee: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      await api.patch(`/users/${id}/deactivate`);
+      await get().fetchOrgChart();
+      await get().fetchOrgStats();
+      set({ loading: false });
+    } catch (err) {
+      set({ error: err.response?.data?.message || err.message, loading: false });
+      throw err;
+    }
+  },
+
+  searchNodes: (query) => {
+    if (!query) return [];
+    const lowerQuery = query.toLowerCase();
+    return get().nodes.filter(n => 
+      n.type === 'orgNode' && 
+      (n.data?.name?.toLowerCase().includes(lowerQuery) ||
+       n.data?.designation?.toLowerCase().includes(lowerQuery) ||
+       n.data?.department?.toLowerCase().includes(lowerQuery))
+    ).map(n => n.id);
   }
 }));

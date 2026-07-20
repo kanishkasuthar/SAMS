@@ -1,0 +1,379 @@
+
+> backend@1.0.0 test
+> jest tests/integration.test.js
+
+  console.log
+    ◇ injected env (12) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+  console.log
+    ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+(node:90055) [DEP0170] DeprecationWarning: The URL sqlite::memory: is invalid. Future versions of Node.js will throw an error.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[0mPOST /api/auth/login [32m200[0m 72.024 ms - 551[0m
+[0mPOST /api/departments [33m401[0m 0.790 ms - 65[0m
+  console.log
+    RESPONSE: { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:47:15)
+
+  console.log
+    ADMIN TOKEN: undefined
+
+      at Object.log (tests/integration.test.js:53:15)
+
+[0mPOST /api/roles [33m401[0m 0.496 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:59:41)
+
+[0mPOST /api/users [33m401[0m 0.286 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:75:41)
+
+[0mPOST /api/responsibility-matrices [33m401[0m 0.300 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:85:41)
+
+[0mPOST /api/decision-flows [33m401[0m 0.283 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:102:41)
+
+[0mPOST /api/auth/login [33m401[0m 0.990 ms - 57[0m
+[0mPOST /api/decision-requests/undefined/approve [33m401[0m 0.318 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:134:41)
+
+[0mGET /api/notifications [33m401[0m 0.298 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:143:41)
+
+[0mGET /api/audit-logs [33m401[0m 0.159 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:152:41)
+
+[0mGET /api/analytics/system/overview [33m401[0m 0.162 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:164:41)
+
+[0mPOST /api/reports/generate [33m401[0m 0.298 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:175:41)
+
+[0mGET /api/ai/insights/department [33m401[0m 0.170 ms - 65[0m
+[0mPUT /api/users/undefined [33m401[0m 0.302 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:194:41)
+
+[0mGET /api/version-history/entity/User/undefined [33m401[0m 0.150 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:202:41)
+
+[0mGET /api/audit-logs [33m401[0m 0.135 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:211:41)
+
+FAIL tests/integration.test.js
+  Phase 15: End-to-End Backend Integration
+    Scenario 1: Full Lifecycle
+      ✕ should bootstrap an admin token (142 ms)
+      ✕ Create Role (2 ms)
+      ✕ Create User (2 ms)
+      ✕ Assign Responsibility (1 ms)
+      ✕ Create Decision Flow (2 ms)
+      ✕ Submit Decision Request (2 ms)
+      ✕ Approve Request (1 ms)
+      ✕ Notification Generated (4 ms)
+      ✕ Audit Log Created (1 ms)
+      ✕ Analytics Updated (1 ms)
+      ✕ Report Generated (2 ms)
+      ✕ AI Summary Generated (1 ms)
+    Scenario 2: Profile Update to Tracking
+      ✕ Update User (1 ms)
+      ✕ Version History Created (1 ms)
+      ✕ Audit Log Created (1 ms)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › should bootstrap an admin token
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      46 |       
+      47 |       console.log('RESPONSE:', res2.body);
+    > 48 |       expect(res2.statusCode).toBe(201);
+         |                               ^
+      49 |       departmentId = res2.body.data.department.id;
+      50 |     });
+      51 |
+
+      at Object.toBe (tests/integration.test.js:48:31)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Create Role
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      57 |         .send({ name: 'Engineer', description: 'Writes code' });
+      58 |       
+    > 59 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      60 |       roleId = res.body.data.role.id;
+      61 |     });
+      62 |
+
+      at Object.toBe (tests/integration.test.js:59:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Create User
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      73 |         });
+      74 |       
+    > 75 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      76 |       userId = res.body.data.user.id;
+      77 |     });
+      78 |
+
+      at Object.toBe (tests/integration.test.js:75:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Assign Responsibility
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      83 |         .send({ matrixName: 'Code Deployments', status: 'Active', departmentId });
+      84 |       
+    > 85 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      86 |       matrixId = res.body.data.matrix.id;
+      87 |
+      88 |       res = await request(app)
+
+      at Object.toBe (tests/integration.test.js:85:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Create Decision Flow
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      100 |         .send({ flowName: 'Production Deploy', status: 'Active', departmentId });
+      101 |       
+    > 102 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+          |                                                                               ^
+      103 |       flowId = res.body.data.flow.id;
+      104 |
+      105 |       res = await request(app)
+
+      at Object.toBe (tests/integration.test.js:102:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Submit Decision Request
+
+    TypeError: Cannot read properties of undefined (reading 'token')
+
+      115 |         .post('/api/auth/login')
+      116 |         .send({ email: 'dev@sams.com', password: 'password123' });
+    > 117 |       token = res.body.data.token;
+          |                             ^
+      118 |
+      119 |       res = await request(app)
+      120 |         .post('/api/decision-requests')
+
+      at Object.token (tests/integration.test.js:117:29)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Approve Request
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      132 |         .send({ remarks: 'LGTM' });
+      133 |       
+    > 134 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      135 |       expect(res.body.data.request.overallStatus).toBe('Approved');
+      136 |     });
+      137 |
+
+      at Object.toBe (tests/integration.test.js:134:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Notification Generated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      141 |         .set('Authorization', `Bearer ${token}`);
+      142 |       
+    > 143 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      144 |       // We check if a notification was generated (this might fail if integration isn't wired yet!)
+      145 |     });
+      146 |
+
+      at Object.toBe (tests/integration.test.js:143:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Audit Log Created
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      150 |         .set('Authorization', `Bearer ${adminToken}`);
+      151 |       
+    > 152 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      153 |       expect(res.body.data.logs.length).toBeGreaterThan(0);
+      154 |       
+      155 |       const actions = res.body.data.logs.map(log => log.action);
+
+      at Object.toBe (tests/integration.test.js:152:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Analytics Updated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      162 |         .set('Authorization', `Bearer ${adminToken}`);
+      163 |       
+    > 164 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      165 |       expect(res.body.data.metrics.totalUsers).toBe(2);
+      166 |       expect(res.body.data.metrics.totalDepartments).toBe(1);
+      167 |     });
+
+      at Object.toBe (tests/integration.test.js:164:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Report Generated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      173 |         .send({ reportType: 'User Activity', filters: {} });
+      174 |       
+    > 175 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      176 |     });
+      177 |
+      178 |     it('AI Summary Generated', async () => {
+
+      at Object.toBe (tests/integration.test.js:175:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › AI Summary Generated
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: 401
+    Received array: [200, 400, 503]
+
+      181 |         .set('Authorization', `Bearer ${adminToken}`);
+      182 |       
+    > 183 |       expect([200, 400, 503]).toContain(res.statusCode);
+          |                               ^
+      184 |     });
+      185 |   });
+      186 |
+
+      at Object.toContain (tests/integration.test.js:183:31)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Update User
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      192 |         .send({ name: 'Senior Software Developer' });
+      193 |       
+    > 194 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      195 |     });
+      196 |
+      197 |     it('Version History Created', async () => {
+
+      at Object.toBe (tests/integration.test.js:194:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Version History Created
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      200 |         .set('Authorization', `Bearer ${adminToken}`);
+      201 |       
+    > 202 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      203 |       expect(res.body.data.versions.length).toBeGreaterThanOrEqual(1);
+      204 |     });
+      205 |
+
+      at Object.toBe (tests/integration.test.js:202:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Audit Log Created
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      209 |         .set('Authorization', `Bearer ${adminToken}`);
+      210 |       
+    > 211 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      212 |       const updateLogs = res.body.data.logs.filter(log => log.action === 'Update' && log.module === 'Users');
+      213 |       expect(updateLogs.length).toBeGreaterThanOrEqual(1);
+      214 |     });
+
+      at Object.toBe (tests/integration.test.js:211:79)
+
+Test Suites: 1 failed, 1 total
+Tests:       15 failed, 15 total
+Snapshots:   0 total
+Time:        0.527 s, estimated 1 s
+Ran all test suites matching tests/integration.test.js.

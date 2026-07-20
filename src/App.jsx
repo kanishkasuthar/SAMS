@@ -47,13 +47,17 @@ import Users from './pages/Users';
 import Sessions from './pages/Sessions';
 import Notifications from './pages/Notifications';
 import Reports from './pages/Reports';
+import ReportViewer from './pages/ReportViewer';
+import CommandCenter from './pages/CommandCenter';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import CurrentUserProfilePanel from './components/CurrentUserProfilePanel';
-import Sidebar, { SIDEBAR_GROUPS } from './components/layout/Sidebar';
+import Sidebar, { SIDEBAR_ITEMS } from './components/layout/Sidebar';
 import TopNavbar from './components/layout/TopNavbar';
 import AIChatAssistant from './components/intelligence/AIChatAssistant';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import GlobalModalProvider from './components/modals/GlobalModalProvider';
+import GlobalDrawerProvider from './components/drawers/GlobalDrawerProvider';
 import NotFound from './pages/NotFound';
 import './App.css';
 
@@ -68,7 +72,7 @@ function App() {
   const { theme, accentColor } = useSettingsStore();
   const [showMyProfile, setShowMyProfile] = React.useState(false);
   
-  const currentTitle = SIDEBAR_GROUPS.flatMap(g => g.items).find(item => item.path === location.pathname)?.name || 'SAMS';
+  const currentTitle = SIDEBAR_ITEMS.find(item => item.path === location.pathname)?.name || 'SAMS';
 
   // Apply theme on mount and when it changes
   useEffect(() => {
@@ -76,6 +80,12 @@ function App() {
     else if (theme === 'Light') setDarkMode(false);
     else setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
   }, [theme, setDarkMode]);
+
+  // Initialize Auth & Settings
+  useEffect(() => {
+    useUIStore.getState().initializeAuth();
+    useSettingsStore.getState().fetchSettings();
+  }, []);
 
   // Apply accent color
   useEffect(() => {
@@ -101,7 +111,9 @@ function App() {
     return (
       <div className={`theme-root ${isDarkMode ? 'dark-mode' : ''}`}>
         {authMode === 'login' ? <Login /> : <SignUp />}
-        <ToastContainer />
+        {/* Global Overlays */}
+        <GlobalModalProvider />
+        <GlobalDrawerProvider />
       </div>
     );
   }
@@ -117,10 +129,11 @@ function App() {
         <TopNavbar currentTitle={currentTitle} />
 
         {/* PAGE CONTENT */}
-        <div style={{ flex: 1, position: 'relative' }}>
-          <ErrorBoundary>
+        <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'hidden', minHeight: 0 }}>
+          <ErrorBoundary key={location.pathname}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/studio" element={<OrgStudio />} />
               <Route path="/sync" element={<SyncCenter />} />
               <Route path="/projects" element={<Projects />} />
@@ -129,6 +142,7 @@ function App() {
               <Route path="/people" element={<People />} />
               <Route path="/departments" element={<Departments />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/command-center" element={<CommandCenter />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/history" element={<VersionHistory />} />
               <Route path="/decision-flow" element={<DecisionFlow />} />
@@ -138,8 +152,9 @@ function App() {
               <Route path="/sessions" element={<Sessions />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/reports" element={<Reports />} />
+              <Route path="/reports/:reportId" element={<ReportViewer />} />
               
-              {SIDEBAR_GROUPS.flatMap(g => g.items).filter(i => !['/', '/studio', '/sync', '/projects', '/insights', '/audit', '/people', '/departments', '/analytics', '/settings', '/history', '/decision-flow', '/matrix', '/roles', '/users', '/sessions', '/notifications', '/reports'].includes(i.path)).map(item => (
+              {SIDEBAR_ITEMS.filter(i => !['/', '/dashboard', '/studio', '/sync', '/projects', '/insights', '/audit', '/people', '/departments', '/analytics', '/command-center', '/settings', '/history', '/decision-flow', '/matrix', '/roles', '/users', '/sessions', '/notifications', '/reports'].includes(i.path)).map(item => (
                  <Route key={item.path} path={item.path} element={<GenericPage title={item.name} />} />
               ))}
               
@@ -151,6 +166,10 @@ function App() {
       
       {/* Global AI Chat Assistant */}
       <AIChatAssistant />
+
+      {/* Global Overlays */}
+      <GlobalModalProvider />
+      <GlobalDrawerProvider />
     </div>
   )
 }

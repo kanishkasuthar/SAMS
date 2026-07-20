@@ -1,0 +1,429 @@
+
+> backend@1.0.0 test
+> jest tests/integration.test.js
+
+  console.log
+    ◇ injected env (12) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+  console.log
+    ◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+(node:90930) [DEP0170] DeprecationWarning: The URL sqlite::memory: is invalid. Future versions of Node.js will throw an error.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[0mPOST /api/auth/login [32m200[0m 63.463 ms - 552[0m
+  console.log
+    BEFORE DEPARTMENT CREATE
+
+      at log (src/controllers/departmentController.js:107:13)
+
+  console.log
+    AFTER DEPARTMENT CREATE
+
+      at log (src/controllers/departmentController.js:119:13)
+
+  console.log
+    BEFORE LOG AUDIT
+
+      at log (src/controllers/departmentController.js:121:13)
+
+  console.log
+    AFTER LOG AUDIT
+
+      at log (src/controllers/departmentController.js:123:13)
+
+[0mPOST /api/departments [32m201[0m 4.808 ms - 366[0m
+  console.log
+    RESPONSE: {
+      status: 'success',
+      data: {
+        department: {
+          id: '6e020e9d-36d7-4efb-98b8-66863c1d5e4c',
+          employeeCount: 0,
+          status: 'Active',
+          color: '#3b82f6',
+          icon: 'Network',
+          departmentName: 'Engineering',
+          departmentCode: 'ENG',
+          parentDepartmentId: null,
+          departmentHeadId: null,
+          roleId: null,
+          budget: 0,
+          updatedAt: '2026-07-17T15:34:35.365Z',
+          createdAt: '2026-07-17T15:34:35.365Z'
+        }
+      }
+    }
+
+      at Object.log (tests/integration.test.js:47:15)
+
+  console.log
+    ADMIN TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhODJjNTdiLWE2OWItNGE3Ny1hMTdkLTA4YmIyMzhkNWQ4MyIsImlhdCI6MTc4NDMwMjQ3NSwiZXhwIjoxNzg0MzAzMzc1fQ.q7VC5qeXXjdGkyvD9LaxmsT0Fu-7GpJewMJevt4Z0zo
+
+      at Object.log (tests/integration.test.js:53:15)
+
+  console.error
+    ERROR 💥 ValidationError [SequelizeValidationError]: notNull Violation: Role.name cannot be null
+        at InstanceValidator._validate (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:78:13)
+        at InstanceValidator._validateAndRunHooks (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:111:7)
+        at InstanceValidator.validate (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:93:12)
+        at model.save (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/model.js:4077:7)
+        at Role.create (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/model.js:2305:12)
+        at exports.createRole (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/src/controllers/roleController.js:64:18) {
+      errors: [
+        ValidationErrorItem {
+          message: 'Role.name cannot be null',
+          type: 'notNull Violation',
+          path: 'name',
+          value: null,
+          origin: 'CORE',
+          instance: [Role],
+          validatorKey: 'is_null',
+          validatorName: null,
+          validatorArgs: []
+        }
+      ],
+      statusCode: 500,
+      status: 'error'
+    }
+
+      35 |     } else {
+      36 |       // Programming or unknown error
+    > 37 |       console.error('ERROR 💥', err);
+         |               ^
+      38 |       res.status(500).json({
+      39 |         status: 'error',
+      40 |         message: 'Something went very wrong!',
+
+      at error (src/middlewares/errorHandler.js:37:15)
+      at Layer.handleError (node_modules/router/lib/layer.js:116:17)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at node_modules/router/index.js:688:15
+      at next (node_modules/router/index.js:276:14)
+      at next (node_modules/router/lib/route.js:132:14)
+      at next (src/controllers/roleController.js:87:5)
+
+[0mPOST /api/roles [31m500[0m 4.638 ms - 57[0m
+  console.log
+    { status: 'error', message: 'Something went very wrong!' }
+
+      at Object.log (tests/integration.test.js:59:41)
+
+  console.error
+    ERROR 💥 ValidationError [SequelizeValidationError]: notNull Violation: User.name cannot be null
+        at InstanceValidator._validate (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:78:13)
+        at InstanceValidator._validateAndRunHooks (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:111:7)
+        at InstanceValidator.validate (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/instance-validator.js:93:12)
+        at model.save (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/model.js:4077:7)
+        at User.create (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/sequelize/src/model.js:2305:12)
+        at exports.createUser (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/src/controllers/userController.js:97:21) {
+      errors: [
+        ValidationErrorItem {
+          message: 'User.name cannot be null',
+          type: 'notNull Violation',
+          path: 'name',
+          value: null,
+          origin: 'CORE',
+          instance: [User],
+          validatorKey: 'is_null',
+          validatorName: null,
+          validatorArgs: []
+        }
+      ],
+      statusCode: 500,
+      status: 'error'
+    }
+
+      35 |     } else {
+      36 |       // Programming or unknown error
+    > 37 |       console.error('ERROR 💥', err);
+         |               ^
+      38 |       res.status(500).json({
+      39 |         status: 'error',
+      40 |         message: 'Something went very wrong!',
+
+      at error (src/middlewares/errorHandler.js:37:15)
+      at Layer.handleError (node_modules/router/lib/layer.js:116:17)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at node_modules/router/index.js:688:15
+      at next (node_modules/router/index.js:276:14)
+      at next (node_modules/router/lib/route.js:132:14)
+      at next (src/controllers/userController.js:120:5)
+
+[0mPOST /api/users [31m500[0m 203.751 ms - 57[0m
+  console.log
+    { status: 'error', message: 'Something went very wrong!' }
+
+      at Object.log (tests/integration.test.js:75:41)
+
+[0mPOST /api/responsibility-matrices [32m201[0m 1.944 ms - 329[0m
+[0mPOST /api/responsibility-matrices/08e62435-b8f4-4972-a721-d5b8662ac7cb/assignments [33m400[0m 3.888 ms - 99[0m
+  console.log
+    {
+      status: 'fail',
+      message: '"value" must contain at least one of [userId, roleId, departmentId]'
+    }
+
+      at Object.log (tests/integration.test.js:93:41)
+
+[0mPOST /api/decision-flows [32m201[0m 1.659 ms - 326[0m
+[0mPOST /api/decision-flows/f95601bc-f098-4e26-8109-43a3ede9c65f/steps [32m201[0m 2.680 ms - 322[0m
+[0mPOST /api/auth/login [33m401[0m 0.933 ms - 57[0m
+[0mPOST /api/decision-requests [33m401[0m 0.313 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:124:41)
+
+[0mPOST /api/decision-requests/undefined/approve [33m401[0m 0.293 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:134:41)
+
+[0mGET /api/notifications [33m401[0m 0.193 ms - 65[0m
+  console.log
+    { status: 'fail', message: 'Invalid token. Please log in again!' }
+
+      at Object.log (tests/integration.test.js:143:41)
+
+[0mGET /api/audit-logs [32m200[0m 2.512 ms - 5825[0m
+[0mGET /api/analytics/system/overview [33m404[0m 0.925 ms - 168[0m
+  console.log
+    {}
+
+      at Object.log (tests/integration.test.js:164:41)
+
+[0mPOST /api/reports/generate [33m400[0m 0.845 ms - 54[0m
+  console.log
+    { status: 'fail', message: '"reportId" is required' }
+
+      at Object.log (tests/integration.test.js:175:41)
+
+[0mGET /api/ai/insights/department [33m404[0m 0.793 ms - 165[0m
+[0mPUT /api/users/undefined [33m404[0m 1.099 ms - 56[0m
+  console.log
+    { status: 'fail', message: 'No user found with that ID' }
+
+      at Object.log (tests/integration.test.js:194:41)
+
+[0mGET /api/version-history/entity/User/undefined [32m200[0m 1.882 ms - 55[0m
+[0mGET /api/audit-logs [32m200[0m 1.425 ms - 6674[0m
+FAIL tests/integration.test.js
+  Phase 15: End-to-End Backend Integration
+    Scenario 1: Full Lifecycle
+      ✓ should bootstrap an admin token (132 ms)
+      ✕ Create Role (9 ms)
+      ✕ Create User (205 ms)
+      ✕ Assign Responsibility (8 ms)
+      ✓ Create Decision Flow (6 ms)
+      ✕ Submit Decision Request (3 ms)
+      ✕ Approve Request (2 ms)
+      ✕ Notification Generated (1 ms)
+      ✓ Audit Log Created (3 ms)
+      ✕ Analytics Updated (2 ms)
+      ✕ Report Generated (2 ms)
+      ✕ AI Summary Generated (1 ms)
+    Scenario 2: Profile Update to Tracking
+      ✕ Update User (2 ms)
+      ✕ Version History Created (3 ms)
+      ✓ Audit Log Created (2 ms)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Create Role
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      57 |         .send({ name: 'Engineer', description: 'Writes code' });
+      58 |       
+    > 59 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      60 |       roleId = res.body.data.role.id;
+      61 |     });
+      62 |
+
+      at Object.toBe (tests/integration.test.js:59:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Create User
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      73 |         });
+      74 |       
+    > 75 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      76 |       userId = res.body.data.user.id;
+      77 |     });
+      78 |
+
+      at Object.toBe (tests/integration.test.js:75:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Assign Responsibility
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      91 |         .send({ userId, responsibilityType: 'Accountable' });
+      92 |       
+    > 93 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+         |                                                                               ^
+      94 |     });
+      95 |
+      96 |     it('Create Decision Flow', async () => {
+
+      at Object.toBe (tests/integration.test.js:93:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Submit Decision Request
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+      122 |         .send({ flowId, requestTitle: 'Deploy v1.2.0' });
+      123 |       
+    > 124 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(201);
+          |                                                                               ^
+      125 |       requestId = res.body.data.request.id;
+      126 |     });
+      127 |
+
+      at Object.toBe (tests/integration.test.js:124:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Approve Request
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      132 |         .send({ remarks: 'LGTM' });
+      133 |       
+    > 134 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      135 |       expect(res.body.data.request.overallStatus).toBe('Approved');
+      136 |     });
+      137 |
+
+      at Object.toBe (tests/integration.test.js:134:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Notification Generated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+      141 |         .set('Authorization', `Bearer ${token}`);
+      142 |       
+    > 143 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      144 |       // We check if a notification was generated (this might fail if integration isn't wired yet!)
+      145 |     });
+      146 |
+
+      at Object.toBe (tests/integration.test.js:143:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Analytics Updated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      162 |         .set('Authorization', `Bearer ${adminToken}`);
+      163 |       
+    > 164 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      165 |       expect(res.body.data.metrics.totalUsers).toBe(2);
+      166 |       expect(res.body.data.metrics.totalDepartments).toBe(1);
+      167 |     });
+
+      at Object.toBe (tests/integration.test.js:164:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Report Generated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      173 |         .send({ reportType: 'User Activity', filters: {} });
+      174 |       
+    > 175 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      176 |     });
+      177 |
+      178 |     it('AI Summary Generated', async () => {
+
+      at Object.toBe (tests/integration.test.js:175:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › AI Summary Generated
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: 404
+    Received array: [200, 400, 503]
+
+      181 |         .set('Authorization', `Bearer ${adminToken}`);
+      182 |       
+    > 183 |       expect([200, 400, 503]).toContain(res.statusCode);
+          |                               ^
+      184 |     });
+      185 |   });
+      186 |
+
+      at Object.toContain (tests/integration.test.js:183:31)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Update User
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      192 |         .send({ name: 'Senior Software Developer' });
+      193 |       
+    > 194 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      195 |     });
+      196 |
+      197 |     it('Version History Created', async () => {
+
+      at Object.toBe (tests/integration.test.js:194:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Version History Created
+
+    TypeError: Cannot read properties of undefined (reading 'length')
+
+      201 |       
+      202 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+    > 203 |       expect(res.body.data.versions.length).toBeGreaterThanOrEqual(1);
+          |                                     ^
+      204 |     });
+      205 |
+      206 |     it('Audit Log Created', async () => {
+
+      at Object.length (tests/integration.test.js:203:37)
+
+Test Suites: 1 failed, 1 total
+Tests:       11 failed, 4 passed, 15 total
+Snapshots:   0 total
+Time:        0.753 s, estimated 1 s
+Ran all test suites matching tests/integration.test.js.

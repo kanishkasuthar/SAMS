@@ -89,8 +89,28 @@ const OrgContextMenu = ({ x, y, nodeData, nodeId, onClose, onEditProfile, onProm
         <button className="context-menu-item" onClick={handleDuplicate}>
           <Copy size={14} /> Duplicate
         </button>
-        <button className="context-menu-item text-warning" onClick={handleArchive}>
+        <button className="context-menu-item text-warning" onClick={async () => {
+          try {
+            await useOrgStore.getState().deactivateEmployee(nodeId);
+            addToast(`${nodeData.name} has been deactivated.`, 'success');
+            onClose();
+          } catch (err) {
+            addToast(err.message, 'error');
+          }
+        }}>
+          <Archive size={14} /> Deactivate Employee
+        </button>
+        <button className="context-menu-item text-danger" onClick={handleArchive}>
           <Archive size={14} /> Archive Employee
+        </button>
+        <button className="context-menu-item text-danger" onClick={() => {
+          if (window.confirm(`Are you sure you want to delete ${nodeData.name}?`)) {
+            useOrgStore.getState().deletePosition(nodeId);
+            addToast(`${nodeData.name} position has been deleted.`, 'success');
+            onClose();
+          }
+        }}>
+          <Trash2 size={14} /> Delete Position
         </button>
       </motion.div>
     </AnimatePresence>

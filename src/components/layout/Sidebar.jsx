@@ -7,93 +7,103 @@ import {
   Activity
 } from 'lucide-react';
 
-export const SIDEBAR_GROUPS = [
-  {
-    label: 'CORE',
-    items: [
-      { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-      { name: 'Organization Studio', path: '/studio', icon: Network },
-      { name: 'Projects', path: '/projects', icon: Briefcase },
-      { name: 'People', path: '/people', icon: UsersIcon },
-      { name: 'Departments', path: '/departments', icon: Building2 },
-      { name: 'Roles', path: '/roles', icon: Contact },
-      { name: 'Decision Flows', path: '/decision-flow', icon: GitBranch },
-      { name: 'Responsibility Matrix', path: '/matrix', icon: Grid },
-    ]
-  },
-  {
-    label: 'INTELLIGENCE',
-    items: [
-      { name: 'Analytics', path: '/analytics', icon: LineChart },
-      { name: 'Reports', path: '/reports', icon: FileText },
-      { name: 'Organization Insights', path: '/insights', icon: Lightbulb },
-    ]
-  },
-  {
-    label: 'DATA & CONTROL',
-    items: [
-      { name: 'Sync Center', path: '/sync', icon: RefreshCcw },
-      { name: 'Version History', path: '/history', icon: HistoryIcon },
-      { name: 'Organization Intelligence', path: '/audit', icon: ShieldAlert },
-      { name: 'Session Replay', path: '/sessions', icon: Clock },
-    ]
-  },
-  {
-    label: 'SYSTEM',
-    items: [
-      { name: 'Notifications', path: '/notifications', icon: Bell },
-      { name: 'Users', path: '/users', icon: UserCog },
-      { name: 'Settings', path: '/settings', icon: SettingsIcon },
-    ]
-  }
+export const SIDEBAR_ITEMS = [
+  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { name: 'Organization Studio', path: '/studio', icon: Network },
+  { name: 'Projects', path: '/projects', icon: Briefcase },
+  { name: 'People', path: '/people', icon: UsersIcon },
+  { name: 'Departments', path: '/departments', icon: Building2 },
+  { name: 'Decision Flows', path: '/decision-flow', icon: GitBranch },
+  { name: 'Responsibility Matrix', path: '/matrix', icon: Grid },
+];
+
+export const SIDEBAR_INSIGHTS = [
+  { name: 'Analytics', path: '/analytics', icon: LineChart },
+  { name: 'Reports', path: '/reports', icon: FileText },
+  { name: 'Organization Insights', path: '/insights', icon: Lightbulb },
+];
+
+export const SIDEBAR_ACTIVITY = [
+  { name: 'Notifications', path: '/notifications', icon: Bell, badge: '12' },
+  { name: 'Audit Logs', path: '/audit', icon: ShieldAlert },
+  { name: 'Sessions', path: '/sessions', icon: Clock },
+];
+
+export const SIDEBAR_SYSTEM = [
+  { name: 'Settings', path: '/settings', icon: SettingsIcon },
+  { name: 'Role Management', path: '/roles', icon: UserCog },
 ];
 
 const Sidebar = () => {
+  const NavGroup = ({ title, items }) => (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748B', letterSpacing: '0.05em', marginBottom: 8, paddingLeft: 16 }}>
+        {title}
+      </div>
+      {items.map((item) => {
+        const Icon = item.icon;
+        return (
+          <NavLink key={item.name} to={item.path} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 16px', borderRadius: 8, color: '#94A3B8', textDecoration: 'none', marginBottom: 2}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
+              <Icon size={16} />
+              <span style={{fontSize: '0.8rem', fontWeight: 500}}>{item.name}</span>
+            </div>
+            {item.badge && <span style={{backgroundColor: '#4F46E5', color: 'white', fontSize: '0.65rem', fontWeight: 600, padding: '2px 6px', borderRadius: 10}}>{item.badge}</span>}
+          </NavLink>
+        )
+      })}
+    </div>
+  );
+
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <Network className="sidebar-logo" size={28} color="var(--color-primary)" />
+    <aside className="sidebar" style={{ backgroundColor: '#0F172A', color: 'white', display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <div className="sidebar-header" style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ width: 32, height: 32, backgroundColor: '#4F46E5', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Network size={20} color="white" />
+        </div>
         <div className="sidebar-title-container">
-          <span className="sidebar-title">SAMS</span>
-          <span className="sidebar-subtitle" style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>Strategic Authority Mapping</span>
+          <div style={{ fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.2 }}>SAMS</div>
+          <div style={{ fontSize: '0.65rem', color: '#94A3B8', fontWeight: 500 }}>Strategic Authority<br/>Mapping System</div>
         </div>
       </div>
       
-      <nav className="sidebar-nav hide-scrollbar">
-        {SIDEBAR_GROUPS.map((group, idx) => (
-          <div key={idx} className="sidebar-group" style={{ marginBottom: 'var(--space-2)' }}>
-            <div className="sidebar-group-label" style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-text-secondary)', padding: 'var(--space-1) var(--space-2)', letterSpacing: '0.05em' }}>{group.label}</div>
-            {group.items.map((item) => {
-              const Icon = item.icon;
-              return (
-                <NavLink 
-                  key={item.name} 
-                  to={item.path}
-                  className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                >
-                  <Icon size={18} />
-                  <span>{item.name}</span>
-                </NavLink>
-              )
-            })}
-          </div>
-        ))}
+      <nav className="sidebar-nav" style={{ flex: 1, overflowY: 'auto', padding: '0 12px' }}>
+        <NavGroup title="MAIN" items={SIDEBAR_ITEMS} />
+        <NavGroup title="INSIGHTS" items={SIDEBAR_INSIGHTS} />
+        <NavGroup title="ACTIVITY" items={SIDEBAR_ACTIVITY} />
+        <NavGroup title="SYSTEM" items={SIDEBAR_SYSTEM} />
       </nav>
 
-      {/* Organization Health Widget - Pinned to bottom */}
-      <div className="sidebar-widget" style={{ padding: 'var(--space-3)', borderTop: '1px solid rgba(255, 255, 255, 0.05)', backgroundColor: 'var(--color-sidebar-secondary)' }}>
-        <div className="flex justify-between items-center" style={{marginBottom: 8}}>
-          <span style={{fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em'}}>Organization Health</span>
-          <Activity size={14} color="var(--color-success)" />
+      {/* Organization Health Widget - Exact Image Match */}
+      <div className="sidebar-widget" style={{ margin: '16px', padding: '16px', backgroundColor: '#1E293B', borderRadius: 12 }}>
+        <div style={{fontSize: '0.8rem', fontWeight: 600, color: 'white', marginBottom: 12}}>Organization Health</div>
+        <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16}}>
+          {/* Circular Progress */}
+          <div style={{position: 'relative', width: 44, height: 44, borderRadius: '50%', background: 'conic-gradient(#10B981 92%, #334155 0)'}}>
+            <div style={{position: 'absolute', top: 3, left: 3, right: 3, bottom: 3, backgroundColor: '#1E293B', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: 'white'}}>
+              92%
+            </div>
+          </div>
+          <div>
+            <div style={{fontSize: '0.75rem', fontWeight: 600, color: '#10B981', marginBottom: 2}}>Excellent</div>
+            <div style={{fontSize: '0.65rem', color: '#94A3B8', lineHeight: 1.2}}>Your organization<br/>structure looks good.</div>
+          </div>
         </div>
-        <div className="flex items-end gap-2" style={{marginBottom: 4}}>
-          <span style={{fontSize: '1.5rem', fontWeight: 700, color: 'white', lineHeight: 1}}>94%</span>
-          <span style={{fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-success)', paddingBottom: 2}}>Excellent</span>
-        </div>
-        <span style={{fontSize: '0.75rem', color: 'var(--color-text-muted)'}}>Structure Stable</span>
-        <div style={{width: '100%', height: 4, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 2, marginTop: 8, overflow: 'hidden'}}>
-          <div style={{width: '94%', height: '100%', backgroundColor: 'var(--color-success)', borderRadius: 2}}></div>
-        </div>
+        {/* Mock Line Graph SVG */}
+        <svg width="100%" height="24" viewBox="0 0 100 24" preserveAspectRatio="none">
+          <path d="M0 20 Q 5 15, 10 18 T 20 12 T 30 16 T 40 8 T 50 14 T 60 5 T 70 12 T 80 4 T 90 10 T 100 2" fill="none" stroke="#4F46E5" strokeWidth="1.5" />
+          <circle cx="0" cy="20" r="2" fill="#4F46E5" />
+          <circle cx="10" cy="18" r="2" fill="#4F46E5" />
+          <circle cx="20" cy="12" r="2" fill="#4F46E5" />
+          <circle cx="30" cy="16" r="2" fill="#4F46E5" />
+          <circle cx="40" cy="8" r="2" fill="#4F46E5" />
+          <circle cx="50" cy="14" r="2" fill="#4F46E5" />
+          <circle cx="60" cy="5" r="2" fill="#4F46E5" />
+          <circle cx="70" cy="12" r="2" fill="#4F46E5" />
+          <circle cx="80" cy="4" r="2" fill="#4F46E5" />
+          <circle cx="90" cy="10" r="2" fill="#4F46E5" />
+          <circle cx="100" cy="2" r="2" fill="#4F46E5" />
+        </svg>
       </div>
     </aside>
   );

@@ -33,12 +33,9 @@ const OrganizationInsights = () => {
   };
 
   return (
-    <div style={{ 
+    <div className="page-container" style={{ 
       padding: '32px 36px 48px', 
-      display: 'flex', 
-      flexDirection: 'column', 
       gap: 32,
-      minHeight: '100vh',
       backgroundColor: '#F7F9FC'
     }}>
       

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
 import { useOrgStore } from '../store/orgStore';
+import { useAuditStore } from '../store/auditStore';
 import { useUIStore } from '../store/uiStore';
+import { TableSkeleton } from '../components/common/Skeleton';
 import IntelligenceDrawer from '../components/IntelligenceDrawer';
 import IntelligenceReplayOverlay from '../components/IntelligenceReplayOverlay';
 import RollbackConfirmationModal from '../components/audit/RollbackConfirmationModal';
 
 const AuditLogs = () => {
-  const { auditLogs: LOGS, insights } = useOrgStore();
+  const { insights } = useOrgStore();
+  const { logs: LOGS, fetchLogs, loading } = useAuditStore();
   const { addToast } = useUIStore();
+  
+  React.useEffect(() => {
+    fetchLogs();
+  }, [fetchLogs]);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
@@ -57,7 +64,7 @@ const AuditLogs = () => {
   );
 
   return (
-    <div className="page-container" style={{ backgroundColor: 'var(--color-bg)' }}>
+    <div className="page-container">
       
       {/* 1. Header & Live Monitor */}
       <div className="flex justify-between items-end" style={{ marginBottom: 32 }}>
@@ -79,11 +86,12 @@ const AuditLogs = () => {
         </div>
       </div>
 
-      {/* 2. Top Organization Summary & Time Machine */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: 24, marginBottom: 24 }}>
+      <div className="page-content-scrollable" style={{ padding: '8px 0 24px 0', marginTop: 0 }}>
+        {/* 2. Top Organization Summary & Time Machine */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 24, marginBottom: 24 }}>
         
         {/* Summary Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
+        <div style={{ gridColumn: 'span 8', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
           <div className="card" style={{ padding: '16px', borderTop: '3px solid var(--color-primary)' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600, marginBottom: 8 }}>Employees Updated</div>
             <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--color-text-main)', display: 'flex', alignItems: 'center', gap: 8 }}>18 <TrendingUp size={16} color="var(--color-success)" /></div>
@@ -107,7 +115,7 @@ const AuditLogs = () => {
         </div>
 
         {/* Time Machine */}
-        <div className="card" style={{ padding: '16px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div className="card" style={{ gridColumn: 'span 4', padding: '16px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
             <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-main)', display: 'flex', alignItems: 'center', gap: 6 }}><History size={16} color="var(--color-primary)" /> Time Machine</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>{timeMachineValue === 100 ? 'Today' : 'Past'}</div>
@@ -130,10 +138,10 @@ const AuditLogs = () => {
       </div>
 
       {/* 3. Middle Section (Timeline, Heatmap, Insights, Live Feed) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 24, marginBottom: 24 }}>
         
         {/* Left Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div style={{ gridColumn: 'span 8', display: 'flex', flexDirection: 'column', gap: 24 }}>
           
           {/* Health Timeline & Heatmap row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
@@ -202,7 +210,7 @@ const AuditLogs = () => {
         </div>
 
         {/* Right Column: Live Feed & Calendar */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div style={{ gridColumn: 'span 4', display: 'flex', flexDirection: 'column', gap: 24 }}>
           
           {/* Live Activity Feed */}
           <div className="card" style={{ padding: 24, flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -253,17 +261,20 @@ const AuditLogs = () => {
       </div>
 
       {/* 5. Intelligent Audit Table */}
-      <div className="card" style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ backgroundColor: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)' }}>
-              <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Action</th>
-              <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Details</th>
-              <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Impact</th>
-              <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Version</th>
-              <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)', textAlign: 'right' }}>Replay</th>
-            </tr>
-          </thead>
+      {loading ? (
+        <TableSkeleton rows={10} columns={5} />
+      ) : (
+        <div className="card" style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ backgroundColor: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Action</th>
+                <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Details</th>
+                <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Impact</th>
+                <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Version</th>
+                <th style={{ padding: '16px 24px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)', textAlign: 'right' }}>Replay</th>
+              </tr>
+            </thead>
           <tbody>
             {filteredLogs.map((log, index) => (
               <tr 
@@ -321,6 +332,8 @@ const AuditLogs = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      )}
       </div>
 
       {/* Render unified side drawer if a log or insight is selected */}

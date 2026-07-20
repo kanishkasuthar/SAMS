@@ -1,0 +1,217 @@
+
+> backend@1.0.0 test
+> jest tests/integration.test.js
+
+  console.log
+    ◇ injected env (12) from .env // tip: ⌘ suppress logs { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+  console.log
+    ◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+(node:87642) [DEP0170] DeprecationWarning: The URL sqlite::memory: is invalid. Future versions of Node.js will throw an error.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  console.error
+    ERROR 💥 TypeError: Cannot set property query of [object Object] which has only a getter
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/xss-clean/src/index.js:10:20
+        at Layer.handleRequest (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/lib/layer.js:152:17)
+        at trimPrefix (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:342:13)
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:297:9
+        at processParams (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:582:12)
+        at next (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:291:5)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:558:6)
+        at xXssProtectionMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:338:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xPoweredByMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:331:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xPermittedCrossDomainPoliciesMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:324:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xFrameOptionsMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:308:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xDownloadOptionsMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:288:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xDnsPrefetchControlMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:281:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at xContentTypeOptionsMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:273:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at strictTransportSecurityMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:266:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at referrerPolicyMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:234:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at originAgentClusterMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:209:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at crossOriginResourcePolicyMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:202:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at crossOriginOpenerPolicyMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:186:3)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at contentSecurityPolicyMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:142:4)
+        at internalNext (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:556:6)
+        at helmetMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/helmet/index.cjs:560:6)
+        at Layer.handleRequest (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/lib/layer.js:152:17)
+        at trimPrefix (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:342:13)
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:297:9
+        at processParams (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:582:12)
+        at next (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:291:5)
+        at cors (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:188:7)
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:224:17
+        at originCallback (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:214:15)
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:219:13
+        at optionsCallback (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:199:9)
+        at corsMiddleware (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/cors/lib/index.js:204:7)
+        at Layer.handleRequest (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/lib/layer.js:152:17)
+        at trimPrefix (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:342:13)
+        at /Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:297:9
+        at processParams (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:582:12)
+        at next (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:291:5)
+        at router.handle (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/router/index.js:186:3)
+        at app.handle (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/express/lib/application.js:177:15)
+        at Server.app (/Users/kanishkasuthar/.gemini/antigravity/scratch/SAMS/backend/node_modules/express/lib/express.js:38:9)
+        at Server.emit (node:events:509:28)
+        at parserOnIncoming (node:_http_server:1226:12)
+        at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17) {
+      statusCode: 500,
+      status: 'error'
+    }
+
+      35 |     } else {
+      36 |       // Programming or unknown error
+    > 37 |       console.error('ERROR 💥', err);
+         |               ^
+      38 |       res.status(500).json({
+      39 |         status: 'error',
+      40 |         message: 'Something went very wrong!',
+
+      at error (src/middlewares/errorHandler.js:37:15)
+      at Layer.handleError (node_modules/router/lib/layer.js:116:17)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleError (node_modules/router/lib/layer.js:111:12)
+      at trimPrefix (node_modules/router/index.js:340:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at Layer.handleRequest (node_modules/router/lib/layer.js:165:5)
+      at trimPrefix (node_modules/router/index.js:342:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at internalNext (node_modules/helmet/index.cjs:558:6)
+      at xXssProtectionMiddleware (node_modules/helmet/index.cjs:338:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xPoweredByMiddleware (node_modules/helmet/index.cjs:331:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xPermittedCrossDomainPoliciesMiddleware (node_modules/helmet/index.cjs:324:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xFrameOptionsMiddleware (node_modules/helmet/index.cjs:308:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xDownloadOptionsMiddleware (node_modules/helmet/index.cjs:288:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xDnsPrefetchControlMiddleware (node_modules/helmet/index.cjs:281:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at xContentTypeOptionsMiddleware (node_modules/helmet/index.cjs:273:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at strictTransportSecurityMiddleware (node_modules/helmet/index.cjs:266:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at referrerPolicyMiddleware (node_modules/helmet/index.cjs:234:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at originAgentClusterMiddleware (node_modules/helmet/index.cjs:209:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at crossOriginResourcePolicyMiddleware (node_modules/helmet/index.cjs:202:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at crossOriginOpenerPolicyMiddleware (node_modules/helmet/index.cjs:186:3)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at contentSecurityPolicyMiddleware (node_modules/helmet/index.cjs:142:4)
+      at internalNext (node_modules/helmet/index.cjs:556:6)
+      at helmetMiddleware (node_modules/helmet/index.cjs:560:6)
+      at Layer.handleRequest (node_modules/router/lib/layer.js:152:17)
+      at trimPrefix (node_modules/router/index.js:342:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at cors (node_modules/cors/lib/index.js:188:7)
+      at node_modules/cors/lib/index.js:224:17
+      at originCallback (node_modules/cors/lib/index.js:214:15)
+      at node_modules/cors/lib/index.js:219:13
+      at optionsCallback (node_modules/cors/lib/index.js:199:9)
+      at corsMiddleware (node_modules/cors/lib/index.js:204:7)
+      at Layer.handleRequest (node_modules/router/lib/layer.js:152:17)
+      at trimPrefix (node_modules/router/index.js:342:13)
+      at node_modules/router/index.js:297:9
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at router.handle (node_modules/router/index.js:186:3)
+      at app.handle (node_modules/express/lib/application.js:177:15)
+      at Server.app (node_modules/express/lib/express.js:38:9)
+
+FAIL tests/integration.test.js
+  Phase 15: End-to-End Backend Integration
+    Scenario 1: Full Lifecycle
+      ✕ should bootstrap an admin token and create department (17 ms)
+      ○ skipped Create Role
+      ○ skipped Create User
+      ○ skipped Assign Responsibility
+      ○ skipped Create Decision Flow
+      ○ skipped Submit Decision Request
+      ○ skipped Approve Request
+      ○ skipped Notification Generated
+      ○ skipped Audit Log Created
+      ○ skipped Analytics Updated
+      ○ skipped Report Generated
+      ○ skipped AI Summary Generated
+    Scenario 2: Profile Update to Tracking
+      ○ skipped Update User
+      ○ skipped Version History Created
+      ○ skipped Audit Log Created
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › should bootstrap an admin token and create department
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 500
+
+      34 |         .send({ email: 'super@sams.com', password: 'password' });
+      35 |       
+    > 36 |       expect(res1.statusCode).toBe(200);
+         |                               ^
+      37 |       adminToken = res1.body.data.token;
+      38 |
+      39 |       const res2 = await request(app)
+
+      at Object.toBe (tests/integration.test.js:36:31)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 14 skipped, 15 total
+Snapshots:   0 total
+Time:        0.361 s, estimated 1 s
+Ran all test suites matching tests/integration.test.js.

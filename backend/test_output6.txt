@@ -1,0 +1,184 @@
+
+> backend@1.0.0 test
+> jest tests/integration.test.js
+
+  console.log
+    ◇ injected env (12) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+  console.log
+    ◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+(node:91221) [DEP0170] DeprecationWarning: The URL sqlite::memory: is invalid. Future versions of Node.js will throw an error.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[0mPOST /api/auth/login [32m200[0m 62.644 ms - 552[0m
+  console.log
+    BEFORE DEPARTMENT CREATE
+
+      at log (src/controllers/departmentController.js:107:13)
+
+  console.log
+    AFTER DEPARTMENT CREATE
+
+      at log (src/controllers/departmentController.js:119:13)
+
+  console.log
+    BEFORE LOG AUDIT
+
+      at log (src/controllers/departmentController.js:121:13)
+
+  console.log
+    AFTER LOG AUDIT
+
+      at log (src/controllers/departmentController.js:123:13)
+
+[0mPOST /api/departments [32m201[0m 4.526 ms - 366[0m
+  console.log
+    RESPONSE: {
+      status: 'success',
+      data: {
+        department: {
+          id: '56969125-86f2-4779-bc8e-4c4a536ce96a',
+          employeeCount: 0,
+          status: 'Active',
+          color: '#3b82f6',
+          icon: 'Network',
+          departmentName: 'Engineering',
+          departmentCode: 'ENG',
+          parentDepartmentId: null,
+          departmentHeadId: null,
+          roleId: null,
+          budget: 0,
+          updatedAt: '2026-07-17T15:35:14.627Z',
+          createdAt: '2026-07-17T15:35:14.627Z'
+        }
+      }
+    }
+
+      at Object.log (tests/integration.test.js:47:15)
+
+  console.log
+    ADMIN TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxYTRmZWVhLTAzYjMtNDk5Yi04MGI4LTRkYjAyYmI4NDRjZCIsImlhdCI6MTc4NDMwMjUxNCwiZXhwIjoxNzg0MzAzNDE0fQ.K3DPCD9Eylg57_0XFWKo9nhrOVoYH662ckGDoQdAb8c
+
+      at Object.log (tests/integration.test.js:53:15)
+
+[0mPOST /api/roles [32m201[0m 3.159 ms - 307[0m
+[0mPOST /api/users [32m201[0m 202.242 ms - 340[0m
+[0mPOST /api/responsibility-matrices [32m201[0m 1.760 ms - 329[0m
+[0mPOST /api/responsibility-matrices/7b3411c5-752a-4ced-b82b-6a625f3cb5d3/assignments [32m201[0m 4.556 ms - 337[0m
+[0mPOST /api/decision-flows [32m201[0m 1.660 ms - 326[0m
+[0mPOST /api/decision-flows/d73164d7-8299-4d52-bd03-ced99e477d4f/steps [32m201[0m 2.537 ms - 370[0m
+[0mPOST /api/auth/login [32m200[0m 201.224 ms - 544[0m
+[0mPOST /api/decision-requests [32m201[0m 5.611 ms - 414[0m
+[0mPOST /api/decision-requests/b499379b-abd9-432d-a1f3-3b22f257408b/approve [32m200[0m 2.380 ms - 422[0m
+[0mGET /api/notifications [32m200[0m 1.953 ms - 60[0m
+[0mGET /api/audit-logs [32m200[0m 2.299 ms - 7238[0m
+[0mGET /api/analytics/system/overview [33m404[0m 0.978 ms - 168[0m
+  console.log
+    {}
+
+      at Object.log (tests/integration.test.js:164:41)
+
+[0mPOST /api/reports/generate [33m400[0m 1.182 ms - 54[0m
+  console.log
+    { status: 'fail', message: '"reportId" is required' }
+
+      at Object.log (tests/integration.test.js:175:41)
+
+[0mGET /api/ai/insights/department [33m404[0m 0.833 ms - 165[0m
+[0mPUT /api/users/b8c2e7dc-a290-4b65-b88f-9ae77fd6862c [32m200[0m 1.848 ms - 675[0m
+[0mGET /api/version-history/entity/User/b8c2e7dc-a290-4b65-b88f-9ae77fd6862c [32m200[0m 1.630 ms - 55[0m
+[0mGET /api/audit-logs [32m200[0m 1.463 ms - 8568[0m
+FAIL tests/integration.test.js
+  Phase 15: End-to-End Backend Integration
+    Scenario 1: Full Lifecycle
+      ✓ should bootstrap an admin token (131 ms)
+      ✓ Create Role (4 ms)
+      ✓ Create User (203 ms)
+      ✓ Assign Responsibility (8 ms)
+      ✓ Create Decision Flow (6 ms)
+      ✓ Submit Decision Request (209 ms)
+      ✓ Approve Request (4 ms)
+      ✓ Notification Generated (2 ms)
+      ✓ Audit Log Created (3 ms)
+      ✕ Analytics Updated (2 ms)
+      ✕ Report Generated (2 ms)
+      ✕ AI Summary Generated (2 ms)
+    Scenario 2: Profile Update to Tracking
+      ✓ Update User (3 ms)
+      ✕ Version History Created (2 ms)
+      ✓ Audit Log Created (2 ms)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Analytics Updated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      162 |         .set('Authorization', `Bearer ${adminToken}`);
+      163 |       
+    > 164 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      165 |       expect(res.body.data.metrics.totalUsers).toBe(2);
+      166 |       expect(res.body.data.metrics.totalDepartments).toBe(1);
+      167 |     });
+
+      at Object.toBe (tests/integration.test.js:164:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › Report Generated
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      173 |         .send({ reportType: 'User Activity', filters: {} });
+      174 |       
+    > 175 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+          |                                                                               ^
+      176 |     });
+      177 |
+      178 |     it('AI Summary Generated', async () => {
+
+      at Object.toBe (tests/integration.test.js:175:79)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 1: Full Lifecycle › AI Summary Generated
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: 404
+    Received array: [200, 400, 503]
+
+      181 |         .set('Authorization', `Bearer ${adminToken}`);
+      182 |       
+    > 183 |       expect([200, 400, 503]).toContain(res.statusCode);
+          |                               ^
+      184 |     });
+      185 |   });
+      186 |
+
+      at Object.toContain (tests/integration.test.js:183:31)
+
+  ● Phase 15: End-to-End Backend Integration › Scenario 2: Profile Update to Tracking › Version History Created
+
+    TypeError: Cannot read properties of undefined (reading 'length')
+
+      201 |       
+      202 |       if(res.statusCode >= 400) console.log(res.body); expect(res.statusCode).toBe(200);
+    > 203 |       expect(res.body.data.versions.length).toBeGreaterThanOrEqual(1);
+          |                                     ^
+      204 |     });
+      205 |
+      206 |     it('Audit Log Created', async () => {
+
+      at Object.length (tests/integration.test.js:203:37)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 11 passed, 15 total
+Snapshots:   0 total
+Time:        0.99 s, estimated 1 s
+Ran all test suites matching tests/integration.test.js.

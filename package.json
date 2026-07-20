@@ -11,13 +11,17 @@
   },
   "dependencies": {
     "@xyflow/react": "^12.11.1",
+    "axios": "^1.18.1",
     "dagre": "^0.8.5",
+    "file-saver": "^2.0.5",
     "framer-motion": "^12.42.2",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^1.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
     "recharts": "^3.9.2",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

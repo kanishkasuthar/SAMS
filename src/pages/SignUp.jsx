@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Network, Mail, Lock, User, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
 import { useUIStore } from '../store/uiStore';
+import api from '../services/api';
 import './Dashboard.css';
 
 const SignUp = () => {
@@ -18,18 +19,27 @@ const SignUp = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const otpRefs = useRef([]);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     if (!name || !email || !password) return;
     
     setLoading(true);
-    setTimeout(() => {
-      // Simulate sending OTP
-      setStep('otp');
+    try {
+      const response = await api.post('/auth/signup', { name, email, password, passwordConfirm: password });
+      
+      if (response.data.devMode) {
+        addToast(response.data.message, 'success');
+        setAuthMode('login');
+      } else {
+        setStep('otp');
+        addToast(`OTP sent to ${email}`, 'success');
+      }
+    } catch (error) {
+      const serverError = error.response?.data?.message || error.message || 'Signup failed';
+      alert(`Signup failed: ${serverError}`);
+    } finally {
       setLoading(false);
-      // Show simulated email toast
-      addToast(`Simulated Email: OTP '123456' sent to ${email}`, 'success');
-    }, 800);
+    }
   };
 
   const handleOtpChange = (index, value) => {
@@ -50,19 +60,29 @@ const SignUp = () => {
     }
   };
 
-  const verifyOtp = (e) => {
+  const verifyOtp = async (e) => {
     e.preventDefault();
     const enteredOTP = otp.join('');
     
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await api.post('/auth/verify-otp', { email, code: enteredOTP });
+      addToast('Email verified successfully! Please log in.', 'success');
+      setAuthMode('login'); // Switch to login screen
+    } catch (error) {
+      alert(error.response?.data?.message || 'Invalid OTP');
+    } finally {
       setLoading(false);
-      if (enteredOTP === '123456' || enteredOTP.length === 6) {
-        login();
-      } else {
-        alert("Invalid OTP. Try 123456");
-      }
-    }, 1200);
+    }
+  };
+
+  const handleResendOTP = async () => {
+    try {
+      await api.post('/auth/send-otp', { email });
+      addToast(`New OTP sent to ${email}`, 'success');
+    } catch (error) {
+      alert(error.response?.data?.message || 'Failed to resend OTP');
+    }
   };
 
   return (
@@ -236,7 +256,7 @@ const SignUp = () => {
               <div style={{textAlign: 'center', marginTop: 32, display: 'flex', flexDirection: 'column', gap: 12}}>
                 <p style={{fontSize: '0.85rem', color: 'var(--color-text-muted)'}}>
                   Didn't receive the code? <br/>
-                  <span style={{color: 'var(--color-primary)', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 4}}>
+                  <span onClick={handleResendOTP} style={{color: 'var(--color-primary)', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 4}}>
                     <RefreshCw size={14} /> Resend OTP
                   </span>
                 </p>

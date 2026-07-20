@@ -1,11 +1,12 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useRef, useState, useEffect } from 'react';
 import { 
   ReactFlow, 
   Controls, 
   Background,
   useNodesState,
   useEdgesState,
-  ReactFlowProvider
+  ReactFlowProvider,
+  useReactFlow
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useOrgStore } from '../store/orgStore';
@@ -18,6 +19,9 @@ const nodeTypes = { orgNode: MiniOrgNode };
 const MiniHierarchyCanvas = ({ onNodeClick, isMaximized, onMaximizeToggle }) => {
   const { nodes: storeNodes, edges: storeEdges, versions } = useOrgStore();
   const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const { fitView, getNodes } = useReactFlow();
 
   const { initialNodes, initialEdges } = useMemo(() => {
     const ceo = storeNodes.find(n => n.data.type === 'ceo');
@@ -91,10 +95,43 @@ const MiniHierarchyCanvas = ({ onNodeClick, isMaximized, onMaximizeToggle }) => 
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   // Sync when store updates
-  React.useEffect(() => {
+  useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
   }, [initialNodes, initialEdges, setNodes, setEdges]);
+
+  // Handle ResizeObserver
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          setDimensions({ width, height });
+          // If nodes are already present, fit view on resize
+          if (getNodes().length > 0) {
+            window.requestAnimationFrame(() => {
+              fitView({ padding: 0.3, duration: 400 });
+            });
+          }
+        }
+      }
+    });
+    
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [fitView, getNodes]);
+
+  // Fit view when nodes or dimensions change
+  useEffect(() => {
+    if (dimensions.width > 0 && dimensions.height > 0 && nodes.length > 0) {
+      const timeout = setTimeout(() => {
+        fitView({ padding: 0.3, duration: 600 });
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
+  }, [nodes, dimensions, fitView]);
 
   const handleNodeClick = useCallback((event, node) => {
     if (node.data.isSummary) {
@@ -105,7 +142,7 @@ const MiniHierarchyCanvas = ({ onNodeClick, isMaximized, onMaximizeToggle }) => 
   }, [navigate, onNodeClick, storeNodes]);
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', backgroundColor: 'var(--color-surface)', borderRadius: 16 }}>
+    <div ref={containerRef} style={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', position: 'relative', backgroundColor: 'var(--color-surface)', borderRadius: 16 }}>
       {/* Header Status Strip */}
       <div style={{ position: 'absolute', top: 16, left: 24, zIndex: 10, display: 'flex', alignItems: 'center', gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '6px 12px', borderRadius: 20 }}>
@@ -137,36 +174,38 @@ const MiniHierarchyCanvas = ({ onNodeClick, isMaximized, onMaximizeToggle }) => 
         </button>
       </div>
 
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        onNodeClick={handleNodeClick}
-        onPaneClick={onMaximizeToggle}
-        fitView
-        fitViewOptions={{ padding: 0.3 }}
-        minZoom={0.5}
-        maxZoom={1.5}
-        elementsSelectable={true}
-        nodesDraggable={false}
-        panOnScroll={true}
-        zoomOnScroll={false}
-        preventScrolling={false}
-        style={{ backgroundColor: 'var(--color-bg)' }}
-      >
-        <Background 
-          color="rgba(79, 70, 229, 0.06)" 
-          gap={20} 
-          size={2} 
-          variant="dots" 
-        />
-        <Controls 
-          showInteractive={false} 
-          position="bottom-left"
-          style={{ display: 'flex', flexDirection: 'row', gap: 8, padding: 8, boxShadow: 'none' }}
+      {dimensions.width > 0 && dimensions.height > 0 && (
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          onNodeClick={handleNodeClick}
+          onPaneClick={onMaximizeToggle}
+          fitView
+          fitViewOptions={{ padding: 0.3 }}
+          minZoom={0.1}
+          maxZoom={2}
+          elementsSelectable={true}
+          nodesDraggable={false}
+          panOnScroll={true}
+          zoomOnScroll={false}
+          preventScrolling={false}
+          style={{ backgroundColor: 'var(--color-bg)', flex: 1 }}
         >
-        </Controls>
-      </ReactFlow>
+          <Background 
+            color="rgba(79, 70, 229, 0.06)" 
+            gap={20} 
+            size={2} 
+            variant="dots" 
+          />
+          <Controls 
+            showInteractive={false} 
+            position="bottom-left"
+            style={{ display: 'flex', flexDirection: 'row', gap: 8, padding: 8, boxShadow: 'none' }}
+          >
+          </Controls>
+        </ReactFlow>
+      )}
     </div>
   );
 };

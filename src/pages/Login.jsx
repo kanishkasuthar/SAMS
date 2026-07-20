@@ -3,22 +3,32 @@ import { motion } from 'framer-motion';
 import { Network, Mail, Lock, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
 import { useUIStore } from '../store/uiStore';
 import { useOrgStore } from '../store/orgStore';
+import api from '../services/api';
 
 const Login = () => {
   const { login, setAuthMode } = useUIStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) return;
     
     setLoading(true);
-    // Simulate network request
-    setTimeout(() => {
+    try {
+      const response = await api.post('/auth/login', { email, password });
+      
+      // Save tokens
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      
+      // Fetch profile
+      await useUIStore.getState().initializeAuth();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Login failed');
+    } finally {
       setLoading(false);
-      login(); // Instantly log in
-    }, 800);
+    }
   };
 
   // -----------------------------------------
@@ -119,7 +129,8 @@ const Login = () => {
 
         <button 
           type="submit" disabled={loading || !email || !password}
-          style={{width: '100%', padding: '14px', borderRadius: 8, backgroundColor: 'var(--color-primary)', color: 'white', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading ? 0.7 : 1, transition: 'background 0.2s'}}
+          className="hover-lift"
+          style={{width: '100%', padding: '14px', borderRadius: 8, backgroundColor: 'var(--color-primary)', color: 'white', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading ? 0.7 : 1, transition: 'all 0.2s'}}
         >
           {loading ? 'Authenticating...' : 'Sign In'} {!loading && <ArrowRight size={18} />}
         </button>

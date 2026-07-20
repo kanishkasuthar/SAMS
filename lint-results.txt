@@ -1,0 +1,2750 @@
+
+> sams@0.0.0 lint
+> oxlint
+
+
+  ! eslint(no-unused-vars): Identifier 'Lightbulb' is imported but never used.
+   ,-[src/pages/OrgInsights.jsx:2:34]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Sparkles, BrainCircuit, Lightbulb, AlertTriangle } from 'lucide-react';
+   :                                  ^^^^|^^^^
+   :                                      `-- 'Lightbulb' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FastForward' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionReplayModal.jsx:2:37]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Play, Pause, RotateCcw, FastForward, Clock } from 'lucide-react';
+   :                                     ^^^^^|^^^^^
+   :                                          `-- 'FastForward' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Bell' is imported but never used.
+   ,-[src/pages/Notifications.jsx:2:10]
+ 1 | import React from 'react';
+ 2 | import { Bell, Check, Trash2, Search, CheckCircle, Info, AlertTriangle } from 'lucide-react';
+   :          ^^|^
+   :            `-- 'Bell' is imported here
+ 3 | import { NOTIFICATIONS_DATA } from '../data/mockData';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Trash2' is imported but never used.
+   ,-[src/pages/Notifications.jsx:2:23]
+ 1 | import React from 'react';
+ 2 | import { Bell, Check, Trash2, Search, CheckCircle, Info, AlertTriangle } from 'lucide-react';
+   :                       ^^^|^^
+   :                          `-- 'Trash2' is imported here
+ 3 | import { NOTIFICATIONS_DATA } from '../data/mockData';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/OrgContextMenu.jsx:3:60]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { User, Edit2, ArrowUpRight, ArrowRight, Briefcase, Users, Copy, Archive, Trash2 } from 'lucide-react';
+   :                                                            ^^|^^
+   :                                                              `-- 'Users' is imported here
+ 4 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Trash2' is imported but never used.
+   ,-[src/components/OrgContextMenu.jsx:3:82]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { User, Edit2, ArrowUpRight, ArrowRight, Briefcase, Users, Copy, Archive, Trash2 } from 'lucide-react';
+   :                                                                                  ^^^|^^
+   :                                                                                     `-- 'Trash2' is imported here
+ 4 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'GitBranch' is imported but never used.
+   ,-[src/components/intelligence/MoveEmployeeModal.jsx:2:22]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Network, GitBranch, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
+   :                      ^^^^|^^^^
+   :                          `-- 'GitBranch' is imported here
+ 3 | import { useOrgStore } from '../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useOrgStore' is imported but never used.
+   ,-[src/components/intelligence/MoveEmployeeModal.jsx:3:10]
+ 2 | import { X, Network, GitBranch, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
+ 3 | import { useOrgStore } from '../../store/orgStore';
+   :          ^^^^^|^^^^^
+   :               `-- 'useOrgStore' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ZoomIn' is imported but never used.
+    ,-[src/components/MiniHierarchy.jsx:13:10]
+ 12 | import MiniOrgNode from './MiniOrgNode';
+ 13 | import { ZoomIn, ZoomOut, Maximize } from 'lucide-react';
+    :          ^^^|^^
+    :             `-- 'ZoomIn' is imported here
+ 14 | import { useNavigate } from 'react-router-dom';
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'onNodesChange' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/components/MiniHierarchy.jsx:90:27]
+ 89 | 
+ 90 |   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+    :                           ^^^^^^|^^^^^^
+    :                                 `-- 'onNodesChange' is declared here
+ 91 |   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'onEdgesChange' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/components/MiniHierarchy.jsx:91:27]
+ 90 |   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+ 91 |   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+    :                           ^^^^^^|^^^^^^
+    :                                 `-- 'onEdgesChange' is declared here
+ 92 | 
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/pages/Sessions.jsx:2:76]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Play, Download, Clock, Activity, Users, FileText, ChevronRight, MonitorPlay } from 'lucide-react';
+   :                                                                            ^^^^^^|^^^^^
+   :                                                                                  `-- 'ChevronRight' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useReactFlow' is imported but never used.
+   ,-[src/components/decision-flow/modals/AddNodeModal.jsx:3:10]
+ 2 | import { X, Search, Zap, AlertCircle, Shield, Cog, GripVertical, AlertTriangle } from 'lucide-react';
+ 3 | import { useReactFlow } from '@xyflow/react';
+   :          ^^^^^^|^^^^^
+   :                `-- 'useReactFlow' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Legend' is imported but never used.
+   ,-[src/pages/Analytics.jsx:4:24]
+ 3 |   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
+ 4 |   PieChart, Pie, Cell, Legend
+   :                        ^^^|^^
+   :                           `-- 'Legend' is imported here
+ 5 | } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'versions' is declared but never used. Unused variables should start with a '_'.
+     ,-[src/store/orgStore.js:629:40]
+ 628 |     set((state) => {
+ 629 |       const { nodes, edges, auditLogs, versions } = state;
+     :                                        ^^^^|^^^
+     :                                            `-- 'versions' is declared here
+ 630 |       const nodeToCopy = nodes.find(n => n.id === nodeId);
+     `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'Grid' is imported but never used.
+   ,-[src/pages/People.jsx:3:25]
+ 2 | import { 
+ 3 |   Search, Plus, Filter, Grid, List, Users as UsersIcon, Globe, Monitor, UserPlus, 
+   :                         ^^|^
+   :                           `-- 'Grid' is imported here
+ 4 |   MoreVertical, CheckCircle2, ChevronRight, Activity, Cpu, Box, LayoutGrid, FileSpreadsheet,
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Monitor' is imported but never used.
+   ,-[src/pages/People.jsx:3:64]
+ 2 | import { 
+ 3 |   Search, Plus, Filter, Grid, List, Users as UsersIcon, Globe, Monitor, UserPlus, 
+   :                                                                ^^^|^^^
+   :                                                                   `-- 'Monitor' is imported here
+ 4 |   MoreVertical, CheckCircle2, ChevronRight, Activity, Cpu, Box, LayoutGrid, FileSpreadsheet,
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'msg' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/pages/People.jsx:449:25]
+ 448 |         employee={actionEmployee}
+ 449 |         onMessageSent={(msg) => addToast('Message sent via SAMS internal comms.', 'success')}
+     :                         ^|^
+     :                          `-- 'msg' is declared here
+ 450 |       />
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Parameter 'summaryData' is declared but never used. Unused parameters should start with a '_'.
+   ,-[src/components/intelligence/ExecutiveSummary.jsx:6:29]
+ 5 | 
+ 6 | const ExecutiveSummary = ({ summaryData }) => {
+   :                             ^^^^^|^^^^^
+   :                                  `-- 'summaryData' is declared here
+ 7 |   const navigate = useNavigate();
+   `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'useRef' is imported but never used.
+   ,-[src/pages/Login.jsx:1:27]
+ 1 | import React, { useState, useRef, useEffect } from 'react';
+   :                           ^^^|^^
+   :                              `-- 'useRef' is imported here
+ 2 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useEffect' is imported but never used.
+   ,-[src/pages/Login.jsx:1:35]
+ 1 | import React, { useState, useRef, useEffect } from 'react';
+   :                                   ^^^^|^^^^
+   :                                       `-- 'useEffect' is imported here
+ 2 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldCheck' is imported but never used.
+   ,-[src/pages/Login.jsx:3:43]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Network, Mail, Lock, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
+   :                                           ^^^^^|^^^^^
+   :                                                `-- 'ShieldCheck' is imported here
+ 4 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'RefreshCw' is imported but never used.
+   ,-[src/pages/Login.jsx:3:56]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Network, Mail, Lock, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
+   :                                                        ^^^^|^^^^
+   :                                                            `-- 'RefreshCw' is imported here
+ 4 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useOrgStore' is imported but never used.
+   ,-[src/pages/Login.jsx:5:10]
+ 4 | import { useUIStore } from '../store/uiStore';
+ 5 | import { useOrgStore } from '../store/orgStore';
+   :          ^^^^^|^^^^^
+   :               `-- 'useOrgStore' is imported here
+ 6 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useEffect' is imported but never used.
+   ,-[src/components/decision-flow/modals/NodeContextMenu.jsx:1:17]
+ 1 | import React, { useEffect } from 'react';
+   :                 ^^^^|^^^^
+   :                     `-- 'useEffect' is imported here
+ 2 | import { Edit2, Copy, Shield, Activity, History, GitBranch, Ban, Trash2 } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  x react-hooks(rules-of-hooks): React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+   ,-[src/components/departments/DepartmentSplitSimulatorModal.jsx:7:45]
+ 6 | 
+ 7 |   const [selectedSplit, setSelectedSplit] = useState(null);
+   :                                             ^^^^^^^|^^^^^^
+   :                                                    `-- This Hook call is not reachable on every render path.
+ 8 |   const [step, setStep] = useState(1); // 1 = recommendations, 2 = review/compare
+   `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  x react-hooks(rules-of-hooks): React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+   ,-[src/components/departments/DepartmentSplitSimulatorModal.jsx:8:27]
+ 7 |   const [selectedSplit, setSelectedSplit] = useState(null);
+ 8 |   const [step, setStep] = useState(1); // 1 = recommendations, 2 = review/compare
+   :                           ^^^^^|^^^^^
+   :                                `-- This Hook call is not reachable on every render path.
+ 9 | 
+   `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  ! eslint(no-unused-vars): Identifier 'Search' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:10]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :          ^^^|^^
+   :             `-- 'Search' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:18]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                  ^^^|^^
+   :                     `-- 'Filter' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:64]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                                                                ^^|^^
+   :                                                                  `-- 'Users' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'RefreshCcw' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:71]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                                                                       ^^^^^|^^^^
+   :                                                                            `-- 'RefreshCcw' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ArrowUpRight' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:96]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                                                                                                ^^^^^^|^^^^^
+   :                                                                                                      `-- 'ArrowUpRight' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'SlidersHorizontal' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:123]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                                                                                                                           ^^^^^^^^|^^^^^^^^
+   :                                                                                                                                   `-- 'SlidersHorizontal' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'CalendarDays' is imported but never used.
+   ,-[src/pages/AuditLogs.jsx:2:164]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Filter, Download, Activity, Play, TrendingUp, Users, RefreshCcw, ShieldAlert, ArrowUpRight, Zap, Target, SlidersHorizontal, Settings2, BarChart2, CalendarDays, History, AlertTriangle } from 'lucide-react';
+   :                                                                                                                                                                    ^^^^^^|^^^^^
+   :                                                                                                                                                                          `-- 'CalendarDays' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'searchTerm' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/AuditLogs.jsx:13:10]
+ 12 |   
+ 13 |   const [searchTerm, setSearchTerm] = useState('');
+    :          ^^^^^|^^^^
+    :               `-- 'searchTerm' is declared here
+ 14 |   const [activeFilter, setActiveFilter] = useState('All');
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'setSearchTerm' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/AuditLogs.jsx:13:22]
+ 12 |   
+ 13 |   const [searchTerm, setSearchTerm] = useState('');
+    :                      ^^^^^^|^^^^^^
+    :                            `-- 'setSearchTerm' is declared here
+ 14 |   const [activeFilter, setActiveFilter] = useState('All');
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'GitCommit' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:13]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :             ^^^^|^^^^
+   :                 `-- 'GitCommit' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'CheckCircle2' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:42]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                          ^^^^^^|^^^^^
+   :                                                `-- 'CheckCircle2' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:56]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                        ^^^^^^|^^^^^^
+   :                                                              `-- 'AlertTriangle' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Zap' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:101]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                                                                     ^|^
+   :                                                                                                      `-- 'Zap' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'UserPlus' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:115]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                                                                                   ^^^^|^^^
+   :                                                                                                                       `-- 'UserPlus' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileDown' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:125]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                                                                                             ^^^^|^^^
+   :                                                                                                                                 `-- 'FileDown' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:135]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                                                                                                       ^^^|^^
+   :                                                                                                                                          `-- 'Shield' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ArrowUpCircle' is imported but never used.
+   ,-[src/components/IntelligenceDrawer.jsx:2:150]
+ 1 | import React from 'react';
+ 2 | import { X, GitCommit, Play, ArrowRight, CheckCircle2, AlertTriangle, FileSpreadsheet, ShieldAlert, Zap, Network, UserPlus, FileDown, Shield, Users, ArrowUpCircle } from 'lucide-react';
+   :                                                                                                                                                      ^^^^^^|^^^^^^
+   :                                                                                                                                                            `-- 'ArrowUpCircle' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/components/intelligence/AuditDetailDrawer.jsx:2:13]
+ 1 | import React from 'react';
+ 2 | import { X, Clock, Calendar, Undo2, User, ArrowRight, Activity, FileSpreadsheet } from 'lucide-react';
+   :             ^^|^^
+   :               `-- 'Clock' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileSpreadsheet' is imported but never used.
+   ,-[src/components/intelligence/AuditDetailDrawer.jsx:2:65]
+ 1 | import React from 'react';
+ 2 | import { X, Clock, Calendar, Undo2, User, ArrowRight, Activity, FileSpreadsheet } from 'lucide-react';
+   :                                                                 ^^^^^^^|^^^^^^^
+   :                                                                        `-- 'FileSpreadsheet' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Play' is imported but never used.
+   ,-[src/components/IntelligenceReplayOverlay.jsx:3:13]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { X, Play, RotateCcw, Building2, User } from 'lucide-react';
+   :             ^^|^
+   :               `-- 'Play' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'handleAddNode' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/components/decision-flow/CanvasToolbar.jsx:22:9]
+ 21 | 
+ 22 |   const handleAddNode = () => {
+    :         ^^^^^^|^^^^^^
+    :               `-- 'handleAddNode' is declared here
+ 23 |     addToast('Use the Node Library on the left to drag and drop nodes.', 'info');
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/pages/Departments.jsx:2:64]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Building2, Users, DollarSign, Activity, Search, Plus, Filter, MoreHorizontal, ShieldAlert, Network, Edit } from 'lucide-react';
+   :                                                                ^^^|^^
+   :                                                                   `-- 'Filter' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'setFilterPerformance' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/Departments.jsx:21:29]
+ 20 |   const [searchQuery, setSearchQuery] = useState('');
+ 21 |   const [filterPerformance, setFilterPerformance] = useState('All');
+    :                             ^^^^^^^^^^|^^^^^^^^^
+    :                                       `-- 'setFilterPerformance' is declared here
+ 22 | 
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'CheckCircle2' is imported but never used.
+   ,-[src/components/AssignEmployeeModal.jsx:3:23]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { X, UserPlus, CheckCircle2 } from 'lucide-react';
+   :                       ^^^^^^|^^^^^
+   :                             `-- 'CheckCircle2' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/departments/DepartmentIntelligenceWorkspace.jsx:4:20]
+ 3 |   Building2, Users, Briefcase, ShieldAlert, Share, MoreHorizontal, Edit, 
+ 4 |   LayoutDashboard, ChevronRight, Activity, ArrowLeft, Network, Download 
+   :                    ^^^^^^|^^^^^
+   :                          `-- 'ChevronRight' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'error' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/components/departments/DepartmentIntelligenceWorkspace.jsx:19:35]
+ 18 |   }
+ 19 |   static getDerivedStateFromError(error) {
+    :                                   ^^|^^
+    :                                     `-- 'error' is declared here
+ 20 |     return { hasError: true };
+    `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Controls' is imported but never used.
+   ,-[src/components/decision-flow/FlowCanvas.jsx:2:21]
+ 1 | import React, { useCallback, useRef } from 'react';
+ 2 | import { ReactFlow, Controls, Background, useNodesState, useEdgesState, addEdge, useReactFlow, Panel } from '@xyflow/react';
+   :                     ^^^^|^^^
+   :                         `-- 'Controls' is imported here
+ 3 | import '@xyflow/react/dist/style.css';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useNodesState' is imported but never used.
+   ,-[src/components/decision-flow/FlowCanvas.jsx:2:43]
+ 1 | import React, { useCallback, useRef } from 'react';
+ 2 | import { ReactFlow, Controls, Background, useNodesState, useEdgesState, addEdge, useReactFlow, Panel } from '@xyflow/react';
+   :                                           ^^^^^^|^^^^^^
+   :                                                 `-- 'useNodesState' is imported here
+ 3 | import '@xyflow/react/dist/style.css';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useEdgesState' is imported but never used.
+   ,-[src/components/decision-flow/FlowCanvas.jsx:2:58]
+ 1 | import React, { useCallback, useRef } from 'react';
+ 2 | import { ReactFlow, Controls, Background, useNodesState, useEdgesState, addEdge, useReactFlow, Panel } from '@xyflow/react';
+   :                                                          ^^^^^^|^^^^^^
+   :                                                                `-- 'useEdgesState' is imported here
+ 3 | import '@xyflow/react/dist/style.css';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'addEdge' is imported but never used.
+   ,-[src/components/decision-flow/FlowCanvas.jsx:2:73]
+ 1 | import React, { useCallback, useRef } from 'react';
+ 2 | import { ReactFlow, Controls, Background, useNodesState, useEdgesState, addEdge, useReactFlow, Panel } from '@xyflow/react';
+   :                                                                         ^^^|^^^
+   :                                                                            `-- 'addEdge' is imported here
+ 3 | import '@xyflow/react/dist/style.css';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'isHeatmapActive' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/components/decision-flow/FlowCanvas.jsx:46:137]
+ 45 | 
+ 46 | const FlowCanvas = ({ nodes, setNodes, edges, setEdges, onNodesChange, onEdgesChange, onConnect, setSelectedNodeId, setSimulationState, isHeatmapActive, isPulseActive, onUndo, onRedo, canUndo, canRedo }) => {
+    :                                                                                                                                         ^^^^^^^|^^^^^^^
+    :                                                                                                                                                `-- 'isHeatmapActive' is declared here
+ 47 |   const reactFlowWrapper = useRef(null);
+    `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Parameter 'isPulseActive' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/components/decision-flow/FlowCanvas.jsx:46:154]
+ 45 | 
+ 46 | const FlowCanvas = ({ nodes, setNodes, edges, setEdges, onNodesChange, onEdgesChange, onConnect, setSelectedNodeId, setSimulationState, isHeatmapActive, isPulseActive, onUndo, onRedo, canUndo, canRedo }) => {
+    :                                                                                                                                                          ^^^^^^|^^^^^^
+    :                                                                                                                                                                `-- 'isPulseActive' is declared here
+ 47 |   const reactFlowWrapper = useRef(null);
+    `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Parameter 'action' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/components/decision-flow/FlowCanvas.jsx:132:28]
+ 131 | 
+ 132 |   const handleMenuClick = (action) => {
+     :                            ^^^|^^
+     :                               `-- 'action' is declared here
+ 133 |     // Select the node so the inspector opens to the right tab, or trigger an action
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'LineChart' is imported but never used.
+   ,-[src/pages/Dashboard.jsx:4:3]
+ 3 | import { 
+ 4 |   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area
+   :   ^^^^|^^^^
+   :       `-- 'LineChart' is imported here
+ 5 | } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Line' is imported but never used.
+   ,-[src/pages/Dashboard.jsx:4:14]
+ 3 | import { 
+ 4 |   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area
+   :              ^^|^
+   :                `-- 'Line' is imported here
+ 5 | } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/pages/Dashboard.jsx:8:24]
+ 7 |   ArrowUpRight, ArrowDownRight, Users, Building2, CheckCircle, Activity, 
+ 8 |   ArrowRight, Network, Clock, AlertTriangle, UserCheck, Maximize2, Minimize2,
+   :                        ^^|^^
+   :                          `-- 'Clock' is imported here
+ 9 |   LayoutDashboard
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'e' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/pages/Dashboard.jsx:171:23]
+ 170 |             }}
+ 171 |             onClick={(e) => {
+     :                       |
+     :                       `-- 'e' is declared here
+ 172 |               if (!isHealthGraphMaximized) {
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Variable 'html' is declared but never used. Unused variables should start with a '_'.
+    ,-[test-render.jsx:23:9]
+ 22 | try {
+ 23 |   const html = renderToString(
+    :         ^^|^
+    :           `-- 'html' is declared here
+ 24 |     <StaticRouter location="/">
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'html' is declared but never used. Unused variables should start with a '_'.
+    ,-[test-render.jsx:37:11]
+ 36 |   try {
+ 37 |     const html = renderToString(
+    :           ^^|^
+    :             `-- 'html' is declared here
+ 38 |       <StaticRouter location={route}>
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'CheckCircle2' is imported but never used.
+   ,-[src/components/decision-flow/NodeLibrary.jsx:2:64]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Search, Zap, AlertCircle, Shield, AlertTriangle, Cog, CheckCircle2, GripVertical } from 'lucide-react';
+   :                                                                ^^^^^^|^^^^^
+   :                                                                      `-- 'CheckCircle2' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'X' is imported but never used.
+    ,-[src/pages/OrgStudio.jsx:18:3]
+ 17 |   Search, 
+ 18 |   X,
+    :   |
+    :   `-- 'X' is imported here
+ 19 |   Share,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'isPlaying' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/OrgStudio.jsx:59:10]
+ 58 |   // Timeline state
+ 59 |   const [isPlaying, setIsPlaying] = useState(false);
+    :          ^^^^|^^^^
+    :              `-- 'isPlaying' is declared here
+ 60 |   const [timelineProgress, setTimelineProgress] = useState(100);
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'setIsPlaying' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/OrgStudio.jsx:59:21]
+ 58 |   // Timeline state
+ 59 |   const [isPlaying, setIsPlaying] = useState(false);
+    :                     ^^^^^^|^^^^^
+    :                           `-- 'setIsPlaying' is declared here
+ 60 |   const [timelineProgress, setTimelineProgress] = useState(100);
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'timelineProgress' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/OrgStudio.jsx:60:10]
+ 59 |   const [isPlaying, setIsPlaying] = useState(false);
+ 60 |   const [timelineProgress, setTimelineProgress] = useState(100);
+    :          ^^^^^^^^|^^^^^^^
+    :                  `-- 'timelineProgress' is declared here
+ 61 |   
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'setTimelineProgress' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/OrgStudio.jsx:60:28]
+ 59 |   const [isPlaying, setIsPlaying] = useState(false);
+ 60 |   const [timelineProgress, setTimelineProgress] = useState(100);
+    :                            ^^^^^^^^^|^^^^^^^^^
+    :                                     `-- 'setTimelineProgress' is declared here
+ 61 |   
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'SkipBack' is imported but never used.
+   ,-[src/components/SessionReplayPlayer.jsx:3:23]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { Play, Pause, SkipBack, SkipForward, X, MousePointer2, MonitorPlay, Maximize, RotateCcw, FastForward } from 'lucide-react';
+   :                       ^^^^|^^^
+   :                           `-- 'SkipBack' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'SkipForward' is imported but never used.
+   ,-[src/components/SessionReplayPlayer.jsx:3:33]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { Play, Pause, SkipBack, SkipForward, X, MousePointer2, MonitorPlay, Maximize, RotateCcw, FastForward } from 'lucide-react';
+   :                                 ^^^^^|^^^^^
+   :                                      `-- 'SkipForward' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MousePointer2' is imported but never used.
+   ,-[src/pages/DecisionFlow.jsx:2:41]
+ 1 | import React, { useState, useCallback, useEffect } from 'react';
+ 2 | import { Play, Save, Activity, Network, MousePointer2, AlertTriangle, HelpCircle, ChevronDown, CheckCircle2 } from 'lucide-react';
+   :                                         ^^^^^^|^^^^^^
+   :                                               `-- 'MousePointer2' is imported here
+ 3 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'HelpCircle' is imported but never used.
+   ,-[src/pages/DecisionFlow.jsx:2:71]
+ 1 | import React, { useState, useCallback, useEffect } from 'react';
+ 2 | import { Play, Save, Activity, Network, MousePointer2, AlertTriangle, HelpCircle, ChevronDown, CheckCircle2 } from 'lucide-react';
+   :                                                                       ^^^^^|^^^^
+   :                                                                            `-- 'HelpCircle' is imported here
+ 3 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'newNodes' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/pages/DecisionFlow.jsx:70:36]
+ 69 | 
+ 70 |   const saveHistory = useCallback((newNodes, newEdges) => {
+    :                                    ^^^^|^^^
+    :                                        `-- 'newNodes' is declared here
+ 71 |     setHistory(h => ({
+    `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Parameter 'newEdges' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/pages/DecisionFlow.jsx:70:46]
+ 69 | 
+ 70 |   const saveHistory = useCallback((newNodes, newEdges) => {
+    :                                              ^^^^|^^^
+    :                                                  `-- 'newEdges' is declared here
+ 71 |     setHistory(h => ({
+    `----
+  help: Consider removing this parameter.
+
+  ! react(jsx-no-undef): 'X' is not defined.
+     ,-[src/pages/DecisionFlow.jsx:283:190]
+ 282 |                   <button onClick={() => setIsWhatIfOpen(true)} style={{ padding: '6px 12px', backgroundColor: 'var(--color-primary)', border: 'none', color: 'white', borderRadius: '6px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>Simulate Alternative</button>
+ 283 |                   <button onClick={() => setShowBottleneckAlert(false)} style={{ padding: '6px', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}><X size={16} /></button>
+     :                                                                                                                                                                                              ^
+ 284 |                 </div>
+     `----
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/intelligence/EmployeeIntelligenceDrawer.jsx:4:20]
+ 3 |   X, Edit, Maximize2, MoreVertical, Brain, Map, Briefcase, 
+ 4 |   History, Shield, Activity, Users, FileText
+   :                    ^^^^|^^^
+   :                        `-- 'Activity' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/intelligence/EmployeeIntelligenceDrawer.jsx:4:30]
+ 3 |   X, Edit, Maximize2, MoreVertical, Brain, Map, Briefcase, 
+ 4 |   History, Shield, Activity, Users, FileText
+   :                              ^^|^^
+   :                                `-- 'Users' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'useOrgStore' is imported but never used.
+   ,-[src/components/intelligence/EmployeeIntelligenceDrawer.jsx:7:10]
+ 6 | import { motion, AnimatePresence } from 'framer-motion';
+ 7 | import { useOrgStore } from '../../store/orgStore';
+   :          ^^^^^|^^^^^
+   :               `-- 'useOrgStore' is imported here
+ 8 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'error' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/components/intelligence/EmployeeIntelligenceDrawer.jsx:223:35]
+ 222 | 
+ 223 |   static getDerivedStateFromError(error) {
+     :                                   ^^|^^
+     :                                     `-- 'error' is declared here
+ 224 |     return { hasError: true };
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Download' is imported but never used.
+   ,-[src/components/departments/modals/DepartmentChangeDetailsModal.jsx:2:32]
+ 1 | import React from 'react';
+ 2 | import { X, History, FileText, Download, GitBranch } from 'lucide-react';
+   :                                ^^^^|^^^
+   :                                    `-- 'Download' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-eval): eval can be harmful.
+    ,-[update_mock_data.cjs:42:17]
+ 41 | try {
+ 42 |   peopleArray = eval('(' + peopleArrayStr + ')');
+    :                 ^^^^
+ 43 | } catch (e) {
+    `----
+  help: Avoid eval(). For JSON parsing use JSON.parse(); for dynamic property access use bracket notation (obj[key]); for other cases refactor to avoid evaluating strings as code.
+
+  ! eslint(no-unused-vars): Identifier 'Key' is imported but never used.
+   ,-[src/components/AddRoleModal.jsx:2:21]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Shield, Key, Network, ArrowRight } from 'lucide-react';
+   :                     ^|^
+   :                      `-- 'Key' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/roles/modals/PermissionIntelligencePanelModal.jsx:2:13]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Activity, Key, Users } from 'lucide-react';
+   :             ^^^|^^
+   :                `-- 'Shield' is imported here
+ 3 | import AccessBlastRadiusModal from './AccessBlastRadiusModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/roles/modals/PermissionIntelligencePanelModal.jsx:2:21]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Activity, Key, Users } from 'lucide-react';
+   :                     ^^^^|^^^
+   :                         `-- 'Activity' is imported here
+ 3 | import AccessBlastRadiusModal from './AccessBlastRadiusModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/roles/modals/PermissionIntelligencePanelModal.jsx:2:36]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Activity, Key, Users } from 'lucide-react';
+   :                                    ^^|^^
+   :                                      `-- 'Users' is imported here
+ 3 | import AccessBlastRadiusModal from './AccessBlastRadiusModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldAlert' is imported but never used.
+   ,-[src/components/decision-flow/Inspector.jsx:2:20]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, ShieldAlert, Zap, BarChart2, GitBranch, Shield, Cog, History, User, Users, Play } from 'lucide-react';
+   :                    ^^^^^|^^^^^
+   :                         `-- 'ShieldAlert' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'BarChart2' is imported but never used.
+   ,-[src/components/decision-flow/Inspector.jsx:2:38]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, ShieldAlert, Zap, BarChart2, GitBranch, Shield, Cog, History, User, Users, Play } from 'lucide-react';
+   :                                      ^^^^|^^^^
+   :                                          `-- 'BarChart2' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'GitBranch' is imported but never used.
+   ,-[src/components/decision-flow/Inspector.jsx:2:49]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, ShieldAlert, Zap, BarChart2, GitBranch, Shield, Cog, History, User, Users, Play } from 'lucide-react';
+   :                                                 ^^^^|^^^^
+   :                                                     `-- 'GitBranch' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/decision-flow/Inspector.jsx:2:88]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, ShieldAlert, Zap, BarChart2, GitBranch, Shield, Cog, History, User, Users, Play } from 'lucide-react';
+   :                                                                                        ^^|^^
+   :                                                                                          `-- 'Users' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'addToast' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/decision-flow/Inspector.jsx:8:11]
+ 7 | const Inspector = ({ selectedNodeId, nodes, setNodes }) => {
+ 8 |   const { addToast } = useUIStore();
+   :           ^^^^|^^^
+   :               `-- 'addToast' is declared here
+ 9 |   const navigate = useNavigate();
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'History' is imported but never used.
+   ,-[src/components/intelligence/EmployeeProfile.jsx:4:37]
+ 3 |   X, User, Briefcase, Network, Clock, Calendar, FileText, Activity, 
+ 4 |   MapPin, Phone, ShieldCheck, Mail, History, Cpu, CheckCircle2, ChevronRight, AlertCircle, Laptop,
+   :                                     ^^^|^^^
+   :                                        `-- 'History' is imported here
+ 5 |   Target, Award, BookOpen, Star, File, Zap, Users
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/intelligence/EmployeeProfile.jsx:4:65]
+ 3 |   X, User, Briefcase, Network, Clock, Calendar, FileText, Activity, 
+ 4 |   MapPin, Phone, ShieldCheck, Mail, History, Cpu, CheckCircle2, ChevronRight, AlertCircle, Laptop,
+   :                                                                 ^^^^^^|^^^^^
+   :                                                                       `-- 'ChevronRight' is imported here
+ 5 |   Target, Award, BookOpen, Star, File, Zap, Users
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'addToast' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/components/intelligence/EmployeeProfile.jsx:26:11]
+ 25 |   const navigate = useNavigate();
+ 26 |   const { addToast } = useUIStore();
+    :           ^^^^|^^^
+    :               `-- 'addToast' is declared here
+ 27 |   const [activeTab, setActiveTab] = useState('Overview');
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'History' is imported but never used.
+   ,-[src/pages/VersionHistory.jsx:2:10]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, GitCommit, ArrowLeftRight, CheckCircle, Search, Filter, RotateCcw, ChevronRight } from 'lucide-react';
+   :          ^^^|^^^
+   :             `-- 'History' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/pages/VersionHistory.jsx:2:67]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, GitCommit, ArrowLeftRight, CheckCircle, Search, Filter, RotateCcw, ChevronRight } from 'lucide-react';
+   :                                                                   ^^^|^^
+   :                                                                      `-- 'Filter' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/pages/VersionHistory.jsx:2:86]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, GitCommit, ArrowLeftRight, CheckCircle, Search, Filter, RotateCcw, ChevronRight } from 'lucide-react';
+   :                                                                                      ^^^^^^|^^^^^
+   :                                                                                            `-- 'ChevronRight' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/components/roles/tabs/RoleUsersTab.jsx:3:18]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Search, Filter, MoreHorizontal, ShieldAlert, Calendar } from 'lucide-react';
+   :                  ^^^|^^
+   :                     `-- 'Filter' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldAlert' is imported but never used.
+   ,-[src/components/roles/tabs/RoleUsersTab.jsx:3:42]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Search, Filter, MoreHorizontal, ShieldAlert, Calendar } from 'lucide-react';
+   :                                          ^^^^^|^^^^^
+   :                                               `-- 'ShieldAlert' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/intelligence/DepartmentRiskDrawer.jsx:2:28]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, Users, Map, Clock, FileText, Share2, Activity } from 'lucide-react';
+   :                            ^^|^^
+   :                              `-- 'Users' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/components/intelligence/DepartmentRiskDrawer.jsx:2:40]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, Users, Map, Clock, FileText, Share2, Activity } from 'lucide-react';
+   :                                        ^^|^^
+   :                                          `-- 'Clock' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileText' is imported but never used.
+   ,-[src/components/intelligence/DepartmentRiskDrawer.jsx:2:47]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, Users, Map, Clock, FileText, Share2, Activity } from 'lucide-react';
+   :                                               ^^^^|^^^
+   :                                                   `-- 'FileText' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/people/SmartHoverPreview.jsx:3:10]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { Shield, Brain, Network, Maximize2 } from 'lucide-react';
+   :          ^^^|^^
+   :             `-- 'Shield' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Network' is imported but never used.
+   ,-[src/components/people/SmartHoverPreview.jsx:3:25]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { Shield, Brain, Network, Maximize2 } from 'lucide-react';
+   :                         ^^^|^^^
+   :                            `-- 'Network' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Calendar' is imported but never used.
+   ,-[src/components/SessionDetailsDrawer.jsx:2:53]
+ 1 | import React from 'react';
+ 2 | import { X, Play, Clock, Smartphone, Globe, Shield, Calendar, Activity, Database, Key } from 'lucide-react';
+   :                                                     ^^^^|^^^
+   :                                                         `-- 'Calendar' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Database' is imported but never used.
+   ,-[src/components/SessionDetailsDrawer.jsx:2:73]
+ 1 | import React from 'react';
+ 2 | import { X, Play, Clock, Smartphone, Globe, Shield, Calendar, Activity, Database, Key } from 'lucide-react';
+   :                                                                         ^^^^|^^^
+   :                                                                             `-- 'Database' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Key' is imported but never used.
+   ,-[src/components/SessionDetailsDrawer.jsx:2:83]
+ 1 | import React from 'react';
+ 2 | import { X, Play, Clock, Smartphone, Globe, Shield, Calendar, Activity, Database, Key } from 'lucide-react';
+   :                                                                                   ^|^
+   :                                                                                    `-- 'Key' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'idx' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/components/SessionDetailsDrawer.jsx:69:45]
+ 68 |               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+ 69 |                 {session.events.map((event, idx) => (
+    :                                             ^|^
+    :                                              `-- 'idx' is declared here
+ 70 |                   <div key={event.id} style={{ display: 'flex', gap: 16, position: 'relative', zIndex: 1 }}>
+    `----
+  help: Consider removing this parameter.
+
+  ! react(jsx-no-undef): 'Users' is not defined.
+    ,-[src/components/roles/modals/AccessSecuritySummaryModal.jsx:59:18]
+ 58 |               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+ 59 |                 <Users size={18} color="var(--color-text-secondary)" />
+    :                  ^^^^^
+ 60 |                 <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-text-main)' }}>Segregation of Duties</span>
+    `----
+
+  ! react(jsx-no-undef): 'Activity' is not defined.
+    ,-[src/components/roles/modals/AccessSecuritySummaryModal.jsx:75:18]
+ 74 |               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+ 75 |                 <Activity size={18} color="var(--color-text-secondary)" />
+    :                  ^^^^^^^^
+ 76 |                 <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-text-main)' }}>Session Timeout Policies</span>
+    `----
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionSimulationModal.jsx:2:19]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Play, Activity, Clock, Zap, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+   :                   ^^^^|^^^
+   :                       `-- 'Activity' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionSimulationModal.jsx:2:29]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Play, Activity, Clock, Zap, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+   :                             ^^|^^
+   :                               `-- 'Clock' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Zap' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionSimulationModal.jsx:2:36]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Play, Activity, Clock, Zap, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+   :                                    ^|^
+   :                                     `-- 'Zap' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionSimulationModal.jsx:2:55]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Play, Activity, Clock, Zap, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+   :                                                       ^^^^^^|^^^^^
+   :                                                             `-- 'ChevronRight' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/decision-flow/modals/DecisionSimulationModal.jsx:2:69]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Play, Activity, Clock, Zap, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+   :                                                                     ^^^^^^|^^^^^^
+   :                                                                           `-- 'AlertTriangle' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'BarChart' is imported but never used.
+   ,-[src/components/intelligence/MetricDetailDrawer.jsx:2:25]
+ 1 | import React from 'react';
+ 2 | import { X, TrendingUp, BarChart, Download, Settings2, DownloadCloud } from 'lucide-react';
+   :                         ^^^^|^^^
+   :                             `-- 'BarChart' is imported here
+ 3 | import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Download' is imported but never used.
+   ,-[src/components/intelligence/MetricDetailDrawer.jsx:2:35]
+ 1 | import React from 'react';
+ 2 | import { X, TrendingUp, BarChart, Download, Settings2, DownloadCloud } from 'lucide-react';
+   :                                   ^^^^|^^^
+   :                                       `-- 'Download' is imported here
+ 3 | import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Settings2' is imported but never used.
+   ,-[src/components/intelligence/MetricDetailDrawer.jsx:2:45]
+ 1 | import React from 'react';
+ 2 | import { X, TrendingUp, BarChart, Download, Settings2, DownloadCloud } from 'lucide-react';
+   :                                             ^^^^|^^^^
+   :                                                 `-- 'Settings2' is imported here
+ 3 | import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area } from 'recharts';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Grid' is imported but never used.
+   ,-[src/pages/Users.jsx:3:25]
+ 2 | import { 
+ 3 |   Search, Plus, Filter, Grid, List, Users as UsersIcon, Globe, Monitor, UserPlus, 
+   :                         ^^|^
+   :                           `-- 'Grid' is imported here
+ 4 |   MoreVertical, CheckCircle2, ChevronRight, Activity, Cpu, Box, LayoutGrid, FileSpreadsheet,
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Monitor' is imported but never used.
+   ,-[src/pages/Users.jsx:3:64]
+ 2 | import { 
+ 3 |   Search, Plus, Filter, Grid, List, Users as UsersIcon, Globe, Monitor, UserPlus, 
+   :                                                                ^^^|^^^
+   :                                                                   `-- 'Monitor' is imported here
+ 4 |   MoreVertical, CheckCircle2, ChevronRight, Activity, Cpu, Box, LayoutGrid, FileSpreadsheet,
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'msg' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/pages/Users.jsx:449:25]
+ 448 |         employee={actionEmployee}
+ 449 |         onMessageSent={(msg) => addToast('Message sent via SAMS internal comms.', 'success')}
+     :                         ^|^
+     :                          `-- 'msg' is declared here
+ 450 |       />
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Legend' is imported but never used.
+   ,-[src/components/people/profile-tabs/WorkloadTab.jsx:3:101]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+   :                                                                                                     ^^^|^^
+   :                                                                                                        `-- 'Legend' is imported here
+ 4 | import { Activity, Clock, Briefcase, Calendar, CheckSquare, AlertCircle } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'CheckSquare' is imported but never used.
+   ,-[src/components/people/profile-tabs/WorkloadTab.jsx:4:48]
+ 3 | import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+ 4 | import { Activity, Clock, Briefcase, Calendar, CheckSquare, AlertCircle } from 'lucide-react';
+   :                                                ^^^^^|^^^^^
+   :                                                     `-- 'CheckSquare' is imported here
+ 5 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'X' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:3]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :   |
+   :   `-- 'X' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Briefcase' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:6]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :      ^^^^|^^^^
+   :          `-- 'Briefcase' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Calendar' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:17]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                 ^^^^|^^^
+   :                     `-- 'Calendar' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Layers' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:34]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                  ^^^|^^
+   :                                     `-- 'Layers' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:42]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                          ^^^^|^^^
+   :                                              `-- 'Activity' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Search' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:52]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                                    ^^^|^^
+   :                                                       `-- 'Search' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:60]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                                            ^^^|^^
+   :                                                               `-- 'Filter' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LayoutGrid' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:75]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                                                           ^^^^^|^^^^
+   :                                                                                `-- 'LayoutGrid' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'List' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:3:87]
+ 2 | import { 
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+   :                                                                                       ^^|^
+   :                                                                                         `-- 'List' is imported here
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldAlert' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:4:38]
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   :                                      ^^^^^|^^^^^
+   :                                           `-- 'ShieldAlert' is imported here
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:4:64]
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   :                                                                ^^|^^
+   :                                                                  `-- 'Clock' is imported here
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:4:71]
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   :                                                                       ^^^^^^|^^^^^^
+   :                                                                             `-- 'AlertTriangle' is imported here
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileText' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:4:86]
+ 3 |   X, Briefcase, Calendar, Users, Layers, Activity, Search, Filter, Edit2, LayoutGrid, List, 
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+   :                                                                                      ^^^^|^^^
+   :                                                                                          `-- 'FileText' is imported here
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Download' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:5:3]
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   :   ^^^^|^^^
+   :       `-- 'Download' is imported here
+ 6 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Server' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:5:22]
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   :                      ^^^|^^
+   :                         `-- 'Server' is imported here
+ 6 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Eye' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:5:30]
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   :                              ^|^
+   :                               `-- 'Eye' is imported here
+ 6 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ArrowRight' is imported but never used.
+   ,-[src/components/projects/PremiumProjectCard.jsx:5:43]
+ 4 |   MoreVertical, Network, TrendingUp, ShieldAlert, CheckCircle, Clock, AlertTriangle, FileText, 
+ 5 |   Download, History, Server, Eye, Trash2, ArrowRight
+   :                                           ^^^^^|^^^^
+   :                                                `-- 'ArrowRight' is imported here
+ 6 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'CheckCircle2' is imported but never used.
+   ,-[src/components/departments/modals/DepartmentAnalysisModal.jsx:2:36]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Activity, ShieldAlert, CheckCircle2, ChevronRight } from 'lucide-react';
+   :                                    ^^^^^^|^^^^^
+   :                                          `-- 'CheckCircle2' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/departments/modals/DepartmentAnalysisModal.jsx:2:50]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, Activity, ShieldAlert, CheckCircle2, ChevronRight } from 'lucide-react';
+   :                                                  ^^^^^^|^^^^^
+   :                                                        `-- 'ChevronRight' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  x react-hooks(rules-of-hooks): React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+   ,-[src/components/departments/modals/DepartmentAnalysisModal.jsx:7:33]
+ 6 |   
+ 7 |   const [loading, setLoading] = useState(true);
+   :                                 ^^^^^^^|^^^^^^
+   :                                        `-- This Hook call is not reachable on every render path.
+ 8 |   
+   `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  x react-hooks(rules-of-hooks): React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.
+    ,-[src/components/departments/modals/DepartmentAnalysisModal.jsx:9:3]
+  8 |       
+  9 | ,->   useEffect(() => {
+ 10 | |       if (isOpen) {
+ 11 | |         setLoading(true);
+ 12 | |         const timer = setTimeout(() => setLoading(false), 1200);
+ 13 | |         return () => clearTimeout(timer);
+ 14 | |       }
+ 15 | |->   }, [isOpen]);
+    : `---- This Hook call is not reachable on every render path.
+ 16 |     
+    `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  ! eslint(no-unused-vars): Parameter 'idx' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/components/roles/modals/AccessBlastRadiusModal.jsx:117:73]
+ 116 |                   {/* Children */}
+ 117 |                   {affectedRoles.length > 0 && affectedRoles.map((role, idx) => (
+     :                                                                         ^|^
+     :                                                                          `-- 'idx' is declared here
+ 118 |                     <div key={role.id} style={{ display: 'flex', gap: '16px' }}>
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'TrendingUp' is imported but never used.
+   ,-[src/components/people/profile-tabs/CareerPredictionTab.jsx:3:10]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { TrendingUp, Target, AlertTriangle, BookOpen, ChevronRight, Award, Zap } from 'lucide-react';
+   :          ^^^^^|^^^^
+   :               `-- 'TrendingUp' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/people/profile-tabs/CareerPredictionTab.jsx:3:55]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { TrendingUp, Target, AlertTriangle, BookOpen, ChevronRight, Award, Zap } from 'lucide-react';
+   :                                                       ^^^^^^|^^^^^
+   :                                                             `-- 'ChevronRight' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/intelligence/WhatIfSimulator.jsx:2:34]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Play, ArrowRight, Save, Activity, LayoutTemplate, Users, Network, XCircle } from 'lucide-react';
+   :                                  ^^^^|^^^
+   :                                      `-- 'Activity' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LayoutTemplate' is imported but never used.
+   ,-[src/components/intelligence/WhatIfSimulator.jsx:2:44]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Play, ArrowRight, Save, Activity, LayoutTemplate, Users, Network, XCircle } from 'lucide-react';
+   :                                            ^^^^^^^|^^^^^^
+   :                                                   `-- 'LayoutTemplate' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/intelligence/WhatIfSimulator.jsx:2:60]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Play, ArrowRight, Save, Activity, LayoutTemplate, Users, Network, XCircle } from 'lucide-react';
+   :                                                            ^^|^^
+   :                                                              `-- 'Users' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'addProject' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/Projects.jsx:13:21]
+ 12 | const Projects = () => {
+ 13 |   const { projects, addProject, updateProject } = useOrgStore();
+    :                     ^^^^^|^^^^
+    :                          `-- 'addProject' is declared here
+ 14 |   const { addToast } = useUIStore();
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'updateProject' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/Projects.jsx:13:33]
+ 12 | const Projects = () => {
+ 13 |   const { projects, addProject, updateProject } = useOrgStore();
+    :                                 ^^^^^^|^^^^^^
+    :                                       `-- 'updateProject' is declared here
+ 14 |   const { addToast } = useUIStore();
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'setFilterHealth' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/pages/Projects.jsx:16:24]
+ 15 |   const [searchQuery, setSearchQuery] = useState('');
+ 16 |   const [filterHealth, setFilterHealth] = useState('All');
+    :                        ^^^^^^^|^^^^^^^
+    :                               `-- 'setFilterHealth' is declared here
+ 17 |   const [viewMode, setViewMode] = useState('grid');
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'Search' is imported but never used.
+   ,-[src/components/projects/AdvancedFilterDrawer.jsx:2:21]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Filter, Search, RotateCcw, Check } from 'lucide-react';
+   :                     ^^^|^^
+   :                        `-- 'Search' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'PlayCircle' is imported but never used.
+   ,-[src/components/departments/tabs/DeptHistoryTab.jsx:2:19]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, PlayCircle, GitBranch, Users, Search, Download, Filter } from 'lucide-react';
+   :                   ^^^^^|^^^^
+   :                        `-- 'PlayCircle' is imported here
+ 3 | import DepartmentChangeDetailsModal from '../modals/DepartmentChangeDetailsModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'X' is imported but never used.
+   ,-[src/components/departments/modals/OrganizationTimeMachineModal.jsx:2:10]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { X, History, Activity, Calendar, LogOut } from 'lucide-react';
+   :          |
+   :          `-- 'X' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  x react-hooks(rules-of-hooks): React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+   ,-[src/components/departments/modals/OrganizationTimeMachineModal.jsx:7:33]
+ 6 |   
+ 7 |   const [loading, setLoading] = useState(true);
+   :                                 ^^^^^^^|^^^^^^
+   :                                        `-- This Hook call is not reachable on every render path.
+ 8 |   
+   `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  x react-hooks(rules-of-hooks): React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.
+    ,-[src/components/departments/modals/OrganizationTimeMachineModal.jsx:9:3]
+  8 |       
+  9 | ,->   useEffect(() => {
+ 10 | |       if (isOpen) {
+ 11 | |         setLoading(true);
+ 12 | |         const timer = setTimeout(() => setLoading(false), 1200);
+ 13 | |         return () => clearTimeout(timer);
+ 14 | |       }
+ 15 | |->   }, [isOpen]);
+    : `---- This Hook call is not reachable on every render path.
+ 16 |     
+    `----
+  help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronLeft' is imported but never used.
+   ,-[src/components/intelligence/OrgTimeMachine.jsx:3:32]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { History, Play, Pause, ChevronLeft, ChevronRight, X, Clock, AlertTriangle } from 'lucide-react';
+   :                                ^^^^^|^^^^^
+   :                                     `-- 'ChevronLeft' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/intelligence/OrgTimeMachine.jsx:3:45]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { History, Play, Pause, ChevronLeft, ChevronRight, X, Clock, AlertTriangle } from 'lucide-react';
+   :                                             ^^^^^^|^^^^^
+   :                                                   `-- 'ChevronRight' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+   ,-[src/components/intelligence/OrgTimeMachine.jsx:3:62]
+ 2 | import { motion, AnimatePresence } from 'framer-motion';
+ 3 | import { History, Play, Pause, ChevronLeft, ChevronRight, X, Clock, AlertTriangle } from 'lucide-react';
+   :                                                              ^^|^^
+   :                                                                `-- 'Clock' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! react-hooks(exhaustive-deps): React Hook useEffect has missing dependencies: 'addToast', and 'dates'
+    ,-[src/components/intelligence/OrgTimeMachine.jsx:32:6]
+ 22 |     // Find closest date label based on slider value
+ 23 |     const closestDate = dates.reduce((prev, curr) => {
+    :                         ^^^^^
+ 24 |       return (Math.abs(curr.value - sliderValue) < Math.abs(prev.value - sliderValue) ? curr : prev);
+ 25 |     });
+ 26 |     setCurrentDate(closestDate.label);
+ 27 | 
+ 28 |     // Simulate re-rendering the UI when moving through time
+ 29 |     if (sliderValue !== 100 && !isPlaying) {
+ 30 |       addToast(`Time Machine active: Viewing org state as of ${closestDate.label}`, 'info');
+    :       ^^^^^^^^
+ 31 |     }
+ 32 |   }, [sliderValue, isPlaying]);
+    :      ^^^^^^^^^^^^^^^^^^^^^^^^
+ 33 | 
+    `----
+  help: Either include it or remove the dependency array.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:3:33]
+ 2 | import { 
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+   :                                 ^^^|^^
+   :                                    `-- 'Shield' is imported here
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Calendar' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:3:41]
+ 2 | import { 
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+   :                                         ^^^^|^^^
+   :                                             `-- 'Calendar' is imported here
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Save' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:3:58]
+ 2 | import { 
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+   :                                                          ^^|^
+   :                                                            `-- 'Save' is imported here
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Settings' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:3:74]
+ 2 | import { 
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+   :                                                                          ^^^^|^^^
+   :                                                                              `-- 'Settings' is imported here
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Key' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:3:84]
+ 2 | import { 
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+   :                                                                                    ^|^
+   :                                                                                     `-- 'Key' is imported here
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MapPin' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:24]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                        ^^^|^^
+   :                           `-- 'MapPin' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Mail' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:32]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                ^^|^
+   :                                  `-- 'Mail' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Phone' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:38]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                      ^^|^^
+   :                                        `-- 'Phone' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Laptop' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:57]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                         ^^^|^^
+   :                                                            `-- 'Laptop' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Globe' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:65]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                 ^^|^^
+   :                                                                   `-- 'Globe' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'File' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:97]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                                                 ^^|^
+   :                                                                                                   `-- 'File' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Download' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:103]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                                                       ^^^^|^^^
+   :                                                                                                           `-- 'Download' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Search' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:113]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                                                                 ^^^|^^
+   :                                                                                                                    `-- 'Search' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LayoutList' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:146]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                                                                                                  ^^^^^|^^^^
+   :                                                                                                                                                       `-- 'LayoutList' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Upload' is imported but never used.
+   ,-[src/components/projects/ProjectDetailsDrawer.jsx:4:167]
+ 3 |   X, Briefcase, Network, Clock, Shield, Calendar, Edit3, Save, FileText, Settings, Key, ShieldCheck, 
+ 4 |   Users, MoreVertical, MapPin, Mail, Phone, TrendingUp, Laptop, Globe, FileOutput, CheckCircle, File, Download, Search, AlertCircle, LayoutGrid, LayoutList, History, Upload
+   :                                                                                                                                                                       ^^^|^^
+   :                                                                                                                                                                          `-- 'Upload' is imported here
+ 5 | } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! react(jsx-no-undef): 'Server' is not defined.
+     ,-[src/components/projects/ProjectDetailsDrawer.jsx:221:217]
+ 220 |                   <div style={{ height: 1, backgroundColor: 'var(--color-border)' }}></div>
+ 221 |                   <div className="dropdown-item" onClick={() => handleAction('Archive')} style={{ padding: '12px 16px', fontSize: '13px', cursor: 'pointer', display: 'flex', gap: 8, color: 'var(--color-warning)' }}><Server size={16} /> Archive</div>
+     :                                                                                                                                                                                                                         ^^^^^^
+ 222 |                 </div>
+     `----
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/roles/tabs/RoleOverviewTab.jsx:3:28]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Shield, Activity, AlertTriangle, Zap, ShieldAlert, Key } from 'lucide-react';
+   :                            ^^^^^^|^^^^^^
+   :                                  `-- 'AlertTriangle' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Key' is imported but never used.
+   ,-[src/components/roles/tabs/RoleOverviewTab.jsx:3:61]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Shield, Activity, AlertTriangle, Zap, ShieldAlert, Key } from 'lucide-react';
+   :                                                             ^|^
+   :                                                              `-- 'Key' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/roles/modals/CompareRolesModal.jsx:2:13]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Users, Key, AlertTriangle, ArrowRight, ArrowLeftRight } from 'lucide-react';
+   :             ^^^|^^
+   :                `-- 'Shield' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/roles/modals/CompareRolesModal.jsx:2:21]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Users, Key, AlertTriangle, ArrowRight, ArrowLeftRight } from 'lucide-react';
+   :                     ^^|^^
+   :                       `-- 'Users' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/roles/modals/CompareRolesModal.jsx:2:33]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Shield, Users, Key, AlertTriangle, ArrowRight, ArrowLeftRight } from 'lucide-react';
+   :                                 ^^^^^^|^^^^^^
+   :                                       `-- 'AlertTriangle' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'role' is declared but never used. Unused parameters should start with a '_'.
+   ,-[src/components/roles/tabs/RoleAccessMapTab.jsx:3:29]
+ 2 | 
+ 3 | const RoleAccessMapTab = ({ role }) => {
+   :                             ^^|^
+   :                               `-- 'role' is declared here
+ 4 |   return <div>Role Access Map Tab (Coming Soon)</div>;
+   `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'CheckCircle2' is imported but never used.
+   ,-[src/components/people/profile-tabs/OverviewTab.jsx:2:41]
+ 1 | import React from 'react';
+ 2 | import { User, Briefcase, ChevronRight, CheckCircle2, Clock, MapPin, Cpu, TrendingUp } from 'lucide-react';
+   :                                         ^^^^^^|^^^^^
+   :                                               `-- 'CheckCircle2' is imported here
+ 3 | import { motion } from 'framer-motion';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/people/profile-tabs/RelationshipMapTab.jsx:3:10]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Users, Briefcase, Network, Cpu } from 'lucide-react';
+   :          ^^|^^
+   :            `-- 'Users' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Briefcase' is imported but never used.
+   ,-[src/components/people/profile-tabs/RelationshipMapTab.jsx:3:17]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Users, Briefcase, Network, Cpu } from 'lucide-react';
+   :                 ^^^^|^^^^
+   :                     `-- 'Briefcase' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'NavLink' is imported but never used.
+   ,-[src/App.jsx:2:25]
+ 1 | import React, { useEffect } from 'react';
+ 2 | import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
+   :                         ^^^|^^^
+   :                            `-- 'NavLink' is imported here
+ 3 | import ToastContainer from './components/ToastContainer';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LayoutDashboard' is imported but never used.
+   ,-[src/App.jsx:7:3]
+ 6 | import { 
+ 7 |   LayoutDashboard, 
+   :   ^^^^^^^|^^^^^^^
+   :          `-- 'LayoutDashboard' is imported here
+ 8 |   Network, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Network' is imported but never used.
+   ,-[src/App.jsx:8:3]
+ 7 |   LayoutDashboard, 
+ 8 |   Network, 
+   :   ^^^|^^^
+   :      `-- 'Network' is imported here
+ 9 |   Briefcase, 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Briefcase' is imported but never used.
+    ,-[src/App.jsx:9:3]
+  8 |   Network, 
+  9 |   Briefcase, 
+    :   ^^^^|^^^^
+    :       `-- 'Briefcase' is imported here
+ 10 |   Users as UsersIcon, 
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'UsersIcon' is imported but never used.
+    ,-[src/App.jsx:10:12]
+  9 |   Briefcase, 
+ 10 |   Users as UsersIcon, 
+    :            ^^^^|^^^^
+    :                `-- 'UsersIcon' is imported here
+ 11 |   Building2, 
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Building2' is imported but never used.
+    ,-[src/App.jsx:11:3]
+ 10 |   Users as UsersIcon, 
+ 11 |   Building2, 
+    :   ^^^^|^^^^
+    :       `-- 'Building2' is imported here
+ 12 |   Contact,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Contact' is imported but never used.
+    ,-[src/App.jsx:12:3]
+ 11 |   Building2, 
+ 12 |   Contact,
+    :   ^^^|^^^
+    :      `-- 'Contact' is imported here
+ 13 |   GitBranch,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'GitBranch' is imported but never used.
+    ,-[src/App.jsx:13:3]
+ 12 |   Contact,
+ 13 |   GitBranch,
+    :   ^^^^|^^^^
+    :       `-- 'GitBranch' is imported here
+ 14 |   Grid,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Grid' is imported but never used.
+    ,-[src/App.jsx:14:3]
+ 13 |   GitBranch,
+ 14 |   Grid,
+    :   ^^|^
+    :     `-- 'Grid' is imported here
+ 15 |   LineChart,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LineChart' is imported but never used.
+    ,-[src/App.jsx:15:3]
+ 14 |   Grid,
+ 15 |   LineChart,
+    :   ^^^^|^^^^
+    :       `-- 'LineChart' is imported here
+ 16 |   FileText,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileText' is imported but never used.
+    ,-[src/App.jsx:16:3]
+ 15 |   LineChart,
+ 16 |   FileText,
+    :   ^^^^|^^^
+    :       `-- 'FileText' is imported here
+ 17 |   Lightbulb,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Lightbulb' is imported but never used.
+    ,-[src/App.jsx:17:3]
+ 16 |   FileText,
+ 17 |   Lightbulb,
+    :   ^^^^|^^^^
+    :       `-- 'Lightbulb' is imported here
+ 18 |   RefreshCcw,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'RefreshCcw' is imported but never used.
+    ,-[src/App.jsx:18:3]
+ 17 |   Lightbulb,
+ 18 |   RefreshCcw,
+    :   ^^^^^|^^^^
+    :        `-- 'RefreshCcw' is imported here
+ 19 |   History as HistoryIcon,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'HistoryIcon' is imported but never used.
+    ,-[src/App.jsx:19:14]
+ 18 |   RefreshCcw,
+ 19 |   History as HistoryIcon,
+    :              ^^^^^|^^^^^
+    :                   `-- 'HistoryIcon' is imported here
+ 20 |   ShieldAlert,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldAlert' is imported but never used.
+    ,-[src/App.jsx:20:3]
+ 19 |   History as HistoryIcon,
+ 20 |   ShieldAlert,
+    :   ^^^^^|^^^^^
+    :        `-- 'ShieldAlert' is imported here
+ 21 |   Clock,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Clock' is imported but never used.
+    ,-[src/App.jsx:21:3]
+ 20 |   ShieldAlert,
+ 21 |   Clock,
+    :   ^^|^^
+    :     `-- 'Clock' is imported here
+ 22 |   Bell,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Bell' is imported but never used.
+    ,-[src/App.jsx:22:3]
+ 21 |   Clock,
+ 22 |   Bell,
+    :   ^^|^
+    :     `-- 'Bell' is imported here
+ 23 |   UserCog,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'UserCog' is imported but never used.
+    ,-[src/App.jsx:23:3]
+ 22 |   Bell,
+ 23 |   UserCog,
+    :   ^^^|^^^
+    :      `-- 'UserCog' is imported here
+ 24 |   Settings as SettingsIcon,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'SettingsIcon' is imported but never used.
+    ,-[src/App.jsx:24:15]
+ 23 |   UserCog,
+ 24 |   Settings as SettingsIcon,
+    :               ^^^^^^|^^^^^
+    :                     `-- 'SettingsIcon' is imported here
+ 25 |   Search,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Search' is imported but never used.
+    ,-[src/App.jsx:25:3]
+ 24 |   Settings as SettingsIcon,
+ 25 |   Search,
+    :   ^^^|^^
+    :      `-- 'Search' is imported here
+ 26 |   Moon,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Moon' is imported but never used.
+    ,-[src/App.jsx:26:3]
+ 25 |   Search,
+ 26 |   Moon,
+    :   ^^|^
+    :     `-- 'Moon' is imported here
+ 27 |   Globe,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Globe' is imported but never used.
+    ,-[src/App.jsx:27:3]
+ 26 |   Moon,
+ 27 |   Globe,
+    :   ^^|^^
+    :     `-- 'Globe' is imported here
+ 28 |   MessageSquare,
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MessageSquare' is imported but never used.
+    ,-[src/App.jsx:28:3]
+ 27 |   Globe,
+ 28 |   MessageSquare,
+    :   ^^^^^^|^^^^^^
+    :         `-- 'MessageSquare' is imported here
+ 29 |   Activity
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+    ,-[src/App.jsx:29:3]
+ 28 |   MessageSquare,
+ 29 |   Activity
+    :   ^^^^|^^^
+    :       `-- 'Activity' is imported here
+ 30 | } from 'lucide-react';
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'CurrentUserProfilePanel' is imported but never used.
+    ,-[src/App.jsx:52:8]
+ 51 | import SignUp from './pages/SignUp';
+ 52 | import CurrentUserProfilePanel from './components/CurrentUserProfilePanel';
+    :        ^^^^^^^^^^^|^^^^^^^^^^^
+    :                   `-- 'CurrentUserProfilePanel' is imported here
+ 53 | import Sidebar, { SIDEBAR_GROUPS } from './components/layout/Sidebar';
+    `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'logout' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/App.jsx:67:63]
+ 66 |   const location = useLocation();
+ 67 |   const { addToast, isDarkMode, setDarkMode, isAuthenticated, logout, authMode, currentUser } = useUIStore();
+    :                                                               ^^^|^^
+    :                                                                  `-- 'logout' is declared here
+ 68 |   const { theme, accentColor } = useSettingsStore();
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'currentUser' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/App.jsx:67:81]
+ 66 |   const location = useLocation();
+ 67 |   const { addToast, isDarkMode, setDarkMode, isAuthenticated, logout, authMode, currentUser } = useUIStore();
+    :                                                                                 ^^^^^|^^^^^
+    :                                                                                      `-- 'currentUser' is declared here
+ 68 |   const { theme, accentColor } = useSettingsStore();
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'showMyProfile' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/App.jsx:69:10]
+ 68 |   const { theme, accentColor } = useSettingsStore();
+ 69 |   const [showMyProfile, setShowMyProfile] = React.useState(false);
+    :          ^^^^^^|^^^^^^
+    :                `-- 'showMyProfile' is declared here
+ 70 |   
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'setShowMyProfile' is declared but never used. Unused variables should start with a '_'.
+    ,-[src/App.jsx:69:25]
+ 68 |   const { theme, accentColor } = useSettingsStore();
+ 69 |   const [showMyProfile, setShowMyProfile] = React.useState(false);
+    :                         ^^^^^^^^|^^^^^^^
+    :                                 `-- 'setShowMyProfile' is declared here
+ 70 |   
+    `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'useRef' is imported but never used.
+   ,-[src/pages/Roles.jsx:1:36]
+ 1 | import React, { useState, useMemo, useRef, useEffect } from 'react';
+   :                                    ^^^|^^
+   :                                       `-- 'useRef' is imported here
+ 2 | import { Shield, Key, Search, Plus, Filter, ShieldAlert, CheckCircle2, Users, Edit2, ShieldCheck, AlertTriangle, MoreHorizontal, Copy, Trash2, ArrowLeftRight, PowerOff } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ShieldAlert' is imported but never used.
+   ,-[src/pages/Roles.jsx:2:45]
+ 1 | import React, { useState, useMemo, useRef, useEffect } from 'react';
+ 2 | import { Shield, Key, Search, Plus, Filter, ShieldAlert, CheckCircle2, Users, Edit2, ShieldCheck, AlertTriangle, MoreHorizontal, Copy, Trash2, ArrowLeftRight, PowerOff } from 'lucide-react';
+   :                                             ^^^^^|^^^^^
+   :                                                  `-- 'ShieldAlert' is imported here
+ 3 | import { useOrgStore } from '../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-expressions): Expected expression to be used
+     ,-[src/pages/Roles.jsx:295:74]
+ 294 |                           </button>
+ 295 |                           <button onClick={(e) => { e.stopPropagation(); role.id === 'r1' ? alert('System Administrator is a protected system role and cannot be deleted.') : addToast('Delete role confirmation opened', 'danger'); setActionMenuRoleId(null); }} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', fontSize: '13px', fontWeight: 600, color: 'var(--color-danger)', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '6px', textAlign: 'left' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
+     :                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 296 |                             <Trash2 size={16} color="var(--color-danger)" /> Delete Role
+     `----
+  help: Consider using this expression or removing it
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/departments/DepartmentIntelligenceDrawer.jsx:2:101]
+ 1 | import React, { useState } from 'react';
+ 2 | import { X, Building2, Users, Briefcase, ShieldAlert, Share, MoreHorizontal, Edit, LayoutDashboard, ChevronRight } from 'lucide-react';
+   :                                                                                                     ^^^^^^|^^^^^
+   :                                                                                                           `-- 'ChevronRight' is imported here
+ 3 | import { useOrgStore } from '../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'error' is declared but never used. Unused parameters should start with a '_'.
+     ,-[src/components/departments/DepartmentIntelligenceDrawer.jsx:142:35]
+ 141 |   }
+ 142 |   static getDerivedStateFromError(error) {
+     :                                   ^^|^^
+     :                                     `-- 'error' is declared here
+ 143 |     return { hasError: true };
+     `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Activity' is imported but never used.
+   ,-[src/components/departments/tabs/DeptProjectsTab.jsx:2:21]
+ 1 | import React from 'react';
+ 2 | import { Briefcase, Activity, AlertTriangle, Users, Layers, ShieldAlert, FileText, Share2, MoreHorizontal } from 'lucide-react';
+   :                     ^^^^|^^^
+   :                         `-- 'Activity' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Layers' is imported but never used.
+   ,-[src/components/departments/tabs/DeptProjectsTab.jsx:2:53]
+ 1 | import React from 'react';
+ 2 | import { Briefcase, Activity, AlertTriangle, Users, Layers, ShieldAlert, FileText, Share2, MoreHorizontal } from 'lucide-react';
+   :                                                     ^^^|^^
+   :                                                        `-- 'Layers' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MoreHorizontal' is imported but never used.
+   ,-[src/components/departments/tabs/DeptProjectsTab.jsx:2:92]
+ 1 | import React from 'react';
+ 2 | import { Briefcase, Activity, AlertTriangle, Users, Layers, ShieldAlert, FileText, Share2, MoreHorizontal } from 'lucide-react';
+   :                                                                                            ^^^^^^^|^^^^^^
+   :                                                                                                   `-- 'MoreHorizontal' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MoreVertical' is imported but never used.
+   ,-[src/components/layout/NotificationCenterDrawer.jsx:2:54]
+ 1 | import React from 'react';
+ 2 | import { X, Bell, AlertTriangle, Info, CheckCircle2, MoreVertical } from 'lucide-react';
+   :                                                      ^^^^^^|^^^^^
+   :                                                            `-- 'MoreVertical' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/intelligence/AnalysisDrawer.jsx:2:13]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, ShieldAlert, FileText, UserPlus, FileOutput, Users, ArrowRight, GitMerge, FileSpreadsheet } from 'lucide-react';
+   :             ^^^^^^|^^^^^^
+   :                   `-- 'AlertTriangle' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileText' is imported but never used.
+   ,-[src/components/intelligence/AnalysisDrawer.jsx:2:41]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, ShieldAlert, FileText, UserPlus, FileOutput, Users, ArrowRight, GitMerge, FileSpreadsheet } from 'lucide-react';
+   :                                         ^^^^|^^^
+   :                                             `-- 'FileText' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/intelligence/AnalysisDrawer.jsx:2:73]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, ShieldAlert, FileText, UserPlus, FileOutput, Users, ArrowRight, GitMerge, FileSpreadsheet } from 'lucide-react';
+   :                                                                         ^^|^^
+   :                                                                           `-- 'Users' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ArrowRight' is imported but never used.
+   ,-[src/components/intelligence/AnalysisDrawer.jsx:2:80]
+ 1 | import React from 'react';
+ 2 | import { X, AlertTriangle, ShieldAlert, FileText, UserPlus, FileOutput, Users, ArrowRight, GitMerge, FileSpreadsheet } from 'lucide-react';
+   :                                                                                ^^^^^|^^^^
+   :                                                                                     `-- 'ArrowRight' is imported here
+ 3 | import { useNavigate } from 'react-router-dom';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Star' is imported but never used.
+   ,-[src/components/people/profile-tabs/SkillsTab.jsx:4:40]
+ 3 | import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+ 4 | import { Zap, Award, Target, BookOpen, Star } from 'lucide-react';
+   :                                        ^^|^
+   :                                          `-- 'Star' is imported here
+ 5 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LineChart' is imported but never used.
+   ,-[src/components/intelligence/OrganizationAnalytics.jsx:2:92]
+ 1 | import React, { useState } from 'react';
+ 2 | import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line, AreaChart, Area, Brush } from 'recharts';
+   :                                                                                            ^^^^|^^^^
+   :                                                                                                `-- 'LineChart' is imported here
+ 3 | import { PieChart, Download, Maximize2, ZoomIn, MoreVertical, FileText, Image } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Line' is imported but never used.
+   ,-[src/components/intelligence/OrganizationAnalytics.jsx:2:103]
+ 1 | import React, { useState } from 'react';
+ 2 | import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line, AreaChart, Area, Brush } from 'recharts';
+   :                                                                                                       ^^|^
+   :                                                                                                         `-- 'Line' is imported here
+ 3 | import { PieChart, Download, Maximize2, ZoomIn, MoreVertical, FileText, Image } from 'lucide-react';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Maximize2' is imported but never used.
+   ,-[src/components/intelligence/OrganizationAnalytics.jsx:3:30]
+ 2 | import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line, AreaChart, Area, Brush } from 'recharts';
+ 3 | import { PieChart, Download, Maximize2, ZoomIn, MoreVertical, FileText, Image } from 'lucide-react';
+   :                              ^^^^|^^^^
+   :                                  `-- 'Maximize2' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'MoreVertical' is imported but never used.
+   ,-[src/components/intelligence/OrganizationAnalytics.jsx:3:49]
+ 2 | import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line, AreaChart, Area, Brush } from 'recharts';
+ 3 | import { PieChart, Download, Maximize2, ZoomIn, MoreVertical, FileText, Image } from 'lucide-react';
+   :                                                 ^^^^^^|^^^^^
+   :                                                       `-- 'MoreVertical' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'analyticsData' is declared but never used. Unused parameters should start with a '_'.
+   ,-[src/components/intelligence/OrganizationAnalytics.jsx:6:34]
+ 5 | 
+ 6 | const OrganizationAnalytics = ({ analyticsData }) => {
+   :                                  ^^^^^^|^^^^^^
+   :                                        `-- 'analyticsData' is declared here
+ 7 |   const [activeTab, setActiveTab] = useState('Growth');
+   `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Filter' is imported but never used.
+   ,-[src/components/roles/tabs/RolePermissionsTab.jsx:3:18]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Search, Filter, Shield, AlertTriangle } from 'lucide-react';
+   :                  ^^^|^^
+   :                     `-- 'Filter' is imported here
+ 4 | import PermissionIntelligencePanelModal from '../modals/PermissionIntelligencePanelModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/roles/tabs/RolePermissionsTab.jsx:3:26]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Search, Filter, Shield, AlertTriangle } from 'lucide-react';
+   :                          ^^^|^^
+   :                             `-- 'Shield' is imported here
+ 4 | import PermissionIntelligencePanelModal from '../modals/PermissionIntelligencePanelModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertTriangle' is imported but never used.
+   ,-[src/components/roles/tabs/RolePermissionsTab.jsx:3:34]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Search, Filter, Shield, AlertTriangle } from 'lucide-react';
+   :                                  ^^^^^^|^^^^^^
+   :                                        `-- 'AlertTriangle' is imported here
+ 4 | import PermissionIntelligencePanelModal from '../modals/PermissionIntelligencePanelModal';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/people/profile-tabs/SuccessTab.jsx:3:10]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Users, TrendingUp, AlertTriangle, ShieldAlert } from 'lucide-react';
+   :          ^^|^^
+   :            `-- 'Users' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'TrendingUp' is imported but never used.
+   ,-[src/components/people/profile-tabs/SuccessTab.jsx:3:17]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { Users, TrendingUp, AlertTriangle, ShieldAlert } from 'lucide-react';
+   :                 ^^^^^|^^^^
+   :                      `-- 'TrendingUp' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Phone' is imported but never used.
+   ,-[src/components/common/CallSimulationModal.jsx:2:40]
+ 1 | import React, { useState, useEffect } from 'react';
+ 2 | import { PhoneOff, Mic, MicOff, Video, Phone, User, Activity } from 'lucide-react';
+   :                                        ^^|^^
+   :                                          `-- 'Phone' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unassigned-vars): 'timer' is always 'undefined' because it's never assigned.
+    ,-[src/components/common/CallSimulationModal.jsx:10:9]
+  9 |   useEffect(() => {
+ 10 |     let timer;
+    :         ^^^^^
+ 11 |     if (isOpen) {
+    `----
+  help: Variable declared without assignment. Either assign a value or remove the declaration.
+
+  ! eslint(no-unused-vars): Identifier 'useLocation' is imported but never used.
+   ,-[src/components/layout/Sidebar.jsx:2:19]
+ 1 | import React from 'react';
+ 2 | import { NavLink, useLocation } from 'react-router-dom';
+   :                   ^^^^^|^^^^^
+   :                        `-- 'useLocation' is imported here
+ 3 | import { 
+   `----
+  help: Consider removing this import.
+
+  ! react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+    ,-[src/components/layout/Sidebar.jsx:10:14]
+  9 | 
+ 10 | export const SIDEBAR_GROUPS = [
+    :              ^^^^^^^^^^^^^^
+ 11 |   {
+    `----
+
+  ! eslint(no-unused-vars): Identifier 'Settings' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntIntelligenceTab.jsx:2:45]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Brain, ShieldAlert, Target, Users, Settings, Plus, Network, ChevronDown, ChevronUp } from 'lucide-react';
+   :                                             ^^^^|^^^
+   :                                                 `-- 'Settings' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Plus' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntIntelligenceTab.jsx:2:55]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Brain, ShieldAlert, Target, Users, Settings, Plus, Network, ChevronDown, ChevronUp } from 'lucide-react';
+   :                                                       ^^|^
+   :                                                         `-- 'Plus' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Network' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntIntelligenceTab.jsx:2:61]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Brain, ShieldAlert, Target, Users, Settings, Plus, Network, ChevronDown, ChevronUp } from 'lucide-react';
+   :                                                             ^^^|^^^
+   :                                                                `-- 'Network' is imported here
+ 3 | import { useOrgStore } from '../../../store/orgStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'people' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/intelligence/intelligence-tabs/IntIntelligenceTab.jsx:6:11]
+ 5 | const IntIntelligenceTab = ({ employee }) => {
+ 6 |   const { people } = useOrgStore();
+   :           ^^^|^^
+   :              `-- 'people' is declared here
+ 7 |   const [expandedSection, setExpandedSection] = useState('fingerprint'); // fingerprint, impact, risk, relationship
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'Users' is imported but never used.
+   ,-[src/components/departments/tabs/DeptPeopleTab.jsx:2:10]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Users, Filter, Search, MoreHorizontal, MessageSquare, User, Network, Briefcase, History } from 'lucide-react';
+   :          ^^|^^
+   :            `-- 'Users' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'orgScore' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/OrgStudioBottomBar.jsx:7:11]
+ 6 | const OrgStudioBottomBar = () => {
+ 7 |   const { orgScore, excelSyncStatus } = useOrgStore();
+   :           ^^^^|^^^
+   :               `-- 'orgScore' is declared here
+ 8 |   const navigate = useNavigate();
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Variable 'excelSyncStatus' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/OrgStudioBottomBar.jsx:7:21]
+ 6 | const OrgStudioBottomBar = () => {
+ 7 |   const { orgScore, excelSyncStatus } = useOrgStore();
+   :                     ^^^^^^^|^^^^^^^
+   :                            `-- 'excelSyncStatus' is declared here
+ 8 |   const navigate = useNavigate();
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'useNavigate' is imported but never used.
+   ,-[src/components/common/ErrorBoundary.jsx:3:10]
+ 2 | import { AlertTriangle, RefreshCcw, Home } from 'lucide-react';
+ 3 | import { useNavigate } from 'react-router-dom';
+   :          ^^^^^|^^^^^
+   :               `-- 'useNavigate' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Settings' is imported but never used.
+   ,-[src/components/layout/TopNavbar.jsx:2:52]
+ 1 | import React, { useState, useRef, useEffect } from 'react';
+ 2 | import { Search, Globe, MessageSquare, Bell, User, Settings, LogOut, Check, ArrowRight, History } from 'lucide-react';
+   :                                                    ^^^^|^^^
+   :                                                        `-- 'Settings' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'LogOut' is imported but never used.
+   ,-[src/components/layout/TopNavbar.jsx:2:62]
+ 1 | import React, { useState, useRef, useEffect } from 'react';
+ 2 | import { Search, Globe, MessageSquare, Bell, User, Settings, LogOut, Check, ArrowRight, History } from 'lucide-react';
+   :                                                              ^^^|^^
+   :                                                                 `-- 'LogOut' is imported here
+ 3 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'navigate' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/intelligence/SmartRecommendations.jsx:8:9]
+ 7 | const SmartRecommendations = ({ recommendations }) => {
+ 8 |   const navigate = useNavigate();
+   :         ^^^^|^^^
+   :             `-- 'navigate' is declared here
+ 9 |   const [activeIssue, setActiveIssue] = useState(null);
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'Briefcase' is imported but never used.
+   ,-[src/components/intelligence/ExcelSyncModal.jsx:3:99]
+ 2 | import { motion } from 'framer-motion';
+ 3 | import { X, Upload, FileSpreadsheet, CheckCircle2, AlertTriangle, UserPlus, UserMinus, RefreshCw, Briefcase, ChevronRight, Activity } from 'lucide-react';
+   :                                                                                                   ^^^^|^^^^
+   :                                                                                                       `-- 'Briefcase' is imported here
+ 4 | import { useUIStore } from '../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Settings' is imported but never used.
+   ,-[src/components/OrgStudioTopNav.jsx:2:66]
+ 1 | import React from 'react';
+ 2 | import { Search, Bell, MessageSquare, Moon, Sun, RefreshCw, Zap, Settings, Command } from 'lucide-react';
+   :                                                                  ^^^^|^^^
+   :                                                                      `-- 'Settings' is imported here
+ 3 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Command' is imported but never used.
+   ,-[src/components/OrgStudioTopNav.jsx:2:76]
+ 1 | import React from 'react';
+ 2 | import { Search, Bell, MessageSquare, Moon, Sun, RefreshCw, Zap, Settings, Command } from 'lucide-react';
+   :                                                                            ^^^|^^^
+   :                                                                               `-- 'Command' is imported here
+ 3 | import { useUIStore } from '../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Variable 'addToast' is declared but never used. Unused variables should start with a '_'.
+   ,-[src/components/OrgStudioTopNav.jsx:7:39]
+ 6 | const OrgStudioTopNav = () => {
+ 7 |   const { isDarkMode, toggleDarkMode, addToast, currentUser } = useUIStore();
+   :                                       ^^^^|^^^
+   :                                           `-- 'addToast' is declared here
+ 8 |   const { excelSyncStatus, versions } = useOrgStore();
+   `----
+  help: Consider removing this declaration.
+
+  ! eslint(no-unused-vars): Identifier 'ArrowDown' is imported but never used.
+   ,-[src/components/roles/views/RoleHierarchyView.jsx:3:27]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Network, Shield, ArrowDown } from 'lucide-react';
+   :                           ^^^^|^^^^
+   :                               `-- 'ArrowDown' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Shield' is imported but never used.
+   ,-[src/components/roles/views/PermissionMatrixView.jsx:3:10]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Shield, Key, Search, ChevronRight } from 'lucide-react';
+   :          ^^^|^^
+   :             `-- 'Shield' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Key' is imported but never used.
+   ,-[src/components/roles/views/PermissionMatrixView.jsx:3:18]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Shield, Key, Search, ChevronRight } from 'lucide-react';
+   :                  ^|^
+   :                   `-- 'Key' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/roles/views/PermissionMatrixView.jsx:3:31]
+ 2 | import { useOrgStore } from '../../../store/orgStore';
+ 3 | import { Shield, Key, Search, ChevronRight } from 'lucide-react';
+   :                               ^^^^^^|^^^^^
+   :                                     `-- 'ChevronRight' is imported here
+ 4 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'departments' is declared but never used. Unused parameters should start with a '_'.
+   ,-[src/components/intelligence/DigitalTwin.jsx:5:24]
+ 4 | 
+ 5 | const DigitalTwin = ({ departments }) => {
+   :                        ^^^^^|^^^^^
+   :                             `-- 'departments' is declared here
+ 6 |   const navigate = useNavigate();
+   `----
+  help: Consider removing this parameter.
+
+  ! eslint(no-unused-vars): Identifier 'Phone' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntOverviewTab.jsx:2:66]
+ 1 | import React from 'react';
+ 2 | import { Briefcase, AlertTriangle, User, Calendar, MapPin, Mail, Phone, Activity } from 'lucide-react';
+   :                                                                  ^^|^^
+   :                                                                    `-- 'Phone' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'AlertCircle' is imported but never used.
+   ,-[src/components/departments/tabs/DeptDNATab.jsx:2:39]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, Network, Maximize, AlertCircle, ChevronRight, Share2, BrainCircuit } from 'lucide-react';
+   :                                       ^^^^^|^^^^^
+   :                                            `-- 'AlertCircle' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'ChevronRight' is imported but never used.
+   ,-[src/components/departments/tabs/DeptDNATab.jsx:2:52]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, Network, Maximize, AlertCircle, ChevronRight, Share2, BrainCircuit } from 'lucide-react';
+   :                                                    ^^^^^^|^^^^^
+   :                                                          `-- 'ChevronRight' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Share2' is imported but never used.
+   ,-[src/components/departments/tabs/DeptDNATab.jsx:2:66]
+ 1 | import React, { useState } from 'react';
+ 2 | import { Activity, Network, Maximize, AlertCircle, ChevronRight, Share2, BrainCircuit } from 'lucide-react';
+   :                                                                  ^^^|^^
+   :                                                                     `-- 'Share2' is imported here
+ 3 | 
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'FileText' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntJourneyTab.jsx:2:38]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, Clock, ArrowRight, FileText, Settings } from 'lucide-react';
+   :                                      ^^^^|^^^
+   :                                          `-- 'FileText' is imported here
+ 3 | import { useUIStore } from '../../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Identifier 'Settings' is imported but never used.
+   ,-[src/components/intelligence/intelligence-tabs/IntJourneyTab.jsx:2:48]
+ 1 | import React, { useState } from 'react';
+ 2 | import { History, Clock, ArrowRight, FileText, Settings } from 'lucide-react';
+   :                                                ^^^^|^^^
+   :                                                    `-- 'Settings' is imported here
+ 3 | import { useUIStore } from '../../../store/uiStore';
+   `----
+  help: Consider removing this import.
+
+  ! eslint(no-unused-vars): Parameter 'idx' is declared but never used. Unused parameters should start with a '_'.
+    ,-[src/components/intelligence/intelligence-tabs/IntJourneyTab.jsx:48:35]
+ 47 |           
+ 48 |           {journeyEvents.map((ev, idx) => (
+    :                                   ^|^
+    :                                    `-- 'idx' is declared here
+ 49 |             <div 
+    `----
+  help: Consider removing this parameter.
+
+Found 268 warnings and 6 errors.
+Finished in 8ms on 153 files with 91 rules using 10 threads.

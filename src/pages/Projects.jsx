@@ -7,11 +7,12 @@ import Card from '../components/common/Card';
 import PremiumProjectCard from '../components/projects/PremiumProjectCard';
 import ProjectDetailsDrawer from '../components/projects/ProjectDetailsDrawer';
 import AdvancedFilterDrawer from '../components/projects/AdvancedFilterDrawer';
+import ProjectDrawer from '../components/ProjectDrawer';
 import './Dashboard.css';
 
 const Projects = () => {
   const { projects, addProject, updateProject } = useOrgStore();
-  const { addToast } = useUIStore();
+  const { addToast, openModal } = useUIStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterHealth, setFilterHealth] = useState('All');
   const [viewMode, setViewMode] = useState('grid');
@@ -22,9 +23,9 @@ const Projects = () => {
 
   const handleAction = (action, project) => {
     if (action === 'Edit') {
-      addToast(`Edit mode opened for ${project.name}`, 'info');
+      openModal('EDIT_PROJECT', project);
     } else if (action === 'Delete') {
-      addToast(`Project ${project.name} has been archived.`, 'warning');
+      openModal('CONFIRM_DELETE', { itemType: 'project', itemId: project.id, itemName: project.name });
     } else {
       addToast(`Action ${action} executed.`, 'success');
     }
@@ -37,7 +38,7 @@ const Projects = () => {
   });
 
   return (
-    <div style={{ padding: 'var(--space-4)', height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="page-container" style={{ padding: 'var(--space-4)' }}>
       <PageHeader 
         title="Projects Portfolio" 
         subtitle="Manage all organizational projects and track cross-departmental health."
@@ -75,7 +76,7 @@ const Projects = () => {
               </button>
             </div>
             
-            <button className="btn-primary" onClick={() => addToast('New Project workflow initiated.', 'info')}>
+            <button className="btn-primary" onClick={() => openModal('CREATE_PROJECT')}>
               + New Project
             </button>
           </div>
@@ -119,6 +120,7 @@ const Projects = () => {
         isOpen={showAdvancedFilter} 
         onClose={() => setShowAdvancedFilter(false)} 
       />
+
     </div>
   );
 };
