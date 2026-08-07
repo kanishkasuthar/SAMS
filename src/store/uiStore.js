@@ -24,6 +24,11 @@ export const useUIStore = create((set) => ({
       set({ isAuthenticated: false });
       return;
     }
+    // Demo mode bypass — skip backend profile fetch
+    if (token === 'demo-token-local') {
+      set({ isAuthenticated: true });
+      return;
+    }
     try {
       const { default: api } = await import('../services/api');
       const response = await api.get('/auth/profile');

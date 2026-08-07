@@ -224,11 +224,10 @@ const People = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: viewMode === 'table' ? 'hidden' : 'auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         {viewMode === 'table' ? (
-          <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0 }}>
-            <div style={{ flex: 1, overflowY: 'auto' }}>
+          <div className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0 }}>
+            <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead style={{ position: 'sticky', top: 0, backgroundColor: 'var(--color-surface)', zIndex: 1, boxShadow: '0 1px 0 var(--color-border)' }}>
                   <tr style={{ backgroundColor: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-muted)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>

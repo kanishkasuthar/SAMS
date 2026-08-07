@@ -116,10 +116,10 @@ const ResponsibilityMatrix = () => {
   const [activeTimelineEvent, setActiveTimelineEvent] = useState(null); // eventId
 
   return (
-    <div style={{ display: 'flex', height: '100%', backgroundColor: 'var(--color-bg)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', backgroundColor: 'var(--color-bg)' }}>
       
       {/* Main Content Area (Full Width) */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '32px 40px', maxWidth: '1800px', margin: '0 auto', width: '100%' }}>
           
           {/* Header */}

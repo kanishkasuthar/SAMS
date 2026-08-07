@@ -38,7 +38,7 @@ const ReportViewer = () => {
 
   return (
     <div style={{
-      display: 'flex', height: '100vh', backgroundColor: 'var(--color-bg)', overflow: 'hidden'
+      display: 'flex', height: '100%', minHeight: 'calc(100vh - 72px)', backgroundColor: 'var(--color-bg)', overflow: 'hidden'
     }}>
       
       {/* Left Area (Premium Workspace) */}

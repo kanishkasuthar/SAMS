@@ -12,14 +12,20 @@ import { TableSkeleton } from '../components/common/Skeleton';
 import { useNavigate } from 'react-router-dom';
 
 const Departments = () => {
-  const { departments, fetchDepartments, createDepartment, updateDepartment, deleteDepartment, loading } = useDepartmentStore();
-  const { people, fetchOrgChart } = useOrgStore(); // Kept for people/employees mapping
+  const { 
+    departments = [], 
+    people = [], 
+    fetchOrgChart, 
+    createDepartment, 
+    updateDepartment, 
+    deleteDepartment, 
+    loading 
+  } = useOrgStore();
   const { addToast, openModal } = useUIStore();
   
   React.useEffect(() => {
-    fetchDepartments();
     fetchOrgChart();
-  }, []);
+  }, [fetchOrgChart]);
   const navigate = useNavigate();
   
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +50,7 @@ const Departments = () => {
         setShowModal(false);
         setEditingDepartment(null);
       } else {
-        const storeError = useDepartmentStore.getState().error;
+        const storeError = useOrgStore.getState().error;
         addToast(storeError || 'Failed to update department.', 'error');
       }
     } else {
@@ -54,7 +60,7 @@ const Departments = () => {
         setShowModal(false);
         setEditingDepartment(null);
       } else {
-        const storeError = useDepartmentStore.getState().error;
+        const storeError = useOrgStore.getState().error;
         addToast(storeError || 'Failed to create department.', 'error');
       }
     }
@@ -78,7 +84,7 @@ const Departments = () => {
   };
 
   const handleStudioFocus = (deptId) => {
-    navigate('/org-studio', { state: { focusDepartmentId: deptId } });
+    navigate('/studio', { state: { focusDepartmentId: deptId } });
   };
 
   const handleRunAnalysis = (dept) => {
@@ -89,8 +95,8 @@ const Departments = () => {
   const crossDeptConnections = React.useMemo(() => {
     let count = 0;
     people.forEach(p => {
-      if (p.reportingManagerId || p.managerId) {
-        const mgr = people.find(m => m.id === (p.reportingManagerId || p.managerId));
+      if (p.manager) {
+        const mgr = people.find(m => m.name === p.manager);
         if (mgr && p.department && mgr.department && p.department !== mgr.department) {
           count++;
         }
@@ -102,7 +108,11 @@ const Departments = () => {
   const structuralRisks = React.useMemo(() => {
     let count = 0;
     departments.forEach(d => {
-      if (!d.departmentHeadId && !d.headId) count++;
+      const deptEmployees = people.filter(p => p.department === d.departmentName || p.department === d.name);
+      if (deptEmployees.length > 0) {
+        const hasHead = deptEmployees.some(emp => ['ceo', 'coo', 'cto', 'cfo', 'cmo', 'vp', 'director', 'manager', 'lead', 'head'].some(r => emp.role?.toLowerCase().includes(r)));
+        if (!hasHead) count++;
+      }
     });
     people.forEach(p => {
       if (p.directReports > 8) count++;
@@ -116,8 +126,8 @@ const Departments = () => {
       const deptEmployees = people.filter(p => p.department === d.departmentName || p.department === d.name);
       if (deptEmployees.length > 2) {
         deptEmployees.forEach(emp => {
-          const directReports = people.filter(p => p.reportingManagerId === emp.id || p.managerId === emp.id);
-          if (directReports.length / deptEmployees.length > 0.5) {
+          const directReportsCount = people.filter(p => p.manager === emp.name).length;
+          if (directReportsCount / deptEmployees.length > 0.5) {
             count++;
           }
         });
@@ -133,8 +143,22 @@ const Departments = () => {
   }, [people]);
 
   const enrichedDepartments = departments.map(d => {
-    // Dynamic Health calculation (mocked for now, can be computed backend)
-    let health = d.authorityScore || 50; 
+    const deptEmployees = people.filter(p => p.department === d.departmentName || p.department === d.name);
+    
+    const derivedHead = deptEmployees.find(emp => {
+      const isLead = ['ceo', 'coo', 'cto', 'cfo', 'cmo', 'vp', 'director', 'manager', 'lead', 'head'].some(r => emp.role?.toLowerCase().includes(r));
+      const mgr = people.find(m => m.name === emp.manager);
+      const reportsOutside = !mgr || mgr.department !== emp.department;
+      return isLead && reportsOutside;
+    }) || deptEmployees[0];
+
+    const headName = d.head && d.head !== 'No Head Assigned' ? d.head : (derivedHead ? derivedHead.name : 'Unassigned');
+
+    const totalHeadcount = deptEmployees.length;
+    const managers = deptEmployees.filter(p => p.directReports > 0).length;
+    const employees = totalHeadcount - managers;
+
+    let health = d.healthScore || d.authorityScore || 85; 
     let healthState = 'STABLE';
     if (health >= 90) healthState = 'EXCELLENT';
     else if (health >= 80) healthState = 'HEALTHY';
@@ -145,7 +169,11 @@ const Departments = () => {
 
     return {
       ...d,
-      employeeCount: d.employeeCount || 0,
+      departmentName: d.departmentName || d.name,
+      DepartmentHead: { fullName: headName },
+      employeeCount: totalHeadcount,
+      managersCount: managers,
+      employeesCount: employees,
       healthScore: health,
       healthState: healthState
     };

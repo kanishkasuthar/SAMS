@@ -3,8 +3,8 @@ import Card from './Card';
 
 const DataTable = ({ columns, data, keyField = 'id', onRowClick, style }) => {
   return (
-    <Card noPadding style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', ...style }}>
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+    <Card noPadding style={{ display: 'flex', flexDirection: 'column', width: '100%', ...style }}>
+      <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead style={{ position: 'sticky', top: 0, backgroundColor: 'var(--color-surface)', zIndex: 1, boxShadow: '0 1px 0 var(--color-border)' }}>
             <tr>

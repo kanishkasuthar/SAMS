@@ -4,7 +4,7 @@ import { User, Edit2, ArrowUpRight, ArrowRight, Briefcase, Users, Copy, Archive,
 import { useOrgStore } from '../store/orgStore';
 import { useUIStore } from '../store/uiStore';
 
-const OrgContextMenu = ({ x, y, nodeData, nodeId, onClose, onEditProfile, onPromote, onTransfer }) => {
+const OrgContextMenu = ({ x, y, nodeData, nodeId, onClose, onEditProfile, onPromote, onTransfer, onDelete }) => {
   const menuRef = useRef(null);
   const { archiveEmployee, duplicateEmployee } = useOrgStore();
   const { addToast } = useUIStore();
@@ -104,11 +104,13 @@ const OrgContextMenu = ({ x, y, nodeData, nodeId, onClose, onEditProfile, onProm
           <Archive size={14} /> Archive Employee
         </button>
         <button className="context-menu-item text-danger" onClick={() => {
-          if (window.confirm(`Are you sure you want to delete ${nodeData.name}?`)) {
+          if (onDelete) {
+            onDelete(nodeId, nodeData);
+          } else if (window.confirm(`Are you sure you want to delete ${nodeData.name}?`)) {
             useOrgStore.getState().deletePosition(nodeId);
             addToast(`${nodeData.name} position has been deleted.`, 'success');
-            onClose();
           }
+          onClose();
         }}>
           <Trash2 size={14} /> Delete Position
         </button>

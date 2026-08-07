@@ -137,10 +137,13 @@ const FlowCanvas = ({ nodes, setNodes, edges, setEdges, onNodesChange, onEdgesCh
 
   const handleDuplicate = (id) => {
     const node = getNode(id);
+    if (!node) return;
+    const posX = node.position?.x ?? 0;
+    const posY = node.position?.y ?? 0;
     const newNode = {
       ...node,
       id: `node_${Date.now()}`,
-      position: { x: node.position.x + 50, y: node.position.y + 50 }
+      position: { x: posX + 50, y: posY + 50 }
     };
     setNodes(nds => nds.concat(newNode));
     setMenu(null);

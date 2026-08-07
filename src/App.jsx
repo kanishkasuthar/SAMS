@@ -129,7 +129,7 @@ function App() {
         <TopNavbar currentTitle={currentTitle} />
 
         {/* PAGE CONTENT */}
-        <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'hidden', minHeight: 0 }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'hidden', minHeight: 0 }}>
           <ErrorBoundary key={location.pathname}>
             <Routes>
               <Route path="/" element={<Dashboard />} />

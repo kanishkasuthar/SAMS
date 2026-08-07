@@ -70,11 +70,12 @@ export const useDepartmentStore = create((set, get) => ({
 
     nodes.forEach(node => {
       const nodeWithPosition = dagreGraph.node(node.id);
+      const fallbackPosition = node.position ?? { x: 0, y: 0 };
       node.targetPosition = 'top';
       node.sourcePosition = 'bottom';
       node.position = {
-        x: nodeWithPosition.x - 350 / 2,
-        y: nodeWithPosition.y - 180 / 2,
+        x: nodeWithPosition?.x ? (nodeWithPosition.x - 350 / 2) : fallbackPosition.x,
+        y: nodeWithPosition?.y ? (nodeWithPosition.y - 180 / 2) : fallbackPosition.y,
       };
     });
 

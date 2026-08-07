@@ -260,7 +260,7 @@ const DecisionFlow = () => {
 
       {/* 3. MAIN STUDIO LAYOUT */}
       <ReactFlowProvider>
-        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '240px minmax(0, 1fr) 320px', minHeight: 0 }}>
+        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '240px minmax(0, 1fr) 320px', minHeight: '600px' }}>
           
           {/* LEFT: Node Library */}
           <NodeLibrary />
